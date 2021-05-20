@@ -1,0 +1,72 @@
+﻿
+@{ ViewData["Title"] = "Empleado"; }
+
+<h4>Empleados</h4>
+<!--botonera-->
+<div class="row mb-2">
+    <div class="col-lg-12">
+        <input type="button" value="Nuevo" class="btn-sm btn-primary" data-toggle="modal" data-target="#modalEmpleado" id="btnOpenModal"/>
+    </div>
+</div>
+<!--TABLA-->
+<div class="row">
+    <div class="col-lg-12" id="tableData"><span>Cargando...</span></div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="modalEmpleado" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-header bg-dark">
+            <h3 class="text-light">Registro empleado</h3>
+        </div>
+        <div class="modal-content">
+            <form id="frmEmpleado">
+                <div class="modal-body">
+                    <div class="row">
+                        <input type="hidden" name="iidempleado" id="iidempleado" class="data form-control" />
+                        <input type="hidden" name="iidusuario" id="iidusuario" class="data form-control"  />
+                        <div class="form-group col-lg-6 col-sm-12 col-md-6">
+                            <label>Nombre:</label>
+                            <input type="text" class="form-control requerid data" placeholder="Escriba el nombre" name="nombrecompleto" id="nombrecompleto" autocomplete="off" />
+                        </div>
+                        <div class="form-group col-lg-6 col-sm-12 col-md-6">
+                            <label>Edad:</label>
+                            <input type="number" min="0" class="form-control requerid data" placeholder="Escriba la edad" name="edad" id="edad" autocomplete="off" />
+                        </div>
+                        <div class="form-group col-lg-6 col-sm-12 col-md-6">
+                            <label>Teléfono:</label>
+                            <input type="tel" class="form-control requerid data" placeholder="Escriba telefono" name="telefono" id="telefono" autocomplete="off" />
+                        </div>
+                        <div class="form-group col-lg-6 col-sm-12 col-md-6">
+                            <label>DUI:</label>
+                            <input type="tel" min="0" class="form-control requerid data" placeholder="Escriba el dui" name="dui" id="dui" maxlength="10" autocomplete="off" />
+                        </div>
+                        <div class="form-group col-lg-6 col-sm-12 col-md-6">
+                            <label>Nombre usuario:</label>
+                            <input type="text" class="form-control requerid data" id="nombreusuario" name="nombreusuario" autocomplete="off" />
+                        </div>
+                        <div class="form-group col-lg-6 col-sm-12 col-md-6">
+                            <label>Rol:</label>
+                            <select class="form-control requerid data" id="iidtipousuario" name="iidtipousuario"></select>
+                        </div>
+                        <div class="form-group col-lg-6 col-sm-12 col-md-6">
+                            <label>Contraseña:</label>
+                            <input type="password" class="form-control requerid" id="contraseña1" autocomplete="off" />
+                        </div>
+                        <div class="form-group col-lg-6 col-sm-12 col-md-6">
+                            <label>Repita contraseña:</label>
+                            <input type="password" class="form-control requerid data" id="contraseña" name="contraseña" autocomplete="off" />
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-sm btn-secondary" data-dismiss="modal" id="btnCerrar">Cerrar</button>
+                    <button type="submit" class="btn-sm btn-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="~/lib/Inputmask-5.x/dist/inputmask.js"></script>
+<script src="~/lib/Inputmask-5.x/dist/jquery.inputmask.js"></script>
+<script src="~/js/generic.js"></script>
+<script src="~/js/PeticionesAJX/empleado.js"></script>

@@ -1,0 +1,69 @@
+﻿
+@{
+    ViewData["Title"] = "Factura";
+}
+
+<h4>Facturas y cotizaciones pendientes de imprimir</h4>
+<button class="btn-sm btn-primary mb-3" id="btnMostrarTabla">Mostrar facturas <i class="fas fa-list"></i></button>
+<button class="btn-sm btn-primary mb-3" id="btnMostrarCotizaciones">Mostrar cotizaciones <i class="fas fa-list"></i></button>
+<!--TABLA-->
+<div class="row">
+    <div class="col-lg-12" id="tableData"></div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="modalFactura" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-header bg-dark">
+            <div class="text-light" id="titulo"></div>
+        </div>
+        <div class="modal-content">
+            <form id="">
+                <div class="modal-body">
+                    <table class="table table-bordered" id="infoFactura"></table>
+                    <input type="hidden" name="iidfactura" id="iidfactura" class="data form-control" />
+                    <div class="row">
+                        <input type="hidden" readonly class="form-control" id="total" />
+                        <div class="col-lg-6 form-group">
+                            <label>Efectivo:</label>
+                            <input type="text" autofocus id="txtEfectivo" class="form-control" onkeyup="calcularCambio()" autocomplete="off"/>
+                        </div>
+                        <div class="col-lg-6 form-group">
+                            <label><strong>Cambio:</strong></label>
+                            <input type="text" id="txtCambio" class="form-control" readonly/>
+                        </div>
+                        <div class="col-lg-12" id="tabla">
+                            <span>Cargando...</span>
+                        </div><div class="col-lg-8"></div>
+                        <div class="col-lg-4">
+                            <div id="total">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-sm btn-secondary" data-dismiss="modal" id="btnCerrar">
+                        Cerrar
+                    </button>
+                    <button type="button" onclick="addIdFacturaCookie(false)" class="btn-sm btn-primary">
+                        <i class="fas fa-print"></i> Imprimir provisional
+                    </button>
+                    <button type="button" onclick="addIdFacturaCookie(true)" class="btn-sm btn-primary">
+                        <i class="fas fa-print"></i> Imprimir
+                    </button>
+                    @*<button type="submit" class="btn-sm btn-primary">Guardar</button>*@
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div style="display:none">
+    <a asp-action="Factura" asp-controller="venta" id="btnImprimiFactura" asp-route-esOriginal="@true">prueba</a>
+</div>
+<div style="display:none">
+    <a asp-action="Factura" asp-controller="venta" id="btnImprimiFacturaProvisional" asp-route-esOriginal="@false">prueba</a>
+</div>
+<div style="display:none">
+    <a asp-action="Cotizacion" asp-controller="Cotizacion" id="btnImprimirCotizacion"></a>
+</div>
+<script src="~/js/generic.js"></script>
+<script src="~/js/PeticionesAJX/factura.js"></script>

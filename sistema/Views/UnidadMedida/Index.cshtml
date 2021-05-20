@@ -1,0 +1,42 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h4>Unidades de medida</h4>
+<!--botonera-->
+<div class="row mb-2">
+    <div class="col-lg-12">
+        <input type="button" value="Nuevo" class="btn-sm btn-primary" data-toggle="modal" data-target="#modalUnidad" onclick="clearData()"/>
+    </div>
+</div>
+<!--TABLA-->
+<div class="row">
+    <div class="col-lg-12" id="tableData"><span>Cargando...</span></div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="modalUnidad" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="card-header bg-dark">
+            <h3 class="text-light">Registro unidad de medida</h3>
+        </div>
+        <div class="modal-content">
+            <form>
+                <div class="modal-body">
+                    <input type="hidden" name="iidunidadmedida" id="iidunidadmedida" class="data form-control" />
+                    <div class="form-group">
+                        <label>Nombre de la unidad:</label>
+                        <input type="text" class="form-control requerid data" autocomplete="off" placeholder="Escriba el nombre" name="nombreunidad" id="nombreunidad" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-sm btn-secondary" data-dismiss="modal" id="btnCerrar">Cerrar</button>
+                    <button type="button" class="btn-sm btn-primary" onclick="save()">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="~/js/generic.js"></script>
+<script src="~/js/PeticionesAJX/unidadmedida.js"></script>
+

@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <History>True|2021-03-29T15:43:55.0699157Z;True|2021-03-29T09:38:25.2032293-06:00;True|2021-03-28T19:37:59.8147487-06:00;False|2021-03-28T19:37:15.8558932-06:00;True|2021-03-28T19:36:17.7690693-06:00;True|2021-03-28T11:16:43.0533151-06:00;True|2021-03-23T07:13:59.2158074-06:00;True|2021-03-23T07:13:15.7793181-06:00;False|2021-03-23T05:32:56.0763340-06:00;</History>
+    <_PublishTargetUrl>C:\Users\Bryan J. Campos\Desktop\WebSite</_PublishTargetUrl>
+  </PropertyGroup>
+</Project>

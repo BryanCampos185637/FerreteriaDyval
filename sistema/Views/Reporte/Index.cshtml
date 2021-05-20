@@ -1,0 +1,101 @@
+﻿
+@{
+    ViewData["Title"] = "Index"; }
+<style>
+    .btn-link{
+        text-decoration:none !important;
+    }
+</style>
+<br />
+<div class="row">
+    <div class="col-lg-2 col-sm-12 col-md-2"></div>
+    <div id="accordion" class="col-lg-8 col-sm-12 col-md-8">
+        <div class="card">
+            <div class="card-header bg-dark" id="headingOne">
+                <h5 class="mb-0">
+                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        <h4 class="text-light"><i class="fas fa-file-pdf"></i> Reportes de ventas</h4>
+                    </button>
+                </h5>
+            </div>
+            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                <div class="card-body">
+                    <form id="frmReporte">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-12 col-sm-12">
+                                    <p>
+                                        Selecciona las fechas que quieres ver en tu reporte de ventas, si no seleccionas ninguna fecha se creara un
+                                        reporte general desde el inicio del sistema [@ViewBag.fechaInicioSistema]; hasta el dia actual [@DateTime.Now.ToString("yyyy-MM-dd")].
+                                    </p>
+                                </div>
+                                <div class="col-lg-6 col-sm-12">
+                                    <div class="form-group">
+                                        <label>Desde:</label>
+                                        <input class="form-control" type="date" min="@ViewBag.fechaInicioSistema" max="@DateTime.Now.ToString("yyyy-MM-dd")" placeholder="Selecciona una fecha" id="desde" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-sm-12">
+                                    <div class="form-group">
+                                        <label>Hasta:</label>
+                                        <input class="form-control" type="date" min="@ViewBag.fechaInicioSistema" max="@DateTime.Now.ToString("yyyy-MM-dd")" placeholder="Selecciona una fecha" id="hasta" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer text-center">
+                            <button type="submit" class="btn btn-primary" id="btnCrear">Crear reporte <i class="fas fa-save"></i></button>
+                        </div>
+                    </form>
+                    <div style="display:none">
+                        <a asp-action="ReporteVentas" asp-controller="Reporte" id="btnReporte"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header bg-dark" id="headingTwo">
+                <h5 class="mb-0">
+                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        <h4 class="text-light"><i class="fas fa-file-excel"></i> Reportes de inventario</h4>
+                    </button>
+                </h5>
+            </div>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                <div class="card-body">
+                    <form id="frmReporteInventario">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-12 col-sm-12">
+                                    <p>
+                                        Selecciona la bodega y escribe el nombre del stock que deseas que se muestren en el reporte, si deseas un reporte general de las bodegas solo da click en el boton <strong>Crear Reporte</strong>
+                                    </p>
+                                </div>
+                                <div class="col-lg-6 col-sm-12">
+                                    <div class="form-group">
+                                        <label>Ubicación</label>
+                                        <select class="form-control" id="cbxBodega"></select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-sm-12">
+                                    <div class="form-group">
+                                        <label>Stock:</label>
+                                        <input type="text" class="form-control" id="cbxStock" autocomplete="off" placeholder="Escribe el nombre del stock"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer text-center">
+                            <button type="submit" class="btn btn-primary" id="btnCrearReporteInventario">Crear reporte <i class="fas fa-save"></i></button>
+                        </div>
+                    </form>
+                    <div style="display:none">
+                        <a asp-action="ReporteInventario" asp-controller="Reporte" id="btnReporteInventario"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-2 col-sm-12 col-md-2"></div>
+</div>
+<script src="~/js/PeticionesAJX/reporte.js"></script>

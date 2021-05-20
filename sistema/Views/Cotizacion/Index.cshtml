@@ -1,0 +1,192 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+<!-- Modal Productos-->
+<div class="modal fade" id="modalProducto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h3>Selecciona un producto</h3><hr />
+                <div class="row mb-2">
+                    <div class="col-lg-6">
+                        <label>Buscar por codigo</label>
+                        <div class="input-group">
+                            <input type="search" class="form-control" id="filtrarPorCodigo" placeholder="Filtrar por codigo" autocomplete="off" />
+                            <div class="input-group-append">
+                                <button type="button" class="btn btn-primary" onclick="abrirModalProducto(1)">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <label>Buscar por descripción</label>
+                        <div class="input-group">
+                            <input type="search" class="form-control" id="filtrarPorDescripcion" placeholder="Filtrar por descripción" autocomplete="off" onkeyup="abrirModalProducto(2)"/>
+                            <div class="input-group-append">
+                                <button type="button" class="btn btn-primary" onclick="abrirModalProducto(2)">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="tablaProducto">
+                    <span>Cargando productos...</span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-sm btn-secondary" data-dismiss="modal" id="btnCerrarProducto">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row mt-3">
+    <!--seleccionar producto-->
+    <div class="col-lg-12 col-sm-12">
+       <div class="card">
+           <div class="card-body">
+               <h5>Crear cotizacíon</h5>
+               <table class="table table-responsive-sm">
+                   <tbody>
+                       <tr>
+                           <td width="30%">
+                               <label>Producto:</label>
+                               <div class="input-group">
+                                   <input type="hidden" id="subunidad" value="0" class="form-control" />
+                                   <input type="hidden" id="iidproducto" class="form-control" />
+                                   <input type="text" readonly class="form-control requerid" id="txtProducto" placeholder="Busca un producto" />
+                                   <div class="input-group-append">
+                                       <button type="button" class="btn btn-primary" onclick="abrirModalProducto()" data-toggle="modal" data-target="#modalProducto">
+                                           <i class="fas fa-search"></i>
+                                       </button>
+                                   </div>
+                               </div>
+                           </td>
+                           <td>
+                               <label>Existencia:</label>
+                               <input type="text" disabled class="form-control" placeholder="existencias" id="txtExistencias" />
+                           </td>
+                           <td>
+                               <label>Precio:</label>
+                               <input type="text" readonly class="form-control" placeholder="precio unitario" id="txtPrecioUnitario" />
+                           </td>
+                           <td>
+                               <label>Cantidad:</label>
+                               <input type="number" class="form-control" placeholder="cantidad" name="cantidad" id="txtCantidad" min="0" value="1" onchange="calculateDiscount()" />
+                           </td>
+                           <td>
+                               <label>Comisión[%]:</label>
+                               <input type="number" class="form-control" placeholder="comision" name="comision" id="txtComision" min="0" onchange="calculateDiscount()" value="0" />
+                           </td>
+                           <td>
+                               <label>Descuento[%]:</label>
+                               <input type="number" class="form-control" placeholder="descuento" name="descuento" id="txtDescuento" min="0" onchange="calculateDiscount()" value="0" />
+                           </td>
+                           <td>
+                               <label>T.comisión:</label>
+                               <input type="text" readonly class="form-control" placeholder="t.comision" id="txtTcomision" />
+                           </td>
+                           <td>
+                               <label>T.descuento:</label>
+                               <input type="text" readonly class="form-control" placeholder="t.descuento" id="txtTdescuento" />
+                           </td>
+                           <td>
+                               <label>Total:</label>
+                               <input type="text" readonly class="form-control" placeholder="total" id="txtTotal" />
+                           </td>
+                           <td>
+                               <label>ADD</label>
+                               <button type="button" class="btn btn-primary" onclick="addProductToList()"><i class="fas fa-plus"></i></button>
+                           </td>
+                       </tr>
+                   </tbody>
+               </table>
+           </div>
+       </div>
+    </div>
+</div>
+<!--TABLA-->
+<h5 class="mt-2">Lista productos cotizados:</h5>
+<hr />
+<div class="row">
+    <div class="col-lg-9 col-sm-12" id="tableData"><span>Cargando...</span></div>
+    <div class="col-lg-3 col-sm-12" id="detailsSale">
+        <div class="card">
+            <div class="card-header">
+                <strong>Detalle cotización</strong>
+            </div>
+            <div class="card-body">
+                <table class="table">
+                    <tr>
+                        <td>Comisión:</td>
+                        <th id="totalComision">$0.00</th>
+                    </tr>
+                    <tr>
+                        <td>Descuento:</td>
+                        <th id="totalDescuento">$0.00</th>
+                    </tr>
+                    <tr>
+                        <td>Total comisión:</td>
+                        <th id="totalComisionMenosDescuento">$0.00</th>
+                    </tr>
+                    <tr>
+                        <td>Total:</td>
+                        <th id="totalVenta">$0.00</th>
+                    </tr>
+                </table>
+            </div>
+            <div class="card-footer">
+                <div class="text-center">
+                    <button class="btn-sm btn-danger" onclick="CancelCotizacion()" id="btnCancelarCotizacion"><i class="far fa-window-close"></i> Cancelar</button>
+                    
+                    <button class="btn-sm btn-primary" data-toggle="modal" data-target="#modalCotizacion" id="btnImprimir">
+                        <i class="fas fa-file-invoice-dollar"></i> Crear cotizacion
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalCotizacion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-dark">
+                <h4 class="text-light">Crear cotización</h4>
+            </div>
+            <form>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-12 col-sm-12">
+                            <div class="form-group">
+                                <label>Nombre del cliente:</label>
+                                <input type="text" class="form-control requerid" placeholder="Escribe el nombre del cliente" id="nombre" name="nombre" autocomplete="off"/>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-sm-12">
+                            <div class="form-group">
+                                <label>Tipo de documento:</label>
+                                <select class="form-control" id="tipodocumento" name="tipodocumento">
+                                    <option value="">--Seleccione una opcion--</option>
+                                    <option value="1">Cotización</option>
+                                    <option value="2">Factura provisional</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-sm btn-secondary" data-dismiss="modal" id="btnCerrar">Cerrar</button>
+                    <button type="button" class="btn-sm btn-primary" id="btnImprimir" onclick="saveCotizacion()">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="~/js/PeticionesAJX/cotizacion.js"></script>

@@ -1,0 +1,70 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+<h4>Facturas emitidas</h4>
+<div class="row">
+    <!--Botonera-->
+    <div class="col-lg-4 col-sm-12 col-md-3">
+        <div class="input-group">
+            <input type="date" class="form-control" id="txtFecha" />
+            <div class="input-group-append">
+                <button type="button" class="btn btn-primary" id="btnFiltrar" title="Buscar por mes">
+                    Filtrar por mes <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <button type="button" class="btn btn-primary" id="btnFiltrar" title="Facturas en espera" onclick="filtrarFacturas('',1)">
+            Mostrar facturas en espera <i class="fas fa-search"></i>
+        </button>
+    </div>
+    <!--Tabla-->
+    <div class="col-lg-12 col-sm-12 col-md-12 mt-2" id="tableData"></div>
+    <!--Modal-->
+    <div class="col-lg-12 col-sm-12 col-md-12">
+        <!-- Modal -->
+        <div class="modal fade" id="modalFactura" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-header bg-dark">
+                    <div class="text-light" id="titulo"></div>
+                </div>
+                <div class="modal-content">
+                    <form id="">
+                        <div class="modal-body">
+                            <input type="hidden" name="iidfactura" id="iidfactura" class="data form-control" />
+                            <input type="hidden" name="efectivo" id="efectivo" class="data form-control" />
+                            <table class="table table-bordered" id="infoFactura">
+                            </table>
+                            <div class="row">
+                                <div class="col-lg-12" id="tabla">
+                                    <span>Cargando...</span>
+                                </div><div class="col-lg-8"></div>
+                                <div class="col-lg-4">
+                                    <div id="total">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn-sm btn-secondary" data-dismiss="modal" id="btnCerrar">
+                                Cerrar
+                            </button>
+                            <div id="divImprimir">
+                                
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="display:none">
+    <a asp-action="Factura" asp-controller="venta" id="btnImprimiFactura" asp-route-esOriginal="@true">prueba</a>
+</div>
+
+<script src="~/js/generic.js"></script>
+<script src="~/js/PeticionesAJX/facturaEmitida.js"></script>

@@ -1,0 +1,121 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h4>Productos con menos de 10 existencias</h4>
+<div class="row">
+    <div class="col-lg-12 mb-3">
+        <button id="btnReportePDF" title="Crea un PDF de los productos listados aqui" class="btn-sm btn-primary">Crear reporte</button>
+        <p>En este apartado se muestran los productos que están por terminarse, <br>tomando en cuenta las cantidades que hay en bodegas y los que están en venta.</p>
+        <div style="display:none">
+            <a asp-action="existenciasPDF" asp-controller="Existencia" id="btnImprimirReporte"></a>
+        </div>
+    </div>
+    <div class="col-lg-12" id="tableData">
+        <div class="text-justify">
+            <span>Cargando productos...</span>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="modalEntrada" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="card-header bg-dark">
+                    <h3 class="text-light">Entrada de producto</h3>
+                </div>
+                <form id="frmEntrada">
+                    <div class="modal-body">
+                        <input type="hidden" name="iidentrada" id="iidentrada" class="data form-control" />
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label>Código producto:</label>
+                                    <input type="hidden" id="iidproducto" class="form-control data" name="iidproducto" />
+                                    <input type="text" readonly class="form-control requerid" id="codigoProducto" />
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Descripción:</label>
+                                    <input type="text" readonly class="form-control" id="nombreproducto" />
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label>Precio compra:</label>
+                                    <input type="text" class="form-control data" id="preciocompra" name="precioCompra" />
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label>Tipo de entrada:</label>
+                                    <select class="form-control" onchange="tipoEntrada()" id="cbxTipoEntrada">
+                                        <option value="">--selecciona tipo de entrada--</option>
+                                        <option value="1">Entrada con factura</option>
+                                        <option value="2">Entrada sin factura</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 factura" style="display:none">
+                                <div class="form-group">
+                                    <label>Proveedor:</label>
+                                    <input type="text" class="form-control r" id="proveedor" name="Proveedor" autocomplete="off" />
+                                </div>
+                            </div>
+                            <div class="col-lg-3 factura" style="display:none">
+                                <div class="form-group">
+                                    <label>Fecha expedición CCF:</label>
+                                    <input type="date" class="form-control r" id="fechaexpedicionccf" name="fechaexpedicionccf" autocomplete="off" />
+                                </div>
+                            </div>
+                            <div class="col-lg-3 factura" style="display:none">
+                                <div class="form-group">
+                                    <label>Inicio crédito:</label>
+                                    <input type="date" class="form-control r" id="fechainiciocredito" name="fechainiciocredito" autocomplete="off" />
+                                </div>
+                            </div>
+                            <div class="col-lg-3 factura" style="display:none">
+                                <div class="form-group">
+                                    <label>Fecha vencimiento:</label>
+                                    <input type="date" class="form-control r" id="fechavencimiento" name="fechavencimiento" autocomplete="off" />
+                                </div>
+                            </div>
+                            <div class="col-lg-3 factura" style="display:none">
+                                <div class="form-group">
+                                    <label>No. CCF:</label>
+                                    <input type="text" class="form-control r" id="numeroccf" name="numeroccf" autocomplete="off" />
+                                </div>
+                            </div>
+                            <div class="col-lg-3 factura" style="display:none">
+                                <div class="form-group">
+                                    <label>Condición de venta:</label>
+                                    <input type="text" class="form-control r" id="condicionventa" name="condicionventa" autocomplete="off" />
+                                </div>
+                            </div>
+                            <div class="col-lg-3" id="blockCantidad" style="display:none">
+                                <div class="form-group">
+                                    <label>Cantidad:</label>
+                                    <input type="number" class="form-control requerid data" id="cantidad" name="cantidad" readonly />
+                                </div>
+                            </div>
+                            <div class="col-lg-3" id="blockVenta" style="display:none">
+                                <div class="form-group">
+                                    <label>SALA VENTA:</label>
+                                    <input type="text" class="form-control inputBodegas" onkeyup="calcularCantidad()" id="venta" placeholder="Cantidad a vender" autocomplete="off" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" id="camposBodega"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn-sm btn-secondary" data-dismiss="modal" id="btnCerrar">Cerrar</button>
+                        <button type="submit" class="btn-sm btn-primary">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/js/generic.js"></script>
+<script src="~/js/PeticionesAJX/existencia.js"></script>

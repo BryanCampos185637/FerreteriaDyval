@@ -1,0 +1,42 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h4>Stock</h4>
+<!--botonera-->
+<div class="row mb-2">
+    <div class="col-lg-12">
+        <input type="button" value="Nuevo" class="btn-sm btn-primary" data-toggle="modal" data-target="#modalStock" onclick="clearData()" />
+    </div>
+</div>
+<!--TABLA-->
+<div class="row">
+    <div class="col-lg-12" id="tableData"><span>Cargando...</span></div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="modalStock" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="card-header bg-dark">
+                <h3 class="text-light">Registro stock</h3>
+            </div>
+            <form>
+                <div class="modal-body">
+                    <input type="hidden" name="iidstock" id="iidstock" class="data form-control" />
+                    <div class="form-group">
+                        <label>Nombre del stock:</label>
+                        <input type="text" class="form-control requerid data" autocomplete="off" placeholder="Escriba el nombre" name="nombrestock" id="nombrestock" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-sm btn-secondary" data-dismiss="modal" id="btnCerrar">Cerrar</button>
+                    <button type="button" class="btn-sm btn-primary" onclick="save()">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="~/js/generic.js"></script>
+<script src="~/js/PeticionesAJX/stock.js"></script>
+

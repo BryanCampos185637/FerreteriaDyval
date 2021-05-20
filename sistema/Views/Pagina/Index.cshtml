@@ -1,0 +1,97 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+<br /><br />
+<div class="row">
+    <div class="col-lg-8" id="tableData"></div>
+    <div class="col-lg-4">
+        <form id="frm">
+            <fieldset>
+                <legend>Modificar paginas</legend>
+                <div class="form-group">
+                    <label>ID</label>
+                    <input type="text" readonly id="iidpagina" name="iidpagina" class="form-control data" />
+                </div>
+                <div class="form-group">
+                    <label>Mensaje</label>
+                    <input type="text" id="mensaje" name="mensaje" class="form-control data requerid" />
+                </div>
+                <div class="form-group">
+                    <label>Accion</label>
+                    <input type="text" id="accion" name="accion" class="form-control data requerid" />
+                </div>
+                <div class="form-group">
+                    <label>Controlador</label>
+                    <input type="text" id="controlador" name="controlador" class="form-control data requerid" />
+                </div>
+                <div class="form-group">
+                    <label>Icono</label>
+                    <input type="text" id="icono" name="icono" class="form-control data requerid" />
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Guardar" />
+                    <div style="display:none">
+                        <button id="btnCerrar"></button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+
+<script src="~/js/generic.js"></script>
+<script>
+    $(function () {
+        callTable();
+    });
+    function callTable() {
+        paintTable('/pagina/list', ['id', 'nombre', 'accion', 'controlador', 'icono'],
+            ['iidpagina', 'mensaje', 'accion', 'controlador', 'icono'], 'iidpagina', true, true);
+    }
+    function edit(id) {
+        $.get('/pagina/getById?id=' + id, function (data) {
+            $('#controlador').val(data.controlador);
+            $('#mensaje').val(data.mensaje);
+            $('#accion').val(data.accion);
+            $('#iidpagina').val(data.iidpagina);
+            $('#icono').val(data.icono);
+        });
+    }
+    $('#frm').submit(function (e) {
+        e.preventDefault();
+        data();
+    });
+
+    function data() {
+        if (validateEmpty()) {
+            var frm = new FormData();
+            capturarData(frm);
+            sendDataController('/pagina/save', frm);
+            limpiar();
+            messeges('success', 'Exito');
+        } else {
+            messeges('error','rellene los campos')
+        }
+    }
+    function deleteInfo(id) {
+        if (confirm('Estas seguro que deseas eliminar esta pagina') == 1) {
+            $.get('/pagina/eliminar?id=' + id, function (rpt) {
+                if (rpt == 'ok') {
+                    messeges('success', 'se elimino la pagina')
+                } else if (rpt == 'uso') {
+                    messeges('warning','No se puede eliminar porque esta siendo utilizada')
+                }else {
+                    messeges('error', rpt)
+                }
+            });
+        }
+    }
+    function limpiar() {
+        var inputs = document.getElementsByClassName('form-control'); var i = 0;
+        while (i > inputs.length) {
+            inputs[i].value = '';
+            i++;
+        }
+    }
+</script>

@@ -1,0 +1,169 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<style>
+    .btn-link{
+        text-decoration:none !important;
+    }
+</style>
+<br />
+<div class="container">
+    <div class="row">
+        <div class="card col-lg-12 col-sm-12">
+            <div class="card-header bg-dark">
+                <h4 class="card-title text-light"><i class="fas fa-cogs"></i> Configuración de facturas, crédito fiscal y cotizaciones.</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div id="acordionAjustes" class="col-12">
+                        <!--factura-->
+                        <div class="card">
+                            <div class="card-header bg-dark" id="headinFactura">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link" data-toggle="collapse" data-target="#acordionFactura" aria-expanded="true" aria-controls="acordionFactura">
+                                        <strong class="text-light">Ajustar la factura</strong>
+                                    </button>
+                                </h5>
+                            </div>
+                            <div id="acordionFactura" class="collapse" aria-labelledby="headinFactura" data-parent="#acordionAjustes">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <!--factura-->
+                                        <div class="col-lg-3 col-sm-12">
+                                            <div class="form-group">
+                                                <label>Inicio de las facturas:</label>
+                                                <input type="number" min="0" id="txtIF" placeholder="Escribe el inicio de las facturas" class="form-control r" />
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-sm-12">
+                                            <div class="form-group">
+                                                <label>Hasta:</label>
+                                                <input type="number" min="0" id="txtFF" placeholder="Escribe el fin de las facturas" class="form-control r" autocomplete="off"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-sm-12">
+                                            <div class="form-group">
+                                                <label>No. Actual factura:</label>
+                                                <input type="number" disabled id="txtAF" placeholder="Escribe el fin de las facturas" class="form-control" autocomplete="off"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-sm-12">
+                                            <div class="form-group">
+                                                <label>Cuantos digitos debe tener:</label>
+                                                <input type="number" min="0" id="txtDF" placeholder="Digitos de la factura" class="form-control" autocomplete="off"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Cotizacion-->
+                        <div class="card">
+                            <div class="card-header bg-dark" id="headinCotizacion">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link" data-toggle="collapse" data-target="#acordionCotizacion" aria-expanded="true" aria-controls="acordionCotizacion">
+                                        <strong class="text-light">Ajustar la cotización</strong>
+                                    </button>
+                                </h5>
+                            </div>
+                            <div id="acordionCotizacion" class="collapse" aria-labelledby="headinCotizacion" data-parent="#acordionAjustes">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <!--Cotizacion-->
+                                        <div class="col-lg-3 col-sm-12">
+                                            <div class="form-group">
+                                                <label>Inicio de las cotizaciones:</label>
+                                                <input type="number" min="0" id="txtIC" placeholder="Escribe el inicio de las cotizaciones" class="form-control r" autocomplete="off"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-sm-12">
+                                            <div class="form-group">
+                                                <label>Hasta:</label>
+                                                <input type="number" min="0" id="txtFC" placeholder="Escribe el fin de las cotizaciones" class="form-control r" autocomplete="off"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-sm-12">
+                                            <div class="form-group">
+                                                <label>No. Actual cotización:</label>
+                                                <input type="number" disabled id="txtAC" placeholder="Escribe el fin de las facturas" class="form-control" autocomplete="off"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-sm-12">
+                                            <div class="form-group">
+                                                <label>Cuantos digitos debe tener:</label>
+                                                <input type="number" min="0" id="txtDC" placeholder="Digitos de la cotizacion" class="form-control" autocomplete="off" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Credito fiscal-->
+                        <div class="card">
+                            <div class="card-header bg-dark" id="headinCredito">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link" data-toggle="collapse" data-target="#acordionCredito" aria-expanded="true" aria-controls="acordionCredito">
+                                        <strong class="text-light">Ajustar crédito fiscal</strong>
+                                    </button>
+                                </h5>
+                            </div>
+                            <div id="acordionCredito" class="collapse" aria-labelledby="headinCredito" data-parent="#acordionAjustes">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <!--Credito fiscal-->
+                                        <div class="col-lg-3 col-sm-12">
+                                            <div class="form-group">
+                                                <label>Inicio del crédito fiscal:</label>
+                                                <input type="number" min="0" id="txtICF" placeholder="Escribe el inicio del credito fiscal" class="form-control r" autocomplete="off"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-sm-12">
+                                            <div class="form-group">
+                                                <label>Hasta:</label>
+                                                <input type="number" min="0" id="txtFCF" placeholder="Escribe el fin del credito fiscal" class="form-control r" autocomplete="off"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-sm-12">
+                                            <div class="form-group">
+                                                <label>No. Actual crédito fiscal:</label>
+                                                <input type="number" disabled id="txtACF" placeholder="Escribe el fin de las facturas" class="form-control" autocomplete="off"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-sm-12">
+                                            <div class="form-group">
+                                                <label>Cuantos digitos debe tener:</label>
+                                                <input type="number" min="0" id="txtDCF" placeholder="Digitos de la factura" class="form-control" autocomplete="off" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--credenciales-->
+                    <div class="col-lg-12 col-sm-12 mt-3">
+                        <h5>Escribe tus credenciales de usuario para efectuar cambios</h5><hr />
+                    </div>
+                    <div class="col-lg-6 col-sm-12">
+                        <div class="form-group">
+                            <label>Nombre usuario:</label>
+                            <input type="text" min="0" id="txtUser" autocomplete="off" placeholder="Escribe tu nombre de usuario" class="form-control r" />
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-12">
+                        <div class="form-group">
+                            <label>Contraseña:</label>
+                            <input type="password" min="0" id="txtPass" autocomplete="off" placeholder="Escribe tu contraseña" class="form-control r" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer text-center">
+                <button type="button" class="btn btn-primary" onclick="saveConfiguracion()">Guardar Configuración</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/js/PeticionesAJX/configuracion.js"></script>

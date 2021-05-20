@@ -1,0 +1,168 @@
+﻿
+@{
+    ViewData["Title"] = "Entrada";
+}
+
+<h4>Entrada de productos</h4>
+<!--botonera--><div class="row mb-2">
+    <div class="col-lg-12">
+        <input type="button" id="btnNuevaEntrada" value="Nuevo" class="btn-sm btn-primary" data-toggle="modal" data-target="#modalEntrada" onclick="clearData()"/>
+    </div>
+</div>
+<!--TABLA-->
+<div class="row">
+    <div class="col-lg-12" id="tableData"><span>Cargando...</span></div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="modalEntrada" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="card-header bg-dark">
+                <h3 class="text-light">Ingreso de producto</h3>
+            </div>
+            <form id="frmEntrada">
+                <div class="modal-body">
+                    <input type="hidden" name="iidentrada" id="iidentrada" class="data form-control" />
+                    <div class="row" id="cuerpoModal">
+                        <div class="col-lg-3">
+                            <div class="form-group" id="divPersona">
+                                <label>Código producto:</label>
+                                <div class="input-group">
+                                    <input type="hidden" id="iidproducto" class="form-control data" name="iidproducto" />
+                                    <input type="text" readonly class="form-control requerid" id="codigoProducto" />
+                                    <div class="input-group-append">
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" onclick="abrirModalProducto()" data-target="#modalProducto">
+                                            <i class="fas fa-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Descripción:</label>
+                                <input type="text" readonly class="form-control" id="nombreproducto" autocomplete="off" />
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label>Precio compra:</label>
+                                <input type="text" class="form-control requerid data" id="preciocompra" name="precioCompra" autocomplete="off" />
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label>Tipo de entrada:</label>
+                                <select class="form-control" onchange="tipoEntrada()" id="cbxTipoEntrada">
+                                    <option value="">--selecciona tipo de entrada--</option>
+                                    <option value="1">Entrada con factura</option>
+                                    <option value="2">Entrada sin factura</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 factura" style="display:none">
+                            <div class="form-group">
+                                <label>Proveedor:</label>
+                                <input type="text" class="form-control r" id="proveedor" name="Proveedor" autocomplete="off" />
+                            </div>
+                        </div>
+                        <div class="col-lg-3 factura" style="display:none">
+                            <div class="form-group">
+                                <label>Fecha expedición CCF:</label>
+                                <input type="date" class="form-control r" id="fechaexpedicionccf" name="fechaexpedicionccf" autocomplete="off" />
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 factura" style="display:none">
+                            <div class="form-group">
+                                <label>Inicio crédito:</label>
+                                <input type="date" class="form-control r" id="fechainiciocredito" name="fechainiciocredito" autocomplete="off" />
+                            </div>
+                        </div>
+                        <div class="col-lg-3 factura" style="display:none">
+                            <div class="form-group">
+                                <label>Fecha vencimiento:</label>
+                                <input type="date" class="form-control r" id="fechavencimiento" name="fechavencimiento" autocomplete="off" />
+                            </div>
+                        </div>
+                        <div class="col-lg-3 factura" style="display:none">
+                            <div class="form-group">
+                                <label>No. CCF:</label>
+                                <input type="text" class="form-control r" id="numeroccf" name="numeroccf" autocomplete="off" />
+                            </div>
+                        </div>
+                        <div class="col-lg-3 factura" style="display:none">
+                            <div class="form-group">
+                                <label>Condición de venta:</label>
+                                <input type="text" class="form-control r" id="condicionventa" name="condicionventa" autocomplete="off" />
+                            </div>
+                        </div>
+                        <div class="col-lg-3" id="blockCantidad" style="display:none">
+                            <div class="form-group">
+                                <label>Cantidad:</label>
+                                <input type="number" class="form-control requerid data" id="cantidad" name="cantidad" readonly />
+                            </div>
+                        </div>
+                        <div class="col-lg-3" id="blockVenta" style="display:none">
+                            <div class="form-group">
+                                <label>SALA VENTA:</label>
+                                <input type="text" class="form-control inputBodegas" onkeyup="calcularCantidad()" id="venta" placeholder="Cantidad a vender" autocomplete="off" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" id="camposBodega"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-sm btn-secondary" data-dismiss="modal" id="btnCerrar">Cerrar</button>
+                    <button type="submit" class="btn-sm btn-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Modal Productos-->
+<div class="modal fade" id="modalProducto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-dark">
+                <h3 class="text-light">Selecciona un producto</h3>
+            </div>
+            <div class="modal-body">
+                <div class="row mb-2">
+                    <div class="col-lg-6">
+                        <label>Buscar por codigo</label>
+                        <div class="input-group">
+                            <input type="search" class="form-control" id="filtrarPorCodigo" placeholder="Filtrar por codigo" autocomplete="off" />
+                            <div class="input-group-append">
+                                <button type="button" class="btn btn-primary" onclick="abrirModalProducto(1)">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <label>Buscar por descripción</label>
+                        <div class="input-group">
+                            <input type="search" class="form-control" id="filtrarPorDescripcion" placeholder="Filtrar por descripción" autocomplete="off" onkeyup="abrirModalProducto(2)" />
+                            <div class="input-group-append">
+                                <button type="button" class="btn btn-primary" onclick="abrirModalProducto(2)">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12" id="tablaProducto"><span>Cargando productos...</span></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-sm btn-secondary" data-dismiss="modal" id="btnCerrarProducto">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/js/generic.js"></script>
+<script src="~/js/PeticionesAJX/entrada.js"></script>
+
+
