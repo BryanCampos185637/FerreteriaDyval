@@ -7,6 +7,7 @@ namespace AdminFerreteria.Models
     {
         public Usuario()
         {
+            Bitacorasistema = new HashSet<Bitacorasistema>();
             Cotizacion = new HashSet<Cotizacion>();
             Factura = new HashSet<Factura>();
         }
@@ -21,6 +22,7 @@ namespace AdminFerreteria.Models
 
         public virtual Empleado IidempleadoNavigation { get; set; }
         public virtual Tipousuario IidtipousuarioNavigation { get; set; }
+        public virtual ICollection<Bitacorasistema> Bitacorasistema { get; set; }
         public virtual ICollection<Cotizacion> Cotizacion { get; set; }
         public virtual ICollection<Factura> Factura { get; set; }
     }

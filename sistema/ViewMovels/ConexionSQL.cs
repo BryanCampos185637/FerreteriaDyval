@@ -3,7 +3,7 @@
     //esta clase funcionara solo para obtener la cadena de conexion utilizando el constructor de la clase
     public class ConexionSQL
     {
-        //Scaffold-DbContext "server=LAPTOP-AG12FGOC;database=BDFERRETERIA; user=sa; password=triz7+10" -OutputDir Models -Force Microsoft.EntityFrameworkCore.SqlServer
+        //Scaffold-DbContext "server=DESKTOP-TUVI7D5\\SPARTANDEV;database=BDFERRETERIA; integrated security=true;" -OutputDir Models -Force Microsoft.EntityFrameworkCore.SqlServer
         public string local { get; set; }
         public string ferreteria { get; set; }
         public string remota { get; set; }

@@ -1,8 +1,10 @@
+using AdminFerreteria.Helper.HelperSeguridad;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
 
 namespace AdminFerreteria
 {
@@ -17,8 +19,20 @@ namespace AdminFerreteria
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSession();//le decimos al sistema que usaremos sesiones
+            services.AddSession(opt=> {
+                opt.IdleTimeout = TimeSpan.FromMinutes(30);
+                opt.Cookie.HttpOnly = true;
+                opt.Cookie.IsEssential = true;
+            });//le decimos al sistema que usaremos sesiones
+
+            //uso de controllers
             services.AddControllersWithViews();
+
+
+            //mi filtro de pagina tipo usuario
+            services.AddScoped<FiltroDePaginaTipoUsuario>();
+            //mi filtro de acciones 
+            services.AddScoped<FiltroDeAcciones>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,7 +57,7 @@ namespace AdminFerreteria
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=BodegaInventario}/{action=Index}/{id?}");
+                    pattern: "{controller=Login}/{action=Index}/{id?}");
             });
         }
     }

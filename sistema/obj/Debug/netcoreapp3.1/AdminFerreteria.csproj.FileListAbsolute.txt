@@ -1080,3 +1080,5 @@ C:\Users\Bryan J. Campos\Documents\GitHub\FerreteriaDyval\sistema\obj\Debug\netc
 C:\Users\Bryan J. Campos\Documents\GitHub\FerreteriaDyval\sistema\obj\Debug\netcoreapp3.1\AdminFerreteria.dll
 C:\Users\Bryan J. Campos\Documents\GitHub\FerreteriaDyval\sistema\obj\Debug\netcoreapp3.1\AdminFerreteria.pdb
 C:\Users\Bryan J. Campos\Documents\GitHub\FerreteriaDyval\sistema\obj\Debug\netcoreapp3.1\AdminFerreteria.genruntimeconfig.cache
+C:\Users\Bryan J. Campos\Documents\GitHub\FerreteriaDyval\sistema\obj\Debug\netcoreapp3.1\Razor\Views\BitacoraSistema\Index.cshtml.g.cs
+C:\Users\Bryan J. Campos\Documents\GitHub\FerreteriaDyval\sistema\obj\Debug\netcoreapp3.1\Razor\Views\BitacoraSistema\_Paginador.cshtml.g.cs

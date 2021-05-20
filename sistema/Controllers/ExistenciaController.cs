@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using AdminFerreteria.Helper.HelperSeguridad;
 using AdminFerreteria.Models;
 using AdminFerreteria.Request;
 using iText.Kernel.Colors;
@@ -16,27 +17,13 @@ using Newtonsoft.Json;
 
 namespace AdminFerreteria.Controllers
 {
+    [ServiceFilter(typeof(FiltroDeAcciones))]
     public class ExistenciaController : Controller
     {
+        [ServiceFilter(typeof(FiltroDePaginaTipoUsuario))]
         public IActionResult Index()
         {
-            int? idUsuario = 0;
-            idUsuario = HttpContext.Session.GetInt32("UsuarioLogueado");
-            if (idUsuario > 0 && idUsuario != null)
-            {
-                if (UtilidadesController.youHavePermissionToViewPage("Existencia", "index", (int)idUsuario))
-                {
-                    return View();
-                }
-                else
-                {
-                    return Redirect("/Home/error");
-                }
-            }
-            else
-            {
-                return Redirect("/Login/index");
-            }
+            return View();
         }
         [HttpGet]
         public JsonResult listProducto()

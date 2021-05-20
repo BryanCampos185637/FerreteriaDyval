@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AdminFerreteria.DAL;
+using AdminFerreteria.Helper.HelperSeguridad;
 using AdminFerreteria.Models;
 using AdminFerreteria.Request;
 using Microsoft.AspNetCore.Http;
@@ -10,31 +12,17 @@ using Newtonsoft.Json;
 
 namespace AdminFerreteria.Controllers
 {
+    [ServiceFilter(typeof(FiltroDeAcciones))]
     public class ReporteController : Controller
     {
+        [ServiceFilter(typeof(FiltroDePaginaTipoUsuario))]
         public IActionResult Index()
         {
-            int? idUsuario = 0;
-            idUsuario = HttpContext.Session.GetInt32("UsuarioLogueado");
-            if (idUsuario > 0 && idUsuario != null)
-            {
-                if (UtilidadesController.youHavePermissionToViewPage("reporte", "index", (int)idUsuario))
-                {
-                    BDFERRETERIAContext db = new BDFERRETERIAContext();
-                    var empleado = db.Empleado.Where(p => p.Iidempleado == 1).First();
-                    DateTime fecha = Convert.ToDateTime(empleado.Fechacreacion);
-                    ViewBag.fechaInicioSistema = fecha.ToString("yyyy-MM-dd");//el primer usuario que se registro fue la primer funcion que se hizo en el sistema
-                    return View();
-                }
-                else
-                {
-                    return Redirect("/Home/error");
-                }
-            }
-            else
-            {
-                return Redirect("/Login/index");
-            }
+            BDFERRETERIAContext db = new BDFERRETERIAContext();
+            var empleado = db.Empleado.Where(p => p.Iidempleado == 1).First();
+            DateTime fecha = Convert.ToDateTime(empleado.Fechacreacion);
+            ViewBag.fechaInicioSistema = fecha.ToString("yyyy-MM-dd");//el primer usuario que se registro fue la primer funcion que se hizo en el sistema
+            return View();
         }
         //crea la lista de reportes tomando las fechas establecidas por el usuario
         public int createListReportVenta(string desde, string hasta)

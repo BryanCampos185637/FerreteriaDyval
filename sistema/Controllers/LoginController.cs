@@ -11,8 +11,7 @@ namespace AdminFerreteria.Controllers
         BDFERRETERIAContext db = new BDFERRETERIAContext();
         public IActionResult Index()
         {
-            int? idUsuario = 0;
-            idUsuario = HttpContext.Session.GetInt32("UsuarioLogueado");
+            int? idUsuario = Helper.HelperSession.ObtenerCookie.obtenerObjetoSesion(HttpContext.Session, "UsuarioLogueado");
             if (idUsuario > 0 && idUsuario != null) 
             {
                 return Redirect("/home/Index");
@@ -28,12 +27,21 @@ namespace AdminFerreteria.Controllers
         [HttpPost]
         public int validation(Usuario user)
         {
+            
             int rpt = dal.Login(user);
             if (rpt >0) 
             {
                 Usuario usuario = dal.obtenerDataUsuarioLog(user);
                 HttpContext.Session.SetInt32("UsuarioLogueado", usuario.Iidusuario);
                 HttpContext.Session.SetString("NombreUsuario", usuario.IidempleadoNavigation.Nombrecompleto);
+
+                BitacoraSistemaDAL bitacora = new BitacoraSistemaDAL();
+                bitacora.insertarBitacora(new Bitacorasistema
+                {
+                    Iidusuario = usuario.Iidusuario,
+                    Descripcionbitacora = "Inicio de sesión",
+                    Fechaactividad = System.DateTime.Now
+                });
             }
             return rpt;
         }
@@ -44,6 +52,13 @@ namespace AdminFerreteria.Controllers
         }
         public IActionResult cerrarSesion()
         {
+            BitacoraSistemaDAL bitacora = new BitacoraSistemaDAL();
+            bitacora.insertarBitacora(new Bitacorasistema
+            {
+                Iidusuario = (int)HttpContext.Session.GetInt32("UsuarioLogueado"),
+                Descripcionbitacora = "Cerrar sesión",
+                Fechaactividad = System.DateTime.Now
+            });
             destruirCookiesSesion();
             return RedirectToAction("Index");
         }

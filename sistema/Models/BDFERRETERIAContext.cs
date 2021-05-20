@@ -17,6 +17,7 @@ namespace AdminFerreteria.Models
         }
 
         public virtual DbSet<Bitacoraentrada> Bitacoraentrada { get; set; }
+        public virtual DbSet<Bitacorasistema> Bitacorasistema { get; set; }
         public virtual DbSet<Bodega> Bodega { get; set; }
         public virtual DbSet<Cliente> Cliente { get; set; }
         public virtual DbSet<Configuracion> Configuracion { get; set; }
@@ -39,8 +40,8 @@ namespace AdminFerreteria.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                ConexionSQL sql = new ConexionSQL();
-                optionsBuilder.UseSqlServer(sql.local);
+                ConexionSQL conexionSQL = new ConexionSQL();
+                optionsBuilder.UseSqlServer(conexionSQL.local);
             }
         }
 
@@ -52,6 +53,8 @@ namespace AdminFerreteria.Models
                     .HasName("PK__BITACORA__FC598AE78B4F2BC4");
 
                 entity.ToTable("BITACORAENTRADA");
+
+                entity.HasIndex(e => e.Iidentrada);
 
                 entity.Property(e => e.Iidbotacorabodega).HasColumnName("IIDBOTACORABODEGA");
 
@@ -74,6 +77,33 @@ namespace AdminFerreteria.Models
                     .HasForeignKey(d => d.Iidentrada)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__BITACORAE__IIDEN__4F47C5E3");
+            });
+
+            modelBuilder.Entity<Bitacorasistema>(entity =>
+            {
+                entity.HasKey(e => e.Iidbitacorasistema)
+                    .HasName("PK__BITACORA__CE5281B56D4E1264");
+
+                entity.ToTable("BITACORASISTEMA");
+
+                entity.Property(e => e.Iidbitacorasistema).HasColumnName("IIDBITACORASISTEMA");
+
+                entity.Property(e => e.Descripcionbitacora)
+                    .HasColumnName("DESCRIPCIONBITACORA")
+                    .HasMaxLength(200)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Fechaactividad)
+                    .HasColumnName("FECHAACTIVIDAD")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.Iidusuario).HasColumnName("IIDUSUARIO");
+
+                entity.HasOne(d => d.IidusuarioNavigation)
+                    .WithMany(p => p.Bitacorasistema)
+                    .HasForeignKey(d => d.Iidusuario)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__BITACORAS__IIDUS__7E37BEF6");
             });
 
             modelBuilder.Entity<Bodega>(entity =>
@@ -189,6 +219,8 @@ namespace AdminFerreteria.Models
 
                 entity.ToTable("COTIZACION");
 
+                entity.HasIndex(e => e.Iidusuario);
+
                 entity.Property(e => e.Iidcotizacion).HasColumnName("IIDCOTIZACION");
 
                 entity.Property(e => e.Bhabilitado)
@@ -244,6 +276,10 @@ namespace AdminFerreteria.Models
                     .HasName("PK__DETALLEC__B66318029EB1D97E");
 
                 entity.ToTable("DETALLECOTIZACION");
+
+                entity.HasIndex(e => e.Iidcotizacion);
+
+                entity.HasIndex(e => e.Iidproducto);
 
                 entity.Property(e => e.Iiddetallecotizacio).HasColumnName("IIDDETALLECOTIZACIO");
 
@@ -307,6 +343,10 @@ namespace AdminFerreteria.Models
                     .HasName("PK__DETALLEP__6189D32A00E3D89C");
 
                 entity.ToTable("DETALLEPEDIDO");
+
+                entity.HasIndex(e => e.Iidfactura);
+
+                entity.HasIndex(e => e.Iidproducto);
 
                 entity.Property(e => e.Iiddetallepedido).HasColumnName("IIDDETALLEPEDIDO");
 
@@ -413,6 +453,8 @@ namespace AdminFerreteria.Models
 
                 entity.ToTable("ENTRADA");
 
+                entity.HasIndex(e => e.Iidproducto);
+
                 entity.Property(e => e.Iidentrada).HasColumnName("IIDENTRADA");
 
                 entity.Property(e => e.Bhabilitado)
@@ -474,6 +516,8 @@ namespace AdminFerreteria.Models
                     .HasName("PK__FACTURA__C5D90AE94B80389E");
 
                 entity.ToTable("FACTURA");
+
+                entity.HasIndex(e => e.Iidusuario);
 
                 entity.Property(e => e.Iidfactura).HasColumnName("IIDFACTURA");
 
@@ -578,6 +622,12 @@ namespace AdminFerreteria.Models
 
                 entity.ToTable("INVENTARIO");
 
+                entity.HasIndex(e => e.Iidbodega);
+
+                entity.HasIndex(e => e.Iidproducto);
+
+                entity.HasIndex(e => e.Iidstock);
+
                 entity.Property(e => e.Iidinventario).HasColumnName("IIDINVENTARIO");
 
                 entity.Property(e => e.Bhabilitado)
@@ -663,6 +713,10 @@ namespace AdminFerreteria.Models
 
                 entity.ToTable("PAGINATIPOUSUARIO");
 
+                entity.HasIndex(e => e.Iidpagina);
+
+                entity.HasIndex(e => e.Iidtipousuario);
+
                 entity.Property(e => e.Iidpaginatipousuario).HasColumnName("IIDPAGINATIPOUSUARIO");
 
                 entity.Property(e => e.Bhabilitado)
@@ -698,6 +752,10 @@ namespace AdminFerreteria.Models
                     .HasName("PK__PRODUCTO__158EDF304C3F3F3B");
 
                 entity.ToTable("PRODUCTO");
+
+                entity.HasIndex(e => e.Iidstock);
+
+                entity.HasIndex(e => e.Iidunidadmedida);
 
                 entity.Property(e => e.Iidproducto).HasColumnName("IIDPRODUCTO");
 
@@ -882,6 +940,10 @@ namespace AdminFerreteria.Models
                     .HasName("PK__USUARIO__26DBFF593A56E8F3");
 
                 entity.ToTable("USUARIO");
+
+                entity.HasIndex(e => e.Iidempleado);
+
+                entity.HasIndex(e => e.Iidtipousuario);
 
                 entity.Property(e => e.Iidusuario).HasColumnName("IIDUSUARIO");
 

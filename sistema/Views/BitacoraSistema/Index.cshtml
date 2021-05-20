@@ -1,0 +1,59 @@
+﻿@model AdminFerreteria.ViewMovels.ListBitacoraSistema
+@{
+    ViewData["Title"] = "Bitacora sistema";
+}
+
+
+<div class="row">
+    <fieldset class="col-md-12 col-sm-12">
+        <legend>Lista de actividades</legend>
+        <form method="get" asp-action="Index" id="frmFiltroBusqueda" class="mb-1">
+            <div class="input-group">
+                <input type="text" autocomplete="off" class="form-control" placeholder="Escribe el nombre del empleado" id="filtro" name="filtro" value="@ViewBag.filtro" />
+                <button type="submit" class="btn btn-success btn-sm">Buscar</button>
+                <button type="button" class="btn btn-danger btn-sm" onclick="LimpiarFormularioBusqueda()">Limpiar</button>
+            </div>
+        </form>
+        <table class="table table-hover table-bordered table-responsive-sm">
+            <thead class="thead-dark">
+                <tr>
+                    <th>EMPLEADO</th>
+                    <th>CON ROL</th>
+                    <th>ACTIVIDAD</th>
+                    <th>FECHA Y HORA</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.LstBitacora != null)
+                {
+                    foreach (var item in Model.LstBitacora)
+                    {
+                        <tr>
+                            <td>@item.IidusuarioNavigation.IidempleadoNavigation.Nombrecompleto.ToUpper()</td>
+                            <td>@item.IidusuarioNavigation.IidtipousuarioNavigation.Nombretipousuario.ToUpper()</td>
+                            <td>@item.Descripcionbitacora.ToUpper()</td>
+                            <td>@item.Fechaactividad.ToString()</td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="10" class="text-center">No hay @ViewData["Title"]</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 text-center">
+                <partial name="~/Views/BitacoraSistema/_Paginador.cshtml" model="Model" />
+            </div>
+        </div>
+    </fieldset>
+</div>
+<script>
+    function LimpiarFormularioBusqueda() {
+        document.getElementById('filtro').value = '';
+        document.getElementById('frmFiltroBusqueda').submit();
+    }
+</script>

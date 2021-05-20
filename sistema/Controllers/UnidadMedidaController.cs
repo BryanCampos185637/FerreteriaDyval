@@ -1,33 +1,20 @@
 ﻿using System;
 using AdminFerreteria.DAL;
+using AdminFerreteria.Helper.HelperSeguridad;
 using AdminFerreteria.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AdminFerreteria.Controllers
 {
+    [ServiceFilter(typeof(FiltroDeAcciones))]
     public class UnidadMedidaController : Controller
     {
         UnidadMedidaDAL dal = new UnidadMedidaDAL();
+        [ServiceFilter(typeof(FiltroDePaginaTipoUsuario))]
         public IActionResult Index()
         {
-            int? idUsuario = 0;
-            idUsuario = HttpContext.Session.GetInt32("UsuarioLogueado");
-            if (idUsuario > 0 && idUsuario != null)
-            {
-                if (UtilidadesController.youHavePermissionToViewPage("unidadmedida", "index", (int)idUsuario))
-                {
-                    return View();
-                }
-                else
-                {
-                    return Redirect("/Home/error");
-                }
-            }
-            else
-            {
-                return Redirect("/Login/index");
-            }
+            return View();
         }
         [HttpGet]
         public JsonResult listUnidad()

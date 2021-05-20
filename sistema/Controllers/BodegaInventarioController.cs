@@ -1,32 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using AdminFerreteria.Models;
-using Microsoft.AspNetCore.Http;
 using AdminFerreteria.DAL;
+using AdminFerreteria.Helper.HelperSeguridad;
 
 namespace AdminFerreteria.Controllers
 {
+    [ServiceFilter(typeof(FiltroDeAcciones))]
     public class BodegaInventarioController : Controller
     {
+        [ServiceFilter(typeof(FiltroDePaginaTipoUsuario))]
         public IActionResult Index()
         {
-            int? idUsuario = 0;
-            idUsuario = HttpContext.Session.GetInt32("UsuarioLogueado");
-            if (idUsuario > 0 && idUsuario != null)
-            {
-                if (UtilidadesController.youHavePermissionToViewPage("bodegainventario", "index", (int)idUsuario))
-                {
-                    return View();
-                }
-                else
-                {
-                    return Redirect("/Home/error");
-                }
-            }
-            else
-            {
-                return Redirect("/Login/index");
-            }
+            return View();
         }
         BodegainventarioDAL dal = new BodegainventarioDAL();
         [HttpGet]
@@ -42,7 +28,9 @@ namespace AdminFerreteria.Controllers
         [HttpPost]
         public string GuardarBodega(Bodega bodega)
         {
-            return dal.guardarBodega(bodega);
+            var rpt = dal.guardarBodega(bodega);
+            
+            return rpt;
         }
         [HttpGet]
         public JsonResult obtenerBodega(int id)
@@ -62,7 +50,9 @@ namespace AdminFerreteria.Controllers
         [HttpPost]
         public string moverproducto(Int64 cantidad, Int64 bodegaActual, Int64 producto, Int64 ubicacionnueva, int stock)
         {
-            return dal.moverproducto(cantidad, bodegaActual, producto, ubicacionnueva, stock);
+            var rpt = dal.moverproducto(cantidad, bodegaActual, producto, ubicacionnueva, stock);
+            
+            return rpt;
         }
         [HttpGet]
         public JsonResult listBodegaSelect(Int64 id)
@@ -72,17 +62,23 @@ namespace AdminFerreteria.Controllers
         [HttpGet]
         public string eliminarInventario(Int64 id)
         {
-            return dal.eliminarInventario(id);
+            var rpt = dal.eliminarInventario(id);
+            
+            return rpt;
         }
         [HttpGet]
         public string editarExistenciaInventario (Int64 id,Int64 cantidad)
         {
-            return dal.editarExistenciasInventario(id, cantidad);
+            var rpt = dal.editarExistenciasInventario(id,cantidad);
+            
+            return rpt;
         }
         [HttpPost]
         public string modificarexistenciaproducto(Producto producto)
         {
-            return dal.modificarExistenciasSalaDeVenta(producto);
+            var rpt = dal.modificarExistenciasSalaDeVenta(producto);
+            
+            return rpt;
         }
         [HttpGet]
         public JsonResult listarProductos()

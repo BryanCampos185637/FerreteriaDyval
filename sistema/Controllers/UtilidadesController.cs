@@ -21,6 +21,13 @@ namespace AdminFerreteria.Controllers
 {
     public class UtilidadesController : Controller
     {
+        public static string obtenerNombrePagina(string action, string controller)
+        {
+            using (var db = new BDFERRETERIAContext())
+            {
+                return db.Pagina.Where(p => p.Accion.Equals(action) && p.Controlador.Equals(controller) && p.Bhabilitado == "A").First().Mensaje;
+            }
+        }
         static int nveces = 0;
         public static Bitacoraentrada crearBitacora(Int64 idBodega, Int64 idProducto, Int64 cantidad,
             Int64 idstock, decimal subcantidad, Int64 identrada)

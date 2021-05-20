@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using AdminFerreteria.DAL;
+using AdminFerreteria.Helper.HelperSeguridad;
 using AdminFerreteria.Models;
 using AdminFerreteria.Request;
 using Microsoft.AspNetCore.Http;
@@ -10,27 +11,13 @@ using Newtonsoft.Json;
 
 namespace AdminFerreteria.Controllers
 {
+    [ServiceFilter(typeof(FiltroDeAcciones))]
     public class CotizacionController : Controller
     {
+        [ServiceFilter(typeof(FiltroDePaginaTipoUsuario))]
         public IActionResult Index()
         {
-            int? idUsuario = 0;
-            idUsuario = HttpContext.Session.GetInt32("UsuarioLogueado");
-            if (idUsuario > 0 && idUsuario != null)
-            {
-                if (UtilidadesController.youHavePermissionToViewPage("cotizacion", "index", (int)idUsuario))
-                {
-                    return View();
-                }
-                else
-                {
-                    return Redirect("/Home/error");
-                }
-            }
-            else
-            {
-                return Redirect("/Login/index");
-            }
+            return View();
         }
         //accion que nos devuelve la lista de productos cotizados
         [HttpGet]

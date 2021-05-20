@@ -3,34 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Transactions;
 using AdminFerreteria.DAL;
+using AdminFerreteria.Helper.HelperSeguridad;
 using AdminFerreteria.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AdminFerreteria.Controllers
 {
+    [ServiceFilter(typeof(FiltroDeAcciones))]
     public class FacturaController : Controller
     {
         FacturaDAL dal = new FacturaDAL();
+        [ServiceFilter(typeof(FiltroDePaginaTipoUsuario))]
         public IActionResult Index()
         {
-            int? idUsuario = 0;
-            idUsuario = HttpContext.Session.GetInt32("UsuarioLogueado");
-            if (idUsuario > 0 && idUsuario != null)
-            {
-                if (UtilidadesController.youHavePermissionToViewPage("factura", "index", (int)idUsuario))
-                {
-                    return View();
-                }
-                else
-                {
-                    return Redirect("/Home/error");
-                }
-            }
-            else
-            {
-                return Redirect("/Login/index");
-            }
+            return View();
         }
         [HttpGet]
         public JsonResult listCotizacion()

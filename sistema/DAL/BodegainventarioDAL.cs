@@ -25,6 +25,7 @@ namespace AdminFerreteria.DAL
                         {
                             db.Bodega.Add(bodega);
                             db.SaveChanges();
+                            
                         }
                         else
                         {

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Transactions;
+using AdminFerreteria.DAL;
+using AdminFerreteria.Helper.HelperSeguridad;
 using AdminFerreteria.Models;
 using AdminFerreteria.Request;
 using Microsoft.AspNetCore.Http;
@@ -11,27 +13,13 @@ using Newtonsoft.Json;
 
 namespace AdminFerreteria.Controllers
 {
+    [ServiceFilter(typeof(FiltroDeAcciones))]
     public class VentaController : Controller
     {
+        [ServiceFilter(typeof(FiltroDePaginaTipoUsuario))]
         public IActionResult Index()
         {
-            int? idUsuario = 0;
-            idUsuario = HttpContext.Session.GetInt32("UsuarioLogueado");
-            if (idUsuario > 0 && idUsuario != null)
-            {
-                if (UtilidadesController.youHavePermissionToViewPage("venta", "index", (int)idUsuario))
-                {
-                    return View();
-                }
-                else
-                {
-                    return Redirect("/Home/error");
-                }
-            }
-            else
-            {
-                return Redirect("/Login/index");
-            }
+            return View();
         }
         [HttpPost]
         public int ArmardetalleVenta(Int64 iiproducto, int? descuento, int? comision, Int64 cantidad, int? subUnidad)

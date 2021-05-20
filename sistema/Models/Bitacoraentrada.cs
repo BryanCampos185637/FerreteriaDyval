@@ -1,4 +1,6 @@
-﻿
+﻿using System;
+using System.Collections.Generic;
+
 namespace AdminFerreteria.Models
 {
     public partial class Bitacoraentrada

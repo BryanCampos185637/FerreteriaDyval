@@ -1,0 +1,41 @@
+﻿@model AdminFerreteria.ViewMovels.basePaginacion
+@if (Model != null)
+{
+    int Inicial = 1;
+    var radio = 2;
+    var cantidadMaximaDePaginas = radio * 2 + 1;
+    int Final = (Model.TotalPaginas > cantidadMaximaDePaginas) ? cantidadMaximaDePaginas : Model.TotalPaginas;
+    if (Model.PaginaActual > radio + 1)
+    {
+        Inicial = Model.PaginaActual - radio;
+        if (Model.TotalPaginas > Model.PaginaActual + radio)
+        {
+            Final = Model.PaginaActual + radio;
+        }
+        else
+        {
+            Final = Model.TotalPaginas;
+        }
+    }
+
+    <ul class="pagination">
+        <li class="page-item"><a class="page-link" asp-route-pagina="1" asp-route-filtro="@Model.Filtro">Primera</a></li>
+        @for (var i = Inicial; i <= Final; i++)
+        {
+            if (i == Model.PaginaActual)
+            {
+                <li class="page-item active">
+                    <a class="page-link" asp-route-pagina="@i" asp-route-filtro="@Model.Filtro">@i.ToString()</a>
+                </li>
+            }
+            else
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-route-pagina="@i" asp-route-filtro="@Model.Filtro">@i.ToString()</a>
+                </li>
+            }
+        }
+        <li class="page-item"><a class="page-link" asp-route-pagina="@Model.TotalPaginas" asp-route-filtro="@Model.Filtro">Ultima</a></li>
+    </ul>
+    <span>Pagina @Model.PaginaActual de @Model.TotalPaginas - Total de registros: @Model.TotalRegistros</span>
+}
