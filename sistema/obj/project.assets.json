@@ -10253,11 +10253,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Bryan J. Campos\\Documents\\GitHub\\control_inventario_y_facturacion\\AdminFerreteria.csproj",
+      "projectUniqueName": "C:\\Users\\Bryan J. Campos\\Documents\\GitHub\\FerreteriaDyval\\sistema\\AdminFerreteria.csproj",
       "projectName": "AdminFerreteria",
-      "projectPath": "C:\\Users\\Bryan J. Campos\\Documents\\GitHub\\control_inventario_y_facturacion\\AdminFerreteria.csproj",
+      "projectPath": "C:\\Users\\Bryan J. Campos\\Documents\\GitHub\\FerreteriaDyval\\sistema\\AdminFerreteria.csproj",
       "packagesPath": "C:\\Users\\Bryan J. Campos\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Bryan J. Campos\\Documents\\GitHub\\control_inventario_y_facturacion\\obj\\",
+      "outputPath": "C:\\Users\\Bryan J. Campos\\Documents\\GitHub\\FerreteriaDyval\\sistema\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Bryan J. Campos\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "HYZG/wNGb+jCjky1j0NQyYwVkBzcvVyo2R3E7yUZamPYSKwVdmxvUe3obz7qjDQ8qZG7cNNUAXjFT81K0zV0tw==",
+  "dgSpecHash": "+WdY67vDHIB8kmYdq3LHFkKpqhfVqve9YZoFls0BDiRjbCD6p0Bpcu7FLNsHErAUuwQghBBfHb9fTzSAG0C2hQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Bryan J. Campos\\Documents\\GitHub\\control_inventario_y_facturacion\\AdminFerreteria.csproj",
+  "projectFilePath": "C:\\Users\\Bryan J. Campos\\Documents\\GitHub\\FerreteriaDyval\\sistema\\AdminFerreteria.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Bryan J. Campos\\.nuget\\packages\\common.logging\\3.4.1\\common.logging.3.4.1.nupkg.sha512",
     "C:\\Users\\Bryan J. Campos\\.nuget\\packages\\common.logging.core\\3.4.1\\common.logging.core.3.4.1.nupkg.sha512",
