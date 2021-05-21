@@ -30,7 +30,7 @@ namespace AdminFerreteria
 
 
             //mi filtro de pagina tipo usuario
-            services.AddScoped<FiltroDePaginaTipoUsuario>();
+            services.AddScoped<FiltroDeAutenticacionValidacion>();
             //mi filtro de acciones 
             services.AddScoped<FiltroDeAcciones>();
         }

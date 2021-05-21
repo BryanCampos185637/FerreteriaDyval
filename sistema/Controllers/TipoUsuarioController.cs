@@ -2,7 +2,6 @@
 using AdminFerreteria.DAL;
 using AdminFerreteria.Helper.HelperSeguridad;
 using AdminFerreteria.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AdminFerreteria.Controllers
@@ -11,7 +10,7 @@ namespace AdminFerreteria.Controllers
     public class TipoUsuarioController : Controller
     {
         TipoUsuarioDAL dal = new TipoUsuarioDAL();
-        [ServiceFilter(typeof(FiltroDePaginaTipoUsuario))]
+        [ServiceFilter(typeof(FiltroDeAutenticacionValidacion))]
         public IActionResult Index()
         {
             return View();

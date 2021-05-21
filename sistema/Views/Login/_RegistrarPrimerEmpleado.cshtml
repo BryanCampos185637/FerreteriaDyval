@@ -1,0 +1,50 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+
+<!--registrase-->
+<div class="col-lg-12 col-sm-12">
+    <div class="text-center">
+        <h2>Ferreteria La Terminal&reg;</h2>
+    </div><hr />
+    <div class="card" style="box-shadow: 2px 2px 5px #999;">
+        <div class="card-header bg-dark">
+            <h3 class="card-title text-light">Registrate </h3><span class="text-light">[Por ser el primero en registrarte tendrás el rol de Administrador]</span>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="form-group col-lg-6 col-sm-12">
+                    <label>Nombre:</label>
+                    <input type="text" autocomplete="off" autofocus class="form-control requerid data" placeholder="Escriba el nombre" name="nombrecompleto" id="nombrecompleto" />
+                </div>
+                <div class="form-group col-lg-6 col-sm-12">
+                    <label>Edad:</label>
+                    <input type="number" autocomplete="off" min="0" class="form-control requerid data" placeholder="Escriba la edad" name="edad" id="edad" />
+                </div>
+                <div class="form-group col-lg-6 col-sm-12">
+                    <label>Telefono:</label>
+                    <input type="tel" autocomplete="off" min="0" class="form-control requerid data" placeholder="Escriba telefono" name="telefono" id="telefono" />
+                </div>
+                <div class="form-group col-lg-6 col-sm-12">
+                    <label>DUI:</label>
+                    <input type="text" autocomplete="off" min="0" class="form-control requerid data" placeholder="Escriba el dui" name="dui" id="dui" maxlength="10" />
+                </div>
+                <div class="form-group col-lg-6 col-sm-12">
+                    <label>Nombre usuario:</label>
+                    <input type="text" autocomplete="off" class="form-control requerid data" id="nombreusuario" name="nombreusuario" placeholder="Escribe el nombre usuario" />
+                </div>
+                <div class="form-group col-lg-6 col-sm-12">
+                    <label>Contraseña:</label>
+                    <input type="password" autocomplete="off" class="form-control requerid data" id="contraseña" name="contraseña" placeholder="Escribe la contraseña" />
+                </div>
+            </div>
+        </div>
+        <div class="card-footer text-center">
+            <input type="button" class="btn btn-primary" value="Registrar" onclick="Guardar()" />
+        </div>
+    </div>
+</div>
+<script src="~/lib/Inputmask-5.x/dist/inputmask.js"></script>
+<script src="~/lib/Inputmask-5.x/dist/jquery.inputmask.js"></script>
+<script src="~/js/PeticionesAJX/registrar.js"></script>

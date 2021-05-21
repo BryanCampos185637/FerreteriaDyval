@@ -8,7 +8,7 @@ namespace AdminFerreteria.Controllers
     public class BitacoraSistemaController : Controller
     {
         BitacoraSistemaDAL DAL = new BitacoraSistemaDAL();
-        [ServiceFilter(typeof(FiltroDePaginaTipoUsuario))]
+        [ServiceFilter(typeof(FiltroDeAutenticacionValidacion))]
         public IActionResult Index(string filtro = null, int pagina = 1, int cantidad = 5)
         {
             if (filtro == null) { filtro = ""; }

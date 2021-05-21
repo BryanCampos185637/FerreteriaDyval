@@ -19,7 +19,7 @@ namespace AdminFerreteria.Controllers
         private decimal totalProductosValidosDescuentoGlobal;
         private decimal totalDescuentoGlobal;
         CotizacionPendienteDAL dal = new CotizacionPendienteDAL();
-        [ServiceFilter(typeof(FiltroDePaginaTipoUsuario))]
+        [ServiceFilter(typeof(FiltroDeAutenticacionValidacion))]
         public IActionResult Index()
         {
             return View();

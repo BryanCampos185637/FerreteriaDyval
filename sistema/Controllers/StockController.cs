@@ -10,7 +10,7 @@ namespace AdminFerreteria.Controllers
     public class StockController : Controller
     {
         StockDAL dal = new StockDAL();
-        [ServiceFilter(typeof(FiltroDePaginaTipoUsuario))]
+        [ServiceFilter(typeof(FiltroDeAutenticacionValidacion))]
         public IActionResult Index()
         {
             return View();

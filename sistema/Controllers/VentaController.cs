@@ -16,7 +16,7 @@ namespace AdminFerreteria.Controllers
     [ServiceFilter(typeof(FiltroDeAcciones))]
     public class VentaController : Controller
     {
-        [ServiceFilter(typeof(FiltroDePaginaTipoUsuario))]
+        [ServiceFilter(typeof(FiltroDeAutenticacionValidacion))]
         public IActionResult Index()
         {
             return View();

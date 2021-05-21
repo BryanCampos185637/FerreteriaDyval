@@ -6,13 +6,13 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace AdminFerreteria.Helper.HelperSeguridad
 {
-    public class FiltroDePaginaTipoUsuario : IActionFilter
+    public class FiltroDeAutenticacionValidacion : IActionFilter
     {
         //antes de retornar el view
         public void OnActionExecuted(ActionExecutedContext context)
         {
             #region validacion de validacion
-            int? sesionActiva = HelperSession.ObtenerCookie.obtenerObjetoSesion(context.HttpContext.Session, "UsuarioLogueado");
+            int? sesionActiva = HelperSession.Cookies.obtenerObjetoSesion(context.HttpContext.Session, "UsuarioLogueado");
             if (sesionActiva == null)
                 context.Result = new RedirectResult("/Login/Index");//devolvemos a la vista login
             #endregion
@@ -21,7 +21,7 @@ namespace AdminFerreteria.Helper.HelperSeguridad
         public void OnActionExecuting(ActionExecutingContext context)
         {
             #region validacion de usuario
-            int? sesionActiva = HelperSession.ObtenerCookie.obtenerObjetoSesion(context.HttpContext.Session, "UsuarioLogueado");
+            int? sesionActiva = HelperSession.Cookies.obtenerObjetoSesion(context.HttpContext.Session, "UsuarioLogueado");
             if (sesionActiva == null || sesionActiva <= 0) 
                 context.Result = new RedirectResult("/Login/Index");//devolvemos a la vista login
             #endregion

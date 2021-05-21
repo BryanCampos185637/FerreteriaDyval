@@ -2,7 +2,7 @@
 
 namespace AdminFerreteria.Helper.HelperSession
 {
-    public static class ObtenerCookie
+    public static class Cookies
     {
         //antes de retornar el viex
         public static void crearCookieSession(this ISession session, string key, int? value)

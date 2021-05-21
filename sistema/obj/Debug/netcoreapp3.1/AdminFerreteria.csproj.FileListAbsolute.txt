@@ -1082,3 +1082,8 @@ C:\Users\Bryan J. Campos\Documents\GitHub\FerreteriaDyval\sistema\obj\Debug\netc
 C:\Users\Bryan J. Campos\Documents\GitHub\FerreteriaDyval\sistema\obj\Debug\netcoreapp3.1\AdminFerreteria.genruntimeconfig.cache
 C:\Users\Bryan J. Campos\Documents\GitHub\FerreteriaDyval\sistema\obj\Debug\netcoreapp3.1\Razor\Views\BitacoraSistema\Index.cshtml.g.cs
 C:\Users\Bryan J. Campos\Documents\GitHub\FerreteriaDyval\sistema\obj\Debug\netcoreapp3.1\Razor\Views\BitacoraSistema\_Paginador.cshtml.g.cs
+C:\Users\Bryan J. Campos\Documents\GitHub\FerreteriaDyval\sistema\obj\Debug\netcoreapp3.1\Razor\Views\Home\_ConfiguracionInicial.cshtml.g.cs
+C:\Users\Bryan J. Campos\Documents\GitHub\FerreteriaDyval\sistema\obj\Debug\netcoreapp3.1\Razor\Views\Home\_UnidadInicial.cshtml.g.cs
+C:\Users\Bryan J. Campos\Documents\GitHub\FerreteriaDyval\sistema\obj\Debug\netcoreapp3.1\Razor\Views\Home\_StockInicial.cshtml.g.cs
+C:\Users\Bryan J. Campos\Documents\GitHub\FerreteriaDyval\sistema\obj\Debug\netcoreapp3.1\Razor\Views\Login\_RegistrarPrimerEmpleado.cshtml.g.cs
+C:\Users\Bryan J. Campos\Documents\GitHub\FerreteriaDyval\sistema\obj\Debug\netcoreapp3.1\Razor\Views\Login\_LogIn.cshtml.g.cs

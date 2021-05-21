@@ -10,7 +10,7 @@ namespace AdminFerreteria.Controllers
     public class FacturaEmitidaController : Controller
     {
         FacturaEmitidaDAL dal = new FacturaEmitidaDAL();
-        [ServiceFilter(typeof(FiltroDePaginaTipoUsuario))]
+        [ServiceFilter(typeof(FiltroDeAutenticacionValidacion))]
         public IActionResult Index()
         {
             return View();

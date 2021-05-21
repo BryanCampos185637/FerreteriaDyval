@@ -14,7 +14,7 @@ namespace AdminFerreteria.Controllers
     public class FacturaController : Controller
     {
         FacturaDAL dal = new FacturaDAL();
-        [ServiceFilter(typeof(FiltroDePaginaTipoUsuario))]
+        [ServiceFilter(typeof(FiltroDeAutenticacionValidacion))]
         public IActionResult Index()
         {
             return View();

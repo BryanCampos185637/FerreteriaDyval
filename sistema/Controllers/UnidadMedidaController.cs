@@ -11,7 +11,7 @@ namespace AdminFerreteria.Controllers
     public class UnidadMedidaController : Controller
     {
         UnidadMedidaDAL dal = new UnidadMedidaDAL();
-        [ServiceFilter(typeof(FiltroDePaginaTipoUsuario))]
+        [ServiceFilter(typeof(FiltroDeAutenticacionValidacion))]
         public IActionResult Index()
         {
             return View();

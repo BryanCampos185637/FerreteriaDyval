@@ -11,7 +11,7 @@ namespace AdminFerreteria.Controllers
     public class ClienteController : Controller
     {
         ClienteDAL dal = new ClienteDAL();
-        [ServiceFilter(typeof(FiltroDePaginaTipoUsuario))]
+        [ServiceFilter(typeof(FiltroDeAutenticacionValidacion))]
         public IActionResult Index()
         {
             return View();

@@ -1,0 +1,38 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+
+<!--Login-->
+<div class="offset-lg-3 col-lg-6 col-sm-12">
+    <div class="text-center">
+        <h2>Ferreteria La Terminal&reg;</h2>
+    </div><hr />
+    <div class="card mb-5">
+        <div class="card-header bg-dark">
+            <center>
+                <h3 class="text-light">Inicie sesión</h3>
+            </center>
+        </div>
+        <form id="frmLogin">
+            <div class="card-body">
+                <div id="mensaje">
+                </div>
+                <div class="form-group">
+                    <label>Usuario</label>
+                    <input type="text" class="form-control" autofocus id="txtUsuario" placeholder="Escribe tu nombre de usuario" autocomplete="off" />
+                </div>
+                <div class="form-group">
+                    <label>Contraseña</label>
+                    <input type="password" class="form-control" id="txtContraseña" placeholder="Escribe tu contraseña" />
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Entrar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="~/js/PeticionesAJX/login.js"></script>

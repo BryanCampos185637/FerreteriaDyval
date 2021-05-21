@@ -3,31 +3,35 @@ using Microsoft.AspNetCore.Mvc;
 using AdminFerreteria.Models;
 using Microsoft.AspNetCore.Http;
 using System;
+using AdminFerreteria.Helper.HelperSeguridad;
 
 namespace AdminFerreteria.Controllers
 {
     public class HomeController : Controller
     {
+        [ServiceFilter(typeof(FiltroDeAcciones))]
         public IActionResult Index()
         {
             BDFERRETERIAContext db = new BDFERRETERIAContext();
-            int? idUsuario = 0;
-            idUsuario = HttpContext.Session.GetInt32("UsuarioLogueado");
-            if (idUsuario > 0 && idUsuario != null)
-            {
-                ViewBag.nombre = HttpContext.Session.GetString("NombreUsuario");
-                ViewBag.unidad = db.Unidadmedida.Where(p => p.Bhabilitado == "A").Count();
-                ViewBag.stock = db.Stock.Where(p => p.Bhabilitado == "A").Count();
-                Configuracion confi = db.Configuracion.Where(p => p.Iidconfiguracion.Equals(1)).FirstOrDefault();
-                ViewBag.configuracion = confi;
-                return View();
-            }
-            else
-            {
-                return Redirect("/Login/index");
-            }
+            ViewBag.nombre = HttpContext.Session.GetString("NombreUsuario");
+            ViewBag.unidad = db.Unidadmedida.Where(p => p.Bhabilitado == "A").Count();
+            ViewBag.stock = db.Stock.Where(p => p.Bhabilitado == "A").Count();
+            ViewBag.configuracion = db.Configuracion.Count();
+            return View();
         }
         public IActionResult Error()
+        {
+            return View();
+        }
+        public IActionResult _ConfiguracionInicial()
+        {
+            return View();
+        }
+        public IActionResult _UnidadInicial()
+        {
+            return View();
+        }
+        public IActionResult _StockInicial()
         {
             return View();
         }
