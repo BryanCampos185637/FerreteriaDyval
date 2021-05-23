@@ -14,6 +14,10 @@ namespace AdminFerreteria.Controllers
         {
             return View();
         }
+        public IActionResult _FormularioRegistro()
+        {
+            return View();
+        }
         ConfiguracionDAL dal = new ConfiguracionDAL();
 
         public JsonResult getConfiguration()

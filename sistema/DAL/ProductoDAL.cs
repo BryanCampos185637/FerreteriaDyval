@@ -15,6 +15,7 @@ namespace AdminFerreteria.DAL
             {
                 if (Codigo != null)
                 {
+                    #region filtrar por codigo
                     var lst = (from product in db.Producto
                                join stock in db.Stock on
                                product.Iidstock equals stock.Iidstock
@@ -41,9 +42,11 @@ namespace AdminFerreteria.DAL
                                    Equivalencia = product.Equivalencia
                                }).ToList();
                     return lst;
+                    #endregion
                 }
                 else if (Nombre != null)
                 {
+                    #region filtrar por nombre
                     var lst = (from product in db.Producto
                                join stock in db.Stock on
                                product.Iidstock equals stock.Iidstock
@@ -70,10 +73,11 @@ namespace AdminFerreteria.DAL
                                    Equivalencia = product.Equivalencia
                                }).Take(500).ToList();
                     return lst;
+                    #endregion
                 }
                 else
                 {
-                    #region entity
+                    #region sin filtro
                     var lista = (from product in db.Producto
                                  join stock in db.Stock on
                                  product.Iidstock equals stock.Iidstock
@@ -99,9 +103,9 @@ namespace AdminFerreteria.DAL
                                      Nombrestock = stock.Nombrestock,
                                      Restantes = product.Restantes == null ? -1000 : product.Restantes,
                                      Equivalencia = product.Equivalencia
-                                 }).Take(500).ToList();
-                    #endregion
+                                 }).Take(100).ToList();
                     return lista;
+                    #endregion
                 }
             }
         }

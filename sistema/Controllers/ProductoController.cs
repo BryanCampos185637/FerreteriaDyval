@@ -11,12 +11,12 @@ namespace AdminFerreteria.Controllers
     [ServiceFilter(typeof(FiltroDeAcciones))]
     public class ProductoController : Controller
     {
+        ProductoDAL dal = new ProductoDAL();
         [ServiceFilter(typeof(FiltroDeAutenticacionValidacion))]
         public IActionResult Index()
         {
             return View();
         }
-        ProductoDAL dal = new ProductoDAL();
         [HttpGet]
         public JsonResult filtrarProductos(string Codigo, string Nombre)
         {

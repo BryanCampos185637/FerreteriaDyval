@@ -8,18 +8,16 @@
     {
         <h5>BIENVENIDO AL SISTEMA @ViewBag.nombre <i class="fas fa-smile"></i></h5>
     }
-    @{ 
-       if (ViewBag.configuracion <= 0)
-       {
-            <partial name="~/Views/Home/_ConfiguracionInicial.cshtml" />
-       }
-       else if (ViewBag.unidad <= 0)
-       {
-            <partial name="~/Views/Home/_UnidadInicial.cshtml" />
-       }
-       else if (ViewBag.stock <= 0)
-       {
-            <partial name="~/Views/Home/_StockInicial.cshtml" />      
-       }
+    @if (ViewBag.configuracion <= 0)
+    {
+        <partial name="~/Views/Home/_ConfiguracionInicial.cshtml" /> 
+    }
+    else if (ViewBag.unidad <= 0)
+    {
+        <partial name="~/Views/Home/_UnidadInicial.cshtml" /> 
+    }
+    else if (ViewBag.stock <= 0)
+    {
+        <partial name="~/Views/Home/_StockInicial.cshtml" />
     }
 </div>
