@@ -18,6 +18,11 @@ namespace AdminFerreteria.Controllers
             return View();
         }
         [HttpGet]
+        public JsonResult TotalProductos()
+        {
+            return Json(dal.cantidadDeProductos());
+        }
+        [HttpGet]
         public JsonResult filtrarProductos(string Codigo, string Nombre)
         {
             return Json(dal.buscarProductos(Codigo, Nombre));

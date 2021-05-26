@@ -202,5 +202,38 @@ namespace AdminFerreteria.DAL
                     return "No tiene";
             }
         }
+        public void insertar100productos()
+        {
+            using (var db = new BDFERRETERIAContext())
+            {
+                for(var i = 1; i <= 100; i++)
+                {
+                    db.Producto.Add(new Producto
+                    {
+                        Iidstock = 1,
+                        Iidunidadmedida = 1,
+                        Descripcion = "Producto " + i.ToString(),
+                        Codigoproducto = "cod_" + i.ToString(),
+                        Existencias = 0,
+                        Preciocompra = 10,
+                        Ganancia = 1,
+                        Iva = 10,
+                        Porcentajeganancia = 2,
+                        Precioventa = 20,
+                        Bhabilitado = "A"
+                    });
+                    if (i % 25 == 0)
+                        db.SaveChanges();
+                }
+                db.SaveChanges();
+            }
+        }
+        public int cantidadDeProductos()
+        {
+            using (var db = new BDFERRETERIAContext())
+            {
+                return db.Producto.Where(p => p.Bhabilitado == "A").Count();
+            }
+        }
     }
 }

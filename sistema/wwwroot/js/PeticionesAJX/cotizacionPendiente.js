@@ -25,6 +25,7 @@ function paintTable() {
         $('#tableCotizacion').DataTable({
             pageLength: 5,
             lengthMenu: [5, 12, 18, 24],
+            lengthChange: false,
             language: idiomaTabla
         });
     });
@@ -101,6 +102,7 @@ function verListaDeProductos(id) {
         $('#listaCotizacion').DataTable({
             pageLength: 2,
             lengthMenu: [2, 4, 6, 8],
+            lengthChange: false,
             language: idiomaTabla
         });
     });
@@ -252,6 +254,7 @@ function abrirModalCliente() {
         $("#tablecliente").DataTable({
             pageLength: 5,
             lengthMenu: [5, 10, 15, 20],
+            lengthChange: false,
             language: idiomaTabla
         });
     });
@@ -366,6 +369,7 @@ function abrirModalProducto(tipo) {
             searching: false,
             pageLength: 5,
             lengthMenu: [5, 10, 15, 20],
+            lengthChange: false,
             language: idiomaTabla
         });
     });
@@ -549,6 +553,7 @@ function mostrarPosiblesProductosParDescuentoGeneral(link, headboard) {
         $("#ListaProductosDescuento").DataTable({
             pageLength: 5,
             lengthMenu: [5, 12, 18, 24],
+            lengthChange: false,
             language: idiomaTabla,
             searching: false
         });

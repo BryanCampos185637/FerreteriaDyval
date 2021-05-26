@@ -2,7 +2,12 @@
     callTable();
     llenarCombosFormularioProducto();
 }
-
+function contadorDeProductos()
+{
+    $.get('/producto/TotalProductos', (data) => {
+        $('#divTotalProductos').html('<span>Total de registros ' + data + '</span>');
+    })
+}
 function callTable(tipo) {
     var url = '/producto/filtrarProductos';
     var codigo = document.getElementById('filtrarPorCodigo');
@@ -26,6 +31,7 @@ function callTable(tipo) {
     paintTable(url, ['código', 'descripción', 'Precio compra', 'iva', 'utilidad', 'precio', 'ex. venta', 'subexistencia', 'precio','fracciones'],
         ['codigoproducto', 'descripcion', 'preciocompra', 'iva', 'ganancia', 'precioventa', 'existencias', 'subexistencia', 'subprecioventa', 'restantes'],
         'iidproducto', 'modalProducto', true, true, false);
+    contadorDeProductos();
 };
 
 function llenarCombosFormularioProducto() {
