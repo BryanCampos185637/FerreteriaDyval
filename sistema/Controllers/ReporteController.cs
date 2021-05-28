@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using AdminFerreteria.DAL;
 using AdminFerreteria.Helper.HelperSeguridad;
 using AdminFerreteria.Models;
 using AdminFerreteria.Request;
@@ -9,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using AdminFerreteria.DAL;
 
 namespace AdminFerreteria.Controllers
 {
@@ -18,10 +18,17 @@ namespace AdminFerreteria.Controllers
         [ServiceFilter(typeof(FiltroDeAutenticacionValidacion))]
         public IActionResult Index()
         {
-            BDFERRETERIAContext db = new BDFERRETERIAContext();
-            var empleado = db.Empleado.Where(p => p.Iidempleado == 1).First();
+            var empleado = EmpleadoDAL.obtenerElPrimerEmpleado();
             DateTime fecha = Convert.ToDateTime(empleado.Fechacreacion);
             ViewBag.fechaInicioSistema = fecha.ToString("yyyy-MM-dd");//el primer usuario que se registro fue la primer funcion que se hizo en el sistema
+            return View();
+        }
+        public IActionResult _FormularioReporteInventario()
+        {
+            return View();
+        }
+        public IActionResult _FormularioReporteVenta()
+        {
             return View();
         }
         //crea la lista de reportes tomando las fechas establecidas por el usuario
@@ -29,98 +36,7 @@ namespace AdminFerreteria.Controllers
         {
             try
             {
-                List<ListFactura> lstFactura = new List<ListFactura>();
-                using (var db = new BDFERRETERIAContext())
-                {
-                    if (desde != null && hasta != null)// si los dos parametros vienen llenos
-                    {
-                        lstFactura = (from factura in db.Factura
-                                      join usuario in db.Usuario on
-                                      factura.Iidusuario equals usuario.Iidusuario
-                                      join empleado in db.Empleado on
-                                      usuario.Iidempleado equals empleado.Iidempleado
-                                      where factura.Bhabilitado == "A"
-                                      && factura.Fechacreacion >= Convert.ToDateTime(desde)
-                                      && factura.Fechacreacion <= Convert.ToDateTime(hasta)
-                                      select new ListFactura
-                                      {
-                                          iidfactura = factura.Iidfactura,
-                                          iidusuario = factura.Iidusuario,
-                                          nombrevendedor = empleado.Nombrecompleto,
-                                          tipocomprador = factura.Tipocomprador,
-                                          nombrecomprador = factura.Nombrecliente,
-                                          direccion = factura.Direccion,
-                                          registro = factura.Registro,
-                                          giro = factura.Giro,
-                                          nit = factura.Nit,
-                                          nofactura = factura.Nofactura,
-                                          total = (decimal)factura.Total,
-                                          fechaemitida = factura.Fechacreacion.ToShortDateString(),
-                                          porcentajedescuento=factura.Porcentajedescuentoglobal,
-                                          descuentogeneral=factura.Descuentoglobal,
-                                          efectivo=(decimal)factura.Efectivo,
-                                          cambio=(decimal)factura.Cambio
-                                      }).ToList();
-                    }
-                    else if (desde != null && hasta == null)//reporte de dia especifico
-                    {
-                        lstFactura = (from factura in db.Factura
-                                      join usuario in db.Usuario on
-                                      factura.Iidusuario equals usuario.Iidusuario
-                                      join empleado in db.Empleado on
-                                      usuario.Iidempleado equals empleado.Iidempleado
-                                      where factura.Bhabilitado == "A"
-                                      && factura.Fechacreacion >= Convert.ToDateTime(desde)
-                                      && factura.Fechacreacion <= Convert.ToDateTime(desde)
-                                      select new ListFactura
-                                      {
-                                          iidfactura = factura.Iidfactura,
-                                          iidusuario = factura.Iidusuario,
-                                          nombrevendedor = empleado.Nombrecompleto,
-                                          tipocomprador = factura.Tipocomprador,
-                                          nombrecomprador = factura.Nombrecliente,
-                                          direccion = factura.Direccion,
-                                          registro = factura.Registro,
-                                          giro = factura.Giro,
-                                          nit = factura.Nit,
-                                          nofactura = factura.Nofactura,
-                                          total = (decimal)factura.Total,
-                                          fechaemitida = factura.Fechacreacion.ToShortDateString(),
-                                          porcentajedescuento = factura.Porcentajedescuentoglobal,
-                                          descuentogeneral = factura.Descuentoglobal,
-                                          efectivo = (decimal)factura.Efectivo,
-                                          cambio = (decimal)factura.Cambio
-                                      }).ToList();
-                    }
-                    else//reporte general
-                    {
-                        lstFactura = (from factura in db.Factura
-                                      join usuario in db.Usuario on
-                                      factura.Iidusuario equals usuario.Iidusuario
-                                      join empleado in db.Empleado on
-                                      usuario.Iidempleado equals empleado.Iidempleado
-                                      where factura.Bhabilitado == "A"
-                                      select new ListFactura
-                                      {
-                                          iidfactura = factura.Iidfactura,
-                                          iidusuario = factura.Iidusuario,
-                                          nombrevendedor = empleado.Nombrecompleto,
-                                          tipocomprador = factura.Tipocomprador,
-                                          nombrecomprador = factura.Nombrecliente,
-                                          direccion = factura.Direccion,
-                                          registro = factura.Registro,
-                                          giro = factura.Giro,
-                                          nit = factura.Nit,
-                                          nofactura = factura.Nofactura,
-                                          total= (decimal)factura.Total,
-                                          fechaemitida = factura.Fechacreacion.ToShortDateString(),
-                                          porcentajedescuento = factura.Porcentajedescuentoglobal,
-                                          descuentogeneral = factura.Descuentoglobal,
-                                          efectivo = (decimal)factura.Efectivo,
-                                          cambio = (decimal)factura.Cambio
-                                      }).ToList();
-                    }
-                }
+                List<ListFactura> lstFactura = ReporteDAL.CrearListaReporteVenta(desde, hasta);
                 string listaSerializada = JsonConvert.SerializeObject(lstFactura);
                 HttpContext.Session.SetString("lstFactura", listaSerializada);
                 return 1; 
@@ -131,7 +47,7 @@ namespace AdminFerreteria.Controllers
             }
         }
         //accion para generar reporte
-        public FileResult ReporteVentas()
+        public ActionResult ReporteVentas()
         {
             try
             {
@@ -143,30 +59,47 @@ namespace AdminFerreteria.Controllers
             }
             catch(Exception e)
             {
-                return null;
+                TempData["Mensaje"] = e.Message;
+                return RedirectToAction("Index");
             }
         }
-
-        public FileResult ReporteInventario()
+        //genera el reporte
+        public ActionResult ReporteInventario(string tipo)
         {
             byte[] buffer = null;
             try
             {
+                #region obtenemos data y creamos variables 
                 string lstSerializada = HttpContext.Session.GetString("ReporteInventario");//obtenemos la lista de la cookie
                 List<ListReporteInventario> listReporteInventarios = JsonConvert.DeserializeObject<List<ListReporteInventario>>(lstSerializada);
-                string[] cabecera = {"COD", "DESCRIPCIÓN","PROVEEDOR", "BODEGA", "STOCK", "UM", "CANT", "PRECIO","UM", "CANT", "PRECIO" };
-                string[] propiedades = { "Codigoproducto", "Nombreproducto","Proveedor", "Nombrebodega", "Nombrestock", "Nombreunidad", "Cantidad", "Precio", "Nombresubunidad", "Subcantidad", "Subprecio" };
-                buffer = UtilidadesController.crearReporteInventario(listReporteInventarios,cabecera,propiedades);//obtenemos el reporte
+                string[] cabecera = { "COD", "DESCRIPCIÓN", "PROVEEDOR", "BODEGA", "STOCK", "UM", "CANT", "PRECIO", "UM", "CANT", "PRECIO" };
+                string[] propiedades = { "Codigoproducto", "Nombreproducto", "Proveedor", "Nombrebodega", "Nombrestock", "Nombreunidad", "Cantidad", "Precio", "Nombresubunidad", "Subcantidad", "Subprecio" };
+                string tipoMime = "";
+                #endregion
+
+                #region generamos el documento
+                if (tipo == "excel")
+                {
+                    buffer = UtilidadesController.crearReporteInventario(tipo, listReporteInventarios, cabecera, propiedades);//obtenemos el reporte
+                    tipoMime = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                }
+                else
+                {
+                    buffer = UtilidadesController.crearReporteInventario(tipo, listReporteInventarios, cabecera, propiedades);//obtenemos el reporte
+                    tipoMime = "application/pdf";
+                }
+                #endregion
+
                 HttpContext.Session.Remove("ReporteInventario");//removemos la lista que esta en la cookie
-                return File(buffer, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+                return File(buffer, tipoMime);
             }
             catch (Exception e)
             {
-                return File(buffer, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+                return Redirect("Index");
             }
         }
         [HttpPost]
-        public string crearCookieReporteInventario(Inventario inventario, string nombrestock)
+        public string crearListaReporteInventario(Inventario inventario, string nombrestock)
         {
             List<ListReporteInventario> lst = new List<ListReporteInventario>();
             try
@@ -183,9 +116,11 @@ namespace AdminFerreteria.Controllers
                 {
                     using (var db = new BDFERRETERIAContext())
                     {
+                        #region obtenemos la data
                         lst = db.Producto.Where(p => p.Bhabilitado == "A").Include(x => x.IidstockNavigation)
                             .Include(x => x.IidstockNavigation).Select(p => new ListReporteInventario
                             {
+                                Iidproducto=p.Iidproducto,
                                 Nombrebodega = "Sala de venta".ToUpper(),
                                 Nombreproducto = p.Descripcion,
                                 Nombreunidad = p.IidunidadmedidaNavigation.Nombreunidad,
@@ -201,6 +136,7 @@ namespace AdminFerreteria.Controllers
                             .Include(x => x.IidstockNavigation).Include(x => x.IidbodegaNavigation)
                             .Include(x => x.IidproductoNavigation).Select(p => new ListReporteInventario
                             {
+                                Iidproducto = p.Iidproducto,
                                 Nombrebodega = p.IidbodegaNavigation.Nombrebodega,
                                 Nombreproducto = p.IidproductoNavigation.Descripcion,
                                 Nombreunidad = db.Unidadmedida.Where(y => y.Iidunidadmedida == p.IidproductoNavigation.Iidunidadmedida).FirstOrDefault().Nombreunidad,
@@ -213,6 +149,8 @@ namespace AdminFerreteria.Controllers
                                 Codigoproducto = p.IidproductoNavigation.Codigoproducto
                             }).ToList();
                         lst.AddRange(listaBodegas);
+                        #endregion
+                        lst = ReporteDAL.ObtenerProveedoresReporteInventario(db, lst);
                     }
                 }
                 //ordenamos la lista por el nombre del stock

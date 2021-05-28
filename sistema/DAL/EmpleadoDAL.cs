@@ -9,6 +9,13 @@ namespace AdminFerreteria.DAL
 {
     public class EmpleadoDAL
     {
+        public static Empleado obtenerElPrimerEmpleado()
+        {
+            using (var db = new BDFERRETERIAContext())
+            {
+                return db.Empleado.Where(p => p.Iidempleado == 1).First();
+            }
+        }
         public List<Empleado> listarEmpleados()
         {
             using (var db = new BDFERRETERIAContext())

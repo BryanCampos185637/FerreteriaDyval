@@ -64,6 +64,7 @@ function paintTable(link, headboard) {
         $("#pagination").DataTable({
             pageLength: 4,
             lengthMenu: [4, 10, 15, 20],
+            lengthChange: false,
             language: idiomaTabla
         });
         //agreamos al detalle de la venta los totales
@@ -114,7 +115,7 @@ function abrirModalProducto(tipo) {
         html += '<tbody>';
         $.each(data, function (objeto, propiedad) {
             var existencia = propiedad.existencias * 1;
-            var subexistencia = propiedad.subexistencia * 1;
+            var subexistencia = propiedad.subexistencia;
             var subprecio = propiedad.subprecioventa * 1;
             var equivalencia = propiedad.equivalencia;
             html += '<tr>';
@@ -138,30 +139,9 @@ function abrirModalProducto(tipo) {
                 html += '<td class="text-center"><i class="fas fa-exclamation"></i></td>';
             /*botonera de opciones*/
             html += '<td class="text-center">';
-            if (existencia > 0) {//si es mayor a 0 se puede vender
-                if (existencia > 1) {//SI LA EXISTENCIA ES MAYOR A 1 NO HAY NINGUNA VALIDACION
-                    html += '<a title="Selecciona el producto con el precio original" class="badge badge-primary" href="#" onclick="getProducto(' + propiedad.iidproducto + ')">' + propiedad.nombreunidad + '</a> ';
-                    if (subexistencia > 0 && subexistencia != null) {//si la sub existencia existe podemos vender original y sub producto
-                        html += '<a title="Selecciona el producto con el subprecio" class="badge badge-success" href="#" onclick="getSubProducto(' + propiedad.iidproducto + ')">' + propiedad.nombresubunidad + '</a> ';
-                    }
-                }
-                else if (existencia == 1) {//SI PRODUCTO SOLO TIENE 1 Y TIENE SUB PRODUCTO SE DEBE VALIDAR
-                    if (subexistencia <= 0 || subexistencia == null) {//SI NO TIENE SUB PRODUCTO SOLO SE AGREGA EL BOTON AZUL
-                        html += '<a title="Selecciona el producto con el precio original" class="badge badge-primary" href="#" onclick="getProducto(' + propiedad.iidproducto + ')">' + propiedad.nombreunidad + '</a> ';
-                    }
-                    else {//SI TIENE SUB PRODUCTO SE DEBE VALIDAR EL BOTON AZUL 
-                        if (subexistencia >= equivalencia) {//SI LA EQUIVALENCIA ES MAYOR O IGUAL A LAS SUB EXISTENCIAS PUEDE VENDERSE EL ORIGINAL Y LAS SUB PIEZAS
-                            html += '<a title="Selecciona el producto con el precio original" class="badge badge-primary" href="#" onclick="getProducto(' + propiedad.iidproducto + ')">' + propiedad.nombreunidad + '</a> ';
-                            html += '<a title="Selecciona el producto con el subprecio" class="badge badge-success" href="#" onclick="getSubProducto(' + propiedad.iidproducto + ')">' + propiedad.nombresubunidad + '</a> ';
-                        }
-                        else {//SI ES MENOR QUE LA EQUIVALENCIA SOLO EL SUB PRODUCTO
-                            html += '<a title="Selecciona el producto con el subprecio" class="badge badge-success" href="#" onclick="getSubProducto(' + propiedad.iidproducto + ')">' + propiedad.nombresubunidad + '</a> ';
-                        }
-                    }
-                }
-            }
-            else {//si es menor a 0
-                html += '<a title="Este producto no cuenta con existencias" class="btn-sm btn-danger" href="#" onclick="mensajeError()">No hay <i class="fas fa-exclamation-triangle"></i></a> ';
+            html += '<a title="Selecciona el producto con el precio original" class="badge badge-primary" href="#" onclick="getProducto(' + propiedad.iidproducto + ')">' + propiedad.nombreunidad + '</a> ';
+            if (propiedad.nombresubunidad != 'No tiene') {//si la sub existencia existe podemos vender original y sub producto
+                html += '<a title="Selecciona el producto con el subprecio" class="badge badge-success" href="#" onclick="getSubProducto(' + propiedad.iidproducto + ')">' + propiedad.nombresubunidad + '</a> ';
             }
             html += '</td>';
             html += '</tr>';
@@ -173,6 +153,7 @@ function abrirModalProducto(tipo) {
             searching: false,
             pageLength: 5,
             lengthMenu: [5, 10, 15, 20],
+            lengthChange: false,
             language: idiomaTabla
         });
     });
@@ -184,7 +165,7 @@ function getProducto(id) {
     * @param {any} id//se solicita el id del producto
     */
     $.get('/producto/getProductoById?id=' + id, function (data) {
-        $('#txtExistencias').val(data.existencias);
+        $('#txtExistencias').val(1000000);
         $('#txtPrecioUnitario').val(data.precioventa);
         $('#iidproducto').val(data.iidproducto);
         $('#subunidad').val(0);
@@ -201,7 +182,7 @@ function getSubProducto(id) {
         $.get('/producto/ObtenerNombreUnidad?id=' + data.subunidad, function (nombreunidad) {
             $('#txtProducto').val('[' + nombreunidad + '] ' + data.descripcion);
         });
-        $('#txtExistencias').val(data.subexistencia);
+        $('#txtExistencias').val(1000000);
         $('#txtPrecioUnitario').val(data.subprecioventa);
         $('#iidproducto').val(data.iidproducto);
         $('#subunidad').val(data.subunidad);

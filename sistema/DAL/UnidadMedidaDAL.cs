@@ -8,6 +8,18 @@ namespace AdminFerreteria.DAL
 {
     public class UnidadMedidaDAL
     {
+        public static string ObtenerNombreSubUnidad(int? id)
+        {
+            //metodo que nos sirve para obtener el nombre de la subunidad
+            using (var db = new BDFERRETERIAContext())
+            {
+                var unidad = db.Unidadmedida.Where(p => p.Iidunidadmedida.Equals(id)).FirstOrDefault();
+                if (unidad != null)
+                    return unidad.Nombreunidad;
+                else
+                    return "No tiene";
+            }
+        }
         public List<Unidadmedida> listar()
         {
             using (var db = new BDFERRETERIAContext())

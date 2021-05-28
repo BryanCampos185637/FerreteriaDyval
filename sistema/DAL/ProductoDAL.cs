@@ -212,8 +212,8 @@ namespace AdminFerreteria.DAL
                     {
                         Iidstock = 1,
                         Iidunidadmedida = 1,
-                        Descripcion = "Producto " + i.ToString(),
-                        Codigoproducto = "cod_" + i.ToString(),
+                        Descripcion = "CA-38 PALA DÚPLEX MANGO FIBRA DE VIDRIO, HOJA REMACHADA, MANGOS FIBRA DE VIDRIO 44" + i.ToString(),
+                        Codigoproducto = "cod_" + (i*89).ToString(),
                         Existencias = 0,
                         Preciocompra = 10,
                         Ganancia = 1,

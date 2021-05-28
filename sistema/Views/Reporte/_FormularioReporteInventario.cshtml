@@ -1,0 +1,42 @@
+﻿<div class="card">
+    <div class="card-header bg-dark" id="headingTwo">
+        <h5 class="mb-0">
+            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                <h4 class="text-light"><i class="fas fa-file-excel"></i> Reportes de inventario</h4>
+            </button>
+        </h5>
+    </div>
+    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+        <div class="card-body">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12">
+                        <p>
+                            Selecciona la bodega y escribe el nombre del stock que deseas que se muestren en el reporte, si deseas un reporte general de las bodegas solo da click en el boton <strong>Crear Reporte</strong>
+                        </p>
+                    </div>
+                    <div class="col-lg-6 col-sm-12">
+                        <div class="form-group">
+                            <label>Ubicación</label>
+                            <select class="form-control" id="cbxBodega"></select>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-12">
+                        <div class="form-group">
+                            <label>Stock:</label>
+                            <input type="text" class="form-control" id="cbxStock" autocomplete="off" placeholder="Escribe el nombre del stock" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer text-center">
+                <button type="button" class="btn btn-success" id="btnCrearReporteInventarioEXCEL">Crear reporte EXCEL <i class="fas fa-save"></i></button>
+                <button type="button" class="btn btn-danger" id="btnCrearReporteInventarioPDF">Crear reporte PDF <i class="fas fa-save"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+<div style="display:none">
+    <a asp-action="ReporteInventario" asp-controller="Reporte" asp-route-tipo="excel" id="btnReporteInventarioExcel"></a>
+    <a asp-action="ReporteInventario" asp-controller="Reporte" asp-route-tipo="pdf" id="btnReporteInventarioPdf"></a>
+</div>

@@ -105,6 +105,7 @@ function abrirModalProducto(tipo) {
             searching: false,
             pageLength: 5,
             lengthMenu: [5, 10, 15, 20],
+            lengthChange: false,
             language: idiomaTabla
         });
     });
@@ -233,6 +234,7 @@ function paintTable(link, headboard) {
         $("#pagination").DataTable({
             pageLength: 4,
             lengthMenu: [4, 10, 15, 20],
+            lengthChange: false,
             language: idiomaTabla
         });
         //agreamos al detalle de la venta los totales
@@ -465,6 +467,7 @@ function abrirModalCliente() {
         $("#tablecliente").DataTable({
             pageLength: 5,
             lengthMenu: [5, 10, 15, 20],
+            lengthChange: false,
             language: idiomaTabla
         });
     });
@@ -564,6 +567,7 @@ function mostrarPosiblesProductosParDescuentoGeneral(link, headboard) {
         $("#ListaProductosDescuento").DataTable({
             pageLength: 5,
             lengthMenu: [5, 12, 18, 24],
+            lengthChange: false,
             language: idiomaTabla,
             searching: false
         });

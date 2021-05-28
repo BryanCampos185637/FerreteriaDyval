@@ -228,7 +228,7 @@ function eliminarProducto(id, idProducto, idCotizacion) {
 function abrirModalCliente() {
     $.get('/cliente/listCliente', function (data) {
         var html = '';
-        html += '<table class="table table-hover table-responsive-md table-responsive-sm" id="tablecliente">';
+        html += '<table class="table table-hover table-bordered table-responsive-lg table-responsive-md table-responsive-sm" id="tablecliente">';
         html += '<thead class="thead-dark">';
         html += '<tr>';
         html += '<th>NOMBRE</th>';
@@ -506,7 +506,7 @@ function mostrarPosiblesProductosParDescuentoGeneral(link, headboard) {
     $.get(link, function (data) {
         var html = ""; var totalComision = 0; var totalFactura = 0; var totalDescuento = 0;
         var totalComisionProductosListados = 0; var totalFacturaProductosListados = 0; var totalProductosNoListados = 0;
-        html += '<table class="table table-hover table-bordered table-responsive-md table-responsive-sm" id="ListaProductosDescuento">';
+        html += '<table class="table table-hover table-bordered table-responsive-lg table-responsive-md table-responsive-sm" id="ListaProductosDescuento">';
         html += '<thead class="thead-dark">'
         html += '<tr>'
         var i = 0;

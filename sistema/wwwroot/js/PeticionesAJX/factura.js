@@ -109,7 +109,7 @@ function paintTableFactura(link = '/factura/listFactura', headboard = ['no. fact
     primaryKey = 'iidfactura', idModal = 'modalFactura', optionDelete = false, optionEdit = true) {
     $.get(link, function (data) {
         var html = "";
-        html += '<table class="table table-hover table-bordered table-responsive-sm" id="pagination">';
+        html += '<table class="table table-hover table-bordered table-responsive-lg table-responsive-md table-responsive-sm" id="pagination">';
         html += '<thead class="thead-dark">'
         html += '<tr class="text-center">'
         var i = 0;
@@ -155,7 +155,7 @@ function paintTableCotizacion(link = '/factura/listCotizacion', headboard = ['no
     properties = ['nocotizacion', 'nombrecliente', 'nombreusuario', 'total'],primaryKey = 'iidcotizacion') {
     $.get(link, function (data) {
         var html = "";
-        html += '<table class="table table-hover table-bordered table-responsive-sm" id="pagination">';
+        html += '<table class="table table-hover table-bordered table-responsive-lg table-responsive-md table-responsive-sm" id="pagination">';
         html += '<thead class="thead-dark">'
         html += '<tr class="text-center">'
         var i = 0;

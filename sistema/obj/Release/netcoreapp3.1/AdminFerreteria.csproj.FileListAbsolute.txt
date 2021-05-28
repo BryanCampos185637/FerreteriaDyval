@@ -908,3 +908,9 @@ C:\Users\Bryan J. Campos\Documents\GitHub\FerreteriaDyval\sistema\obj\Release\ne
 C:\Users\Bryan J. Campos\Documents\GitHub\FerreteriaDyval\sistema\obj\Release\netcoreapp3.1\AdminFerreteria.dll
 C:\Users\Bryan J. Campos\Documents\GitHub\FerreteriaDyval\sistema\obj\Release\netcoreapp3.1\AdminFerreteria.pdb
 C:\Users\Bryan J. Campos\Documents\GitHub\FerreteriaDyval\sistema\obj\Release\netcoreapp3.1\AdminFerreteria.genruntimeconfig.cache
+C:\Users\Bryan J. Campos\Documents\GitHub\FerreteriaDyval\sistema\obj\Release\netcoreapp3.1\Razor\Views\Configuracion\_FormularioRegistro.cshtml.g.cs
+C:\Users\Bryan J. Campos\Documents\GitHub\FerreteriaDyval\sistema\obj\Release\netcoreapp3.1\Razor\Views\Home\_ConfiguracionInicial.cshtml.g.cs
+C:\Users\Bryan J. Campos\Documents\GitHub\FerreteriaDyval\sistema\obj\Release\netcoreapp3.1\Razor\Views\Home\_StockInicial.cshtml.g.cs
+C:\Users\Bryan J. Campos\Documents\GitHub\FerreteriaDyval\sistema\obj\Release\netcoreapp3.1\Razor\Views\Home\_UnidadInicial.cshtml.g.cs
+C:\Users\Bryan J. Campos\Documents\GitHub\FerreteriaDyval\sistema\obj\Release\netcoreapp3.1\Razor\Views\Login\_LogIn.cshtml.g.cs
+C:\Users\Bryan J. Campos\Documents\GitHub\FerreteriaDyval\sistema\obj\Release\netcoreapp3.1\Razor\Views\Login\_RegistrarPrimerEmpleado.cshtml.g.cs

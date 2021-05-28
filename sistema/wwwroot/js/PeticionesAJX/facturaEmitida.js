@@ -61,7 +61,7 @@ function edit(id) {
         });
         $.get('/factura/getDetallePedidoByIidfactura?id=' + id, function (lst) {
             var html = '';
-            html += '<table class="table table-hover table-bordered table-responsive-sm table-responsive-md" id = "listProductsFactura">';
+            html += '<table class="table table-hover table-bordered table-responsive-lg table-responsive-md table-responsive-sm" id = "listProductsFactura">';
             html += '<thead class="thead-dark">';
             html += '<tr>';
             html += '<th>PRODUCTO</th>';

@@ -4,11 +4,42 @@ using AdminFerreteria.Request;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using AdminFerreteria.DAL;
 
 namespace AdminFerreteria.DAL
 {
     public class FacturaDAL
     {
+        public static List<DetalleVenta> obtenerListaFacturaParaReporte(Int64 id)
+        {
+            using (var db = new BDFERRETERIAContext())
+            {
+                var lista = (from detalle in db.Detallepedido
+                             join producto in db.Producto on
+                             detalle.Iidproducto equals producto.Iidproducto
+                             join unidad in db.Unidadmedida on
+                             producto.Iidunidadmedida equals unidad.Iidunidadmedida
+                             where detalle.Iidfactura == id
+                             select new DetalleVenta
+                             {
+                                 cantidad = detalle.Cantidad,
+                                 nombreproducto = producto.Descripcion.ToUpper(),
+                                 preciounitario = (decimal)detalle.Precioactual,
+                                 total = (decimal)detalle.Subtotal,
+                                 descuento = (decimal)detalle.Descuento,
+                                 pdescuento = detalle.Porcentajedescuento,
+                                 comision = (decimal)detalle.Comision,
+                                 unidadmedida = unidad.Nombreunidad,
+                                 precioActual = (decimal)detalle.Precioactual,
+                                 Nombresubunidad = UnidadMedidaDAL.ObtenerNombreSubUnidad(producto.Subunidad),
+                                 subproducto = detalle.Essubproducto,
+                                 iva = (decimal)producto.Iva,
+                                 subiva = (decimal)producto.Subiva
+                             }).ToList();//listamos el detalle del pedido
+                return lista;
+            }
+        }
+
         public List<ListCotizacion> listarCotizaciones()
         {
             using (var db = new BDFERRETERIAContext())

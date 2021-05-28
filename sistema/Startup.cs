@@ -20,7 +20,7 @@ namespace AdminFerreteria
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSession(opt=> {
-                opt.IdleTimeout = TimeSpan.FromMinutes(30);
+                opt.IdleTimeout = TimeSpan.FromMinutes(15);
                 opt.Cookie.HttpOnly = true;
                 opt.Cookie.IsEssential = true;
             });//le decimos al sistema que usaremos sesiones

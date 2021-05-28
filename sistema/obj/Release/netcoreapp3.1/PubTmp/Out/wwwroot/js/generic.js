@@ -81,6 +81,7 @@ function paintTable(link, headboard, properties, primaryKey, idModal, optionDele
         $("#pagination").DataTable({
             searching: buscador,
             pageLength: 5,
+            lengthChange: false,
             lengthMenu: [5, 8, 10, 15, 20],
             aaSorting:[],
             language: idiomaTabla

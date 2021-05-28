@@ -40,7 +40,7 @@ namespace AdminFerreteria.Helper.HelperSeguridad
                 #region logica de autorizacion del usuario
                 if (controller != "BitacoraSistema")
                 {
-                    if (UtilidadesController.youHavePermissionToViewPage(controller.ToUpper(), action.ToUpper(), (int)sesionActiva))
+                    if (Autorizacion.ValidarPermisos(controller.ToUpper(), action.ToUpper(), (int)sesionActiva))
                     {
                         #region BITACORA
                         BitacoraSistemaDAL bitacora = new BitacoraSistemaDAL();

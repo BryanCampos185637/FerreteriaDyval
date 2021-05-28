@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Data;
 using AdminFerreteria.DAL;
 using AdminFerreteria.Helper.HelperSeguridad;
 using AdminFerreteria.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AdminFerreteria.Controllers

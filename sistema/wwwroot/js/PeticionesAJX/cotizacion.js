@@ -23,7 +23,7 @@ function paintTable(link, headboard) {
             document.getElementById('totalVenta').innerHTML = '$0.00';
         }
         var html = "";
-        html += '<table class="table table-hover table-bordered table-responsive-md table-responsive-sm" id="pagination">';
+        html += '<table class="table table-hover table-bordered table-responsive-lg table-responsive-md table-responsive-sm" id="pagination">';
         html += '<thead class="thead-dark">'
         html += '<tr>'
         var i = 0;
@@ -114,8 +114,7 @@ function abrirModalProducto(tipo) {
         html += '</thead>';
         html += '<tbody>';
         $.each(data, function (objeto, propiedad) {
-            var existencia = propiedad.existencias * 1;
-            var subexistencia = propiedad.subexistencia * 1;
+            var subexistencia = propiedad.subexistencia;
             var subprecio = propiedad.subprecioventa * 1;
             var equivalencia = propiedad.equivalencia;
             html += '<tr>';
@@ -139,30 +138,9 @@ function abrirModalProducto(tipo) {
                 html += '<td class="text-center"><i class="fas fa-exclamation"></i></td>';
             /*botonera de opciones*/
             html += '<td class="text-center">';
-            if (existencia > 0) {//si es mayor a 0 se puede vender
-                if (existencia > 1) {//SI LA EXISTENCIA ES MAYOR A 1 NO HAY NINGUNA VALIDACION
-                    html += '<a title="Selecciona el producto con el precio original" class="badge badge-primary" href="#" onclick="getProducto(' + propiedad.iidproducto + ')">' + propiedad.nombreunidad + '</a> ';
-                    if (subexistencia > 0 && subexistencia != null) {//si la sub existencia existe podemos vender original y sub producto
-                        html += '<a title="Selecciona el producto con el subprecio" class="badge badge-success" href="#" onclick="getSubProducto(' + propiedad.iidproducto + ')">' + propiedad.nombresubunidad + '</a> ';
-                    }
-                }
-                else if (existencia == 1) {//SI PRODUCTO SOLO TIENE 1 Y TIENE SUB PRODUCTO SE DEBE VALIDAR
-                    if (subexistencia <= 0 || subexistencia == null) {//SI NO TIENE SUB PRODUCTO SOLO SE AGREGA EL BOTON AZUL
-                        html += '<a title="Selecciona el producto con el precio original" class="badge badge-primary" href="#" onclick="getProducto(' + propiedad.iidproducto + ')">' + propiedad.nombreunidad + '</a> ';
-                    }
-                    else {//SI TIENE SUB PRODUCTO SE DEBE VALIDAR EL BOTON AZUL 
-                        if (subexistencia >= equivalencia) {//SI LA EQUIVALENCIA ES MAYOR O IGUAL A LAS SUB EXISTENCIAS PUEDE VENDERSE EL ORIGINAL Y LAS SUB PIEZAS
-                            html += '<a title="Selecciona el producto con el precio original" class="badge badge-primary" href="#" onclick="getProducto(' + propiedad.iidproducto + ')">' + propiedad.nombreunidad + '</a> ';
-                            html += '<a title="Selecciona el producto con el subprecio" class="badge badge-success" href="#" onclick="getSubProducto(' + propiedad.iidproducto + ')">' + propiedad.nombresubunidad + '</a> ';
-                        }
-                        else {//SI ES MENOR QUE LA EQUIVALENCIA SOLO EL SUB PRODUCTO
-                            html += '<a title="Selecciona el producto con el subprecio" class="badge badge-success" href="#" onclick="getSubProducto(' + propiedad.iidproducto + ')">' + propiedad.nombresubunidad + '</a> ';
-                        }
-                    }
-                }
-            }
-            else {//si es menor a 0
-                html += '<a title="Este producto no cuenta con existencias" class="btn-sm btn-danger" href="#" onclick="mensajeError()">No hay <i class="fas fa-exclamation-triangle"></i></a> ';
+            html += '<a title="Selecciona el producto con el precio original" class="badge badge-primary" href="#" onclick="getProducto(' + propiedad.iidproducto + ')">' + propiedad.nombreunidad + '</a> ';
+            if (propiedad.nombresubunidad != 'No tiene') {//si la sub existencia existe podemos vender original y sub producto
+                html += '<a title="Selecciona el producto con el subprecio" class="badge badge-success" href="#" onclick="getSubProducto(' + propiedad.iidproducto + ')">' + propiedad.nombresubunidad + '</a> ';
             }
             html += '</td>';
             html += '</tr>';
@@ -186,7 +164,7 @@ function getProducto(id) {
     * @param {any} id//se solicita el id del producto
     */
     $.get('/producto/getProductoById?id=' + id, function (data) {
-        $('#txtExistencias').val(data.existencias);
+        $('#txtExistencias').val(1000000);
         $('#txtPrecioUnitario').val(data.precioventa);
         $('#iidproducto').val(data.iidproducto);
         $('#subunidad').val(0);
@@ -203,7 +181,7 @@ function getSubProducto(id) {
         $.get('/producto/ObtenerNombreUnidad?id=' + data.subunidad, function (nombreunidad) {
             $('#txtProducto').val('[' + nombreunidad + '] ' + data.descripcion);
         });
-        $('#txtExistencias').val(data.subexistencia);
+        $('#txtExistencias').val(1000000);
         $('#txtPrecioUnitario').val(data.subprecioventa);
         $('#iidproducto').val(data.iidproducto);
         $('#subunidad').val(data.subunidad);
@@ -253,46 +231,41 @@ function calculateDiscount() {
 function addProductToList() {
     if ($('#iidproducto').val() != "") {
         var cantidad = $('#txtCantidad').val() * 1;
-        var existencias = $('#txtExistencias').val() * 1;
         var comision = $('#txtComision').val();
         var descuento = $('#txtDescuento').val();
         var subUnidad = $('#subunidad').val();
         if (cantidad > 0) {
-            if (cantidad <= existencias) {
-                var frm = new FormData();
-                frm.append('subUnidad', subUnidad);
-                frm.append('iiproducto', $('#iidproducto').val());
-                frm.append('cantidad', $('#txtCantidad').val());
-                if (comision != '')
-                    frm.append('comision', comision);
-                else
-                    frm.append('comision', 0);
-                if (descuento != '')
-                    frm.append('descuento', descuento);
-                else
-                    frm.append('descuento', 0);
-                $.ajax({
-                    url: '/cotizacion/ArmardetalleCotizacion',
-                    type: 'POST',
-                    contentType: false,
-                    processData: false,
-                    data: frm,
-                    success: function (r) {
-                        if (r > 0) {
-                            limpiar();
-                            callTable();
-                            messeges('success', 'Producto agregado');
-                            $('#iidproducto').val('');
-                        } else if (r == -1) {
-                            messeges('warning', 'Este producto ya está en la lista.');
-                        } else {
-                            messeges('error', 'Error en el sistema')
-                        }
+            var frm = new FormData();
+            frm.append('subUnidad', subUnidad);
+            frm.append('iiproducto', $('#iidproducto').val());
+            frm.append('cantidad', $('#txtCantidad').val());
+            if (comision != '')
+                frm.append('comision', comision);
+            else
+                frm.append('comision', 0);
+            if (descuento != '')
+                frm.append('descuento', descuento);
+            else
+                frm.append('descuento', 0);
+            $.ajax({
+                url: '/cotizacion/ArmardetalleCotizacion',
+                type: 'POST',
+                contentType: false,
+                processData: false,
+                data: frm,
+                success: function (r) {
+                    if (r > 0) {
+                        limpiar();
+                        callTable();
+                        messeges('success', 'Producto agregado');
+                        $('#iidproducto').val('');
+                    } else if (r == -1) {
+                        messeges('warning', 'Este producto ya está en la lista.');
+                    } else {
+                        messeges('error', 'Error en el sistema')
                     }
-                })
-            } else {
-                messeges('error', 'La cantidad es mayor que la existencia actual');
-            }//fin de cantidad<=existencias
+                }
+            })
         } else {
             messeges('warning', 'Cantidad no puede ser 0.');
         }//fin validacio cantidad > 0
