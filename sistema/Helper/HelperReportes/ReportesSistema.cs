@@ -579,7 +579,7 @@ namespace AdminFerreteria.Helper.HelperReportes
                                         celda = new Cell().Add(new Paragraph(lstV.nombreproducto + " *").SetFontSize(8));
                                         tablaDetalle.AddCell(celda);
 
-                                        celda = new Cell().Add(new Paragraph(lstV.unidadmedida.Substring(0, 3)).SetFontSize(8));
+                                        celda = new Cell().Add(new Paragraph(lstV.unidadmedida).SetFontSize(8));
                                         tablaDetalle.AddCell(celda);
                                     }
                                     else
@@ -729,7 +729,7 @@ namespace AdminFerreteria.Helper.HelperReportes
                             {
                                 //descripcion
                                 cellBody = new Cell().Add(new Paragraph(item.nombreproducto + " "
-                                    + item.unidadmedida.Substring(0, 3) + " " + descuento + " " + afectado).SetFontSize(7));
+                                    + item.unidadmedida + " " + descuento + " " + afectado).SetFontSize(7));
                                 tablaProducto.AddCell(cellBody.SetWidth(140));
                             }
                             else
