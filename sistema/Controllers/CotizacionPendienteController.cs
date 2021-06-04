@@ -18,7 +18,7 @@ namespace AdminFerreteria.Controllers
         private decimal totalProductosNoValidosDescuentoGlobal;
         private decimal totalProductosValidosDescuentoGlobal;
         private decimal totalDescuentoGlobal;
-        CotizacionPendienteBL cotizacionPendienteBl = new CotizacionPendienteBL();
+        private readonly CotizacionPendienteBL cotizacionPendienteBl = new CotizacionPendienteBL();
 
         [ServiceFilter(typeof(FiltroDeAutenticacionValidacion))]
         public IActionResult Index()
@@ -44,7 +44,7 @@ namespace AdminFerreteria.Controllers
             return Json(cotizacionPendienteBl.obtenerNumeroCotizacion(id));
         }
         [HttpPost]
-        public string confirmVenta(Factura pFactura, Int64 iidcliente, Int64 iidCotizacion)
+        public string confirmVenta(Factura pFactura, Int64 iidCotizacion)
         {
             try
             {
@@ -280,7 +280,7 @@ namespace AdminFerreteria.Controllers
             {
                 return cotizacionPendienteBl.eliminarProductoDeLaCotizacion(id, idCotizacion);
             }
-            catch(Exception e)
+            catch(Exception)
             {
                 return false;
             }
@@ -291,7 +291,7 @@ namespace AdminFerreteria.Controllers
             return (int)cotizacionPendienteBl.guardarNuevoProducto(iiproducto, descuento, comision, cantidad, idCotizacion, Essubproducto);
         }
         [HttpPost]
-        public string aplicarDescuentoGeneral(DescuentoGlobal descuento, Usuario user,Int64 idCotizacion)
+        public string aplicarDescuentoGeneral(DescuentoGlobal descuento, Usuario user)
         {
             try
             {
@@ -351,7 +351,7 @@ namespace AdminFerreteria.Controllers
                     }
                 }
             }
-            catch (Exception e)
+            catch (Exception )
             {
                 return "0";
             }

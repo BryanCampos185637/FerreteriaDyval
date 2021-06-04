@@ -8,7 +8,7 @@ namespace AdminFerreteria.BussinesLogic
 {
     public class FacturaBL
     {
-        FacturaDAL dal = new FacturaDAL();
+        private readonly FacturaDAL dal = new FacturaDAL();
         public static List<DetalleVenta> obtenerListaFacturaParaReporte(Int64 id)
         {
             return FacturaDAL.ObtenerListaFacturaParaReporte(id);

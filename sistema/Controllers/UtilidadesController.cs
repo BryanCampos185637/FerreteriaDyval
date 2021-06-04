@@ -24,14 +24,15 @@ namespace AdminFerreteria.Controllers
         public static Bitacoraentrada crearBitacora(Int64 idBodega, Int64 idProducto, Int64 cantidad,
             Int64 idstock, decimal subcantidad, Int64 identrada)
         {
-            Bitacoraentrada bitacoraentrada = new Bitacoraentrada();
-            bitacoraentrada.Iidentrada = identrada;
-            bitacoraentrada.Iidbodega = (int)idBodega;
-            bitacoraentrada.Iidstock = (int)idstock;
-            bitacoraentrada.Iidproducto = idProducto;
-            bitacoraentrada.Cantidad = cantidad;
-            bitacoraentrada.Subcantidad = subcantidad;
-            return bitacoraentrada;
+            return new Bitacoraentrada
+            {
+                Iidentrada = identrada,
+                Iidbodega = (int)idBodega,
+                Iidstock = (int)idstock,
+                Iidproducto = idProducto,
+                Cantidad = cantidad,
+                Subcantidad = subcantidad,
+            };
         }
         public static int yaExiteEsteInventario(int id,int idproducto)
         {
@@ -157,8 +158,7 @@ namespace AdminFerreteria.Controllers
         
         public static string crearNoDocumento(string noactual, int nodigitos)
         {
-            string codigo = "";
-            codigo = noactual;//agregamos el numero actual que esta en la configuracion
+            var codigo = noactual;//agregamos el numero actual que esta en la configuracion
             int i = 0;
             while (i <= (nodigitos - 1))
             {
@@ -212,7 +212,7 @@ namespace AdminFerreteria.Controllers
                 pfactura.Descuentoglobal = factura.Descuentoglobal;
                 return pfactura;
             }
-            catch(Exception e) 
+            catch(Exception) 
             {
                 return null;
             }
@@ -231,7 +231,7 @@ namespace AdminFerreteria.Controllers
                 cliente.Bhabilitado = "A";
                 return cliente;
             }
-            catch(Exception e)
+            catch(Exception)
             {
                 return null;
             }
@@ -258,7 +258,7 @@ namespace AdminFerreteria.Controllers
                 cotizacion.Fechavencimiento = DateTime.Now.AddDays(30);
                 return cotizacion;
             }
-            catch(Exception e)
+            catch(Exception)
             {
                 return null;
             }
@@ -286,7 +286,7 @@ namespace AdminFerreteria.Controllers
                     oDetalle.Essubproducto = "NO";
                 return oDetalle;
             }
-            catch(Exception e)
+            catch(Exception)
             {
                 return null;
             }
@@ -298,13 +298,14 @@ namespace AdminFerreteria.Controllers
 
         public static Inventario crearObjetInventario(int idBodega, int idProducto, int cantidad, int stock)
         {
-            Inventario inventario = new Inventario();
-            inventario.Iidbodega = idBodega;
-            inventario.Iidproducto = idProducto;
-            inventario.Cantidad = cantidad;
-            inventario.Iidstock = stock;
-            inventario.Bhabilitado = "A";
-            return inventario;
+            return new Inventario
+            {
+                Iidbodega = idBodega,
+                Iidproducto = idProducto,
+                Cantidad = cantidad,
+                Iidstock = stock,
+                Bhabilitado = "A",
+            };
         }
 
         public static byte[] crearReporteInventario<T>(string tipo, List<T> lst, string[] cabecera, string[] propiedades)
@@ -315,7 +316,7 @@ namespace AdminFerreteria.Controllers
                 return ReportesSistema.GenerarReporteInventarioPDF(lst, cabecera, propiedades);
         }
 
-        public static List<ListReporteInventario> crearListaReporteSala(Inventario inventario, string nombrestock)
+        public static List<ListReporteInventario> crearListaReporteSala(string nombrestock)
         {
             List<ListReporteInventario> lst = new List<ListReporteInventario>();
             using(var db = new BDFERRETERIAContext())

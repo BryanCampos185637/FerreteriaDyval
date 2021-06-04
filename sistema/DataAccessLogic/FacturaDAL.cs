@@ -233,7 +233,7 @@ namespace AdminFerreteria.DataAccessLogic
                     return lst;
                 }
             }
-            catch (Exception e)
+            catch (Exception )
             {
                 return null;
             }
