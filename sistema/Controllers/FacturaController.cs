@@ -13,7 +13,7 @@ namespace AdminFerreteria.Controllers
     [ServiceFilter(typeof(FiltroDeAcciones))]
     public class FacturaController : Controller
     {
-        private readonly FacturaBL facturaBl = new FacturaBL();
+        FacturaBL facturaBl = new FacturaBL();
         [ServiceFilter(typeof(FiltroDeAutenticacionValidacion))]
         public IActionResult Index()
         {

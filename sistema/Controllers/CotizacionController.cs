@@ -31,7 +31,7 @@ namespace AdminFerreteria.Controllers
                     lst = JsonConvert.DeserializeObject<List<DetalleVenta>>(listaSerializada);//quitamos el serializado
                 return Json(lst);
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return Json(lst);
             }
@@ -139,7 +139,7 @@ namespace AdminFerreteria.Controllers
                 HttpContext.Session.SetString("listaCotizacion", lstSerializada);//y guardamos la lista
                 return 1;
             }
-            catch (Exception )
+            catch (Exception e)
             {
                 return 0;
             }
@@ -152,7 +152,7 @@ namespace AdminFerreteria.Controllers
                 HttpContext.Session.Remove("listaCotizacion");
                 return 1;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return 0;
             }
@@ -178,7 +178,7 @@ namespace AdminFerreteria.Controllers
                 else
                     return rpt;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return 0;
             }
@@ -186,7 +186,8 @@ namespace AdminFerreteria.Controllers
         //accion para imprimir 
         public FileResult Cotizacion()
         {
-            var id = (int)HttpContext.Session.GetInt32("idCotizacion");
+            Int64 id = 0;
+            id = (int)HttpContext.Session.GetInt32("idCotizacion");
             byte[] buffer = UtilidadesController.crearCotizacion(id);
             //HttpContext.Session.Remove("idCotizacion");//removemos el id que esta en la cookie
             return File(buffer, "application/pdf");
