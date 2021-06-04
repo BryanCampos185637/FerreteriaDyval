@@ -7,7 +7,7 @@ using AdminFerreteria.Request;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AdminFerreteria.Helper.HelperReportes;
-using AdminFerreteria.DAL;
+using AdminFerreteria.BussinesLogic;
 
 namespace AdminFerreteria.Controllers
 {
@@ -360,7 +360,7 @@ namespace AdminFerreteria.Controllers
                 }
                 #endregion
 
-                lst = ReporteDAL.ObtenerProveedoresReporteInventario(db, lst);
+                lst = ReporteBL.ObtenerProveedoresReporteInventario(db, lst);
             }
             return lst;
         }
@@ -411,7 +411,7 @@ namespace AdminFerreteria.Controllers
                 }
                 #endregion
 
-                lst = ReporteDAL.ObtenerProveedoresReporteInventario(db, lst);
+                lst = ReporteBL.ObtenerProveedoresReporteInventario(db, lst);
             }
             return lst;
         }

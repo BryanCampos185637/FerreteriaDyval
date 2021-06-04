@@ -41,7 +41,7 @@ namespace AdminFerreteria.Models
             if (!optionsBuilder.IsConfigured)
             {
                 ConexionSQL conexionSQL = new ConexionSQL();
-                optionsBuilder.UseSqlServer(conexionSQL.local);
+                optionsBuilder.UseSqlServer(conexionSQL.cadenaConexion);
             }
         }
 

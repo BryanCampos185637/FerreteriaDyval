@@ -4,11 +4,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace AdminFerreteria.DAL
+namespace AdminFerreteria.DataAccessLogic
 {
     public class FacturaEmitidaDAL
     {
-        public List<ListFactura> buscarFacturaPorFechas(string fecha = "")
+        public List<ListFactura> BuscarFacturaPorFechas(string fecha = "")
         {
             using (var db = new BDFERRETERIAContext())
             {
@@ -56,7 +56,7 @@ namespace AdminFerreteria.DAL
                 }
             }
         }
-        public List<ListFactura> buscarFacturasEnEspera()
+        public List<ListFactura> BuscarFacturasEnEspera()
         {
             using (var db = new BDFERRETERIAContext())
             {

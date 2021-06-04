@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AdminFerreteria.BussinesLogic;
 using AdminFerreteria.Helper.HelperSeguridad;
 using AdminFerreteria.Models;
 using AdminFerreteria.Request;
@@ -8,7 +9,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
-using AdminFerreteria.DAL;
 
 namespace AdminFerreteria.Controllers
 {
@@ -18,7 +18,7 @@ namespace AdminFerreteria.Controllers
         [ServiceFilter(typeof(FiltroDeAutenticacionValidacion))]
         public IActionResult Index()
         {
-            var empleado = EmpleadoDAL.obtenerElPrimerEmpleado();
+            var empleado = EmpleadoBL.obtenerElPrimerEmpleado();
             DateTime fecha = Convert.ToDateTime(empleado.Fechacreacion);
             ViewBag.fechaInicioSistema = fecha.ToString("yyyy-MM-dd");//el primer usuario que se registro fue la primer funcion que se hizo en el sistema
             return View();
@@ -36,7 +36,7 @@ namespace AdminFerreteria.Controllers
         {
             try
             {
-                List<ListFactura> lstFactura = ReporteDAL.CrearListaReporteVenta(desde, hasta);
+                List<ListFactura> lstFactura = ReporteBL.CrearListaReporteVenta(desde, hasta);
                 string listaSerializada = JsonConvert.SerializeObject(lstFactura);
                 HttpContext.Session.SetString("lstFactura", listaSerializada);
                 return 1; 
@@ -150,7 +150,7 @@ namespace AdminFerreteria.Controllers
                             }).ToList();
                         lst.AddRange(listaBodegas);
                         #endregion
-                        lst = ReporteDAL.ObtenerProveedoresReporteInventario(db, lst);
+                        lst = ReporteBL.ObtenerProveedoresReporteInventario(db, lst);
                     }
                 }
                 //ordenamos la lista por el nombre del stock

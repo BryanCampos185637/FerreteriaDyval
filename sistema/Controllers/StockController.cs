@@ -1,7 +1,6 @@
-﻿using AdminFerreteria.DAL;
+﻿using AdminFerreteria.BussinesLogic;
 using AdminFerreteria.Helper.HelperSeguridad;
 using AdminFerreteria.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AdminFerreteria.Controllers
@@ -9,7 +8,7 @@ namespace AdminFerreteria.Controllers
     [ServiceFilter(typeof(FiltroDeAcciones))]
     public class StockController : Controller
     {
-        StockDAL dal = new StockDAL();
+        StockBL dal = new StockBL();
         [ServiceFilter(typeof(FiltroDeAutenticacionValidacion))]
         public IActionResult Index()
         {

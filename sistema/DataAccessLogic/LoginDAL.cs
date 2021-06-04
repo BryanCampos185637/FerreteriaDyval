@@ -6,11 +6,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Transactions;
 
-namespace AdminFerreteria.DAL
+namespace AdminFerreteria.DataAccessLogic
 {
     public class LoginDAL
     {
-        public int Login(Usuario user)
+        public int LogIn(Usuario user)
         {
             using (var db = new BDFERRETERIAContext())
             {
@@ -41,7 +41,7 @@ namespace AdminFerreteria.DAL
                 }
             }
         }
-        public Usuario obtenerDataUsuarioLog(Usuario user)
+        public Usuario ObtenerDataUsuarioLog(Usuario user)
         {
             string passwordEncrypt = UtilidadesController.encryptPassword(user.Contraseña);
             using (var db = new BDFERRETERIAContext())
@@ -51,7 +51,7 @@ namespace AdminFerreteria.DAL
                 return usuario;
             }
         }
-        public int RegistrarUsuarioNuevo(Empleado empleado, string nombreusuario, string contraseña)
+        public int RegistrarUserNuevo(Empleado empleado, string nombreusuario, string contraseña)
         {
             try
             {
@@ -81,7 +81,7 @@ namespace AdminFerreteria.DAL
                 return 0;
             }
         }
-        public object listarPaginasMenu(int idTipoUsuario)
+        public object ListarPaginasMenu(int idTipoUsuario)
         {
             try
             {

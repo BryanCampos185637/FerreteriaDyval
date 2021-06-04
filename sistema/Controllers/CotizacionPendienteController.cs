@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Transactions;
-using AdminFerreteria.DAL;
+using AdminFerreteria.BussinesLogic;
 using AdminFerreteria.Helper.HelperSeguridad;
 using AdminFerreteria.Models;
 using AdminFerreteria.Request;
@@ -18,7 +18,8 @@ namespace AdminFerreteria.Controllers
         private decimal totalProductosNoValidosDescuentoGlobal;
         private decimal totalProductosValidosDescuentoGlobal;
         private decimal totalDescuentoGlobal;
-        CotizacionPendienteDAL dal = new CotizacionPendienteDAL();
+        CotizacionPendienteBL cotizacionPendienteBl = new CotizacionPendienteBL();
+
         [ServiceFilter(typeof(FiltroDeAutenticacionValidacion))]
         public IActionResult Index()
         {
@@ -27,12 +28,12 @@ namespace AdminFerreteria.Controllers
         [HttpGet]
         public JsonResult lstcotizacion()
         {
-            return Json(dal.listarCotizacion());
+            return Json(cotizacionPendienteBl.listarCotizacion());
         }
         [HttpGet]
         public JsonResult getDetalleCotizacionByIdCotizacion(Int64 id)
         {
-            var lst = dal.detalleCotizacion(id);
+            var lst = cotizacionPendienteBl.detalleCotizacion(id);
             string listaSerializada = JsonConvert.SerializeObject(lst);
             HttpContext.Session.SetString("lstDetalleCotizacion", listaSerializada);
             return Json(lst);
@@ -40,7 +41,7 @@ namespace AdminFerreteria.Controllers
         [HttpGet]
         public JsonResult ObtenerNumCotizacion(Int64 id)
         {
-            return Json(dal.obtenerNumeroCotizacion(id));
+            return Json(cotizacionPendienteBl.obtenerNumeroCotizacion(id));
         }
         [HttpPost]
         public string confirmVenta(Factura pFactura, Int64 iidcliente, Int64 iidCotizacion)
@@ -50,9 +51,9 @@ namespace AdminFerreteria.Controllers
                 using(var transaction = new TransactionScope())
                 {
                     var fechaActual = DateTime.Now;
-                    var cotizacion = dal.obtenerCotizacion(iidCotizacion);//capturamos la cotizacion
+                    var cotizacion = cotizacionPendienteBl.obtenerCotizacion(iidCotizacion);//capturamos la cotizacion
                     if (cotizacion.Fechavencimiento.ToShortDateString() == fechaActual.ToShortDateString() ||
-                            cotizacion.Fechavencimiento < fechaActual)//validamos que la fecha de vencimiento no sea la actual
+                        cotizacion.Fechavencimiento < fechaActual)//validamos que la fecha de vencimiento no sea la actual
                     {
                         return "vencida";
                     }
@@ -277,7 +278,7 @@ namespace AdminFerreteria.Controllers
         {
             try
             {
-                return dal.eliminarProductoDeLaCotizacion(id, idCotizacion);
+                return cotizacionPendienteBl.eliminarProductoDeLaCotizacion(id, idCotizacion);
             }
             catch(Exception e)
             {
@@ -287,7 +288,7 @@ namespace AdminFerreteria.Controllers
         [HttpPost]
         public int guardarNuevoProducto(Int64 iiproducto, int? descuento, int? comision, Int64 cantidad, Int64 idCotizacion,int? Essubproducto)
         {
-            return (int)dal.guardarNuevoProducto(iiproducto, descuento, comision, cantidad, idCotizacion, Essubproducto);
+            return (int)cotizacionPendienteBl.guardarNuevoProducto(iiproducto, descuento, comision, cantidad, idCotizacion, Essubproducto);
         }
         [HttpPost]
         public string aplicarDescuentoGeneral(DescuentoGlobal descuento, Usuario user,Int64 idCotizacion)

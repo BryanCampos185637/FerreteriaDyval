@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AdminFerreteria.Migrations
 {
     [DbContext(typeof(BDFERRETERIAContext))]
-    [Migration("20210520205104_Inicio")]
+    [Migration("20210531012103_Inicio")]
     partial class Inicio
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

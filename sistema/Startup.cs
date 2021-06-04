@@ -1,6 +1,8 @@
 using AdminFerreteria.Helper.HelperSeguridad;
+using AdminFerreteria.Request;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -28,11 +30,11 @@ namespace AdminFerreteria
             //uso de controllers
             services.AddControllersWithViews();
 
-
             //mi filtro de pagina tipo usuario
             services.AddScoped<FiltroDeAutenticacionValidacion>();
             //mi filtro de acciones 
             services.AddScoped<FiltroDeAcciones>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

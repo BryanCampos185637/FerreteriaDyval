@@ -1,4 +1,4 @@
-﻿using AdminFerreteria.DAL;
+﻿using AdminFerreteria.BussinesLogic;
 using AdminFerreteria.Models;
 
 namespace AdminFerreteria.Helper.HelperBitacora
@@ -7,7 +7,7 @@ namespace AdminFerreteria.Helper.HelperBitacora
     {
         public static void InsertarBitacoraBL(string mensaje, int? UsuarioLogueado)
         {
-            BitacoraSistemaDAL bitacora = new BitacoraSistemaDAL();
+            BitacoraSistemaBL bitacora = new BitacoraSistemaBL();
             bitacora.insertarBitacora(new Bitacorasistema
             {
                 Iidusuario = (int)UsuarioLogueado,

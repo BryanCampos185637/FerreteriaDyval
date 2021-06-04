@@ -69,6 +69,7 @@ function edit(id) {
     deleteDataOfTheForm();
     colorDefault();
     $.get('/producto/getProductoById?id=' + id, function (data) {
+        console.log(data);
         $('#iidproducto').val(data.iidproducto);
         $('#codigoproducto').val(data.codigoproducto);
         $('#descripcion').val(data.descripcion);
@@ -87,7 +88,7 @@ function edit(id) {
         if (data.subunidad > 0) {
             $('#subiidunidadmedida').val(data.subunidad);
             $('#equivalencia').val(data.equivalencia);
-            $('#subpreciocompra').val(data.subpreciounitario);
+            $('#subpreciocompra').val(data.subpreciounitario.toFixed(2));
             $('#subgananciaObtenida').val(data.subporcentaje);
             $('#subiva').val(data.subiva);
             var subprecioConUtilidad = parseFloat(data.subpreciounitario) + parseFloat(data.subganancia);
@@ -193,7 +194,10 @@ function sendData() {
     if (validateEmpty()) {
         var frm = new FormData();
         capturarData(frm);
-        guardarProducto('/producto/saveProducto', frm, 'El codigo ingresado ya esta asociado a un producto');
+        if ($('#subiidunidadmedida').val() == $('#iidunidadmedida').val())
+            messeges('warning', 'La sub unidad no puede ser igual a la unidad original.');
+        else
+            guardarProducto('/producto/saveProducto', frm, 'El codigo ingresado ya esta asociado a un producto');
     } else {
         messeges('warning','Llena los campos marcados');
     }
@@ -219,7 +223,7 @@ function quitarOAgregarClase() {
     }
 }
 
-function guardarProducto(link, data, errorMessage = 'Registro ya existe', error2 = 'El nombre usuario ya esta en uso') {
+function guardarProducto(link, data, errorMessage = 'Registro ya existe', error2 = 'Error') {
     $.ajax({
         url: link,
         type: "POST",

@@ -1,7 +1,5 @@
-﻿using AdminFerreteria.DAL;
+﻿using AdminFerreteria.BussinesLogic;
 using AdminFerreteria.Helper.HelperSeguridad;
-using AdminFerreteria.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AdminFerreteria.Controllers
@@ -9,7 +7,7 @@ namespace AdminFerreteria.Controllers
     [ServiceFilter(typeof(FiltroDeAcciones))]
     public class FacturaEmitidaController : Controller
     {
-        FacturaEmitidaDAL dal = new FacturaEmitidaDAL();
+        FacturaEmitidaBL dal = new FacturaEmitidaBL();
         [ServiceFilter(typeof(FiltroDeAutenticacionValidacion))]
         public IActionResult Index()
         {

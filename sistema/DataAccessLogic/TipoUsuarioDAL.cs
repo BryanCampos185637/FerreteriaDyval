@@ -5,11 +5,41 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Transactions;
 
-namespace AdminFerreteria.DAL
+namespace AdminFerreteria.DataAccessLogic
 {
     public class TipoUsuarioDAL
     {
-        public Tipousuario ObtenerTipoUsuario(int id)
+        public void InsertarRolAdministrador()
+        {
+            using(var db = new BDFERRETERIAContext())
+            {
+                var tipousuario = new Tipousuario
+                {
+                    Fechacreacion = DateTime.Now,
+                    Bhabilitado = "A",
+                    Nombretipousuario = "ADMINISTRADOR",
+                    Descripcion = "TIENE TODOS LOS PERMISOS"
+                };
+                db.Tipousuario.Add(tipousuario);
+                var rpt = db.SaveChanges();
+                if (rpt > 0)
+                {
+                    var listaPaginas = db.Pagina.Where(p => p.Bhabilitado == "A").ToList();
+                    foreach(var item in listaPaginas)
+                    {
+                        db.Paginatipousuario.Add(new Paginatipousuario
+                        {
+                            Iidtipousuario = tipousuario.Iidtipousuario,
+                            Iidpagina = item.Iidpagina,
+                            Fechacreacion = DateTime.Now,
+                            Bhabilitado = "A"
+                        });
+                        db.SaveChanges();
+                    }
+                }
+            }
+        }
+        public Tipousuario ObtenerTipoUsuarioPorId(int id)
         {
             using (var db = new BDFERRETERIAContext())
             {
@@ -17,7 +47,7 @@ namespace AdminFerreteria.DAL
                 return lst;
             }
         }
-        public List<Tipousuario> Listar()
+        public List<Tipousuario> ListarTipoUsuario()
         {
             using (var db = new BDFERRETERIAContext())
             {
@@ -26,7 +56,7 @@ namespace AdminFerreteria.DAL
                 return lst;
             }
         }
-        public int guardar(Tipousuario tipousuario, int[] idPaginas)
+        public int Guardar(Tipousuario tipousuario, int[] idPaginas)
         {
             try
             {
@@ -138,7 +168,7 @@ namespace AdminFerreteria.DAL
                 return 0;
             }
         }
-        public List<Pagina> listarPaginasAsignadas(Int64 id)
+        public List<Pagina> ListarPaginasAsignadas(Int64 id)
         {
             List<Pagina> lst = new List<Pagina>();
             using (var bd = new BDFERRETERIAContext())
@@ -152,7 +182,7 @@ namespace AdminFerreteria.DAL
             }
             return lst;
         }
-        public List<Pagina> listarPaginasExistentes()
+        public List<Pagina> ListarPaginasExistentes()
         {
             using (var db = new BDFERRETERIAContext())
             {
@@ -160,7 +190,7 @@ namespace AdminFerreteria.DAL
                 return lst;
             }
         }
-        public int eliminar(int id)
+        public int Eliminar(int id)
         {
             try
             {

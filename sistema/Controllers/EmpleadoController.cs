@@ -1,8 +1,7 @@
 ﻿using System;
-using AdminFerreteria.DAL;
+using AdminFerreteria.BussinesLogic;
 using AdminFerreteria.Helper.HelperSeguridad;
 using AdminFerreteria.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AdminFerreteria.Controllers
@@ -15,7 +14,7 @@ namespace AdminFerreteria.Controllers
         {
             return View();
         }
-        EmpleadoDAL dal = new EmpleadoDAL();
+        EmpleadoBL dal = new EmpleadoBL();
         [HttpGet]
         public JsonResult listEmpleado()
         {

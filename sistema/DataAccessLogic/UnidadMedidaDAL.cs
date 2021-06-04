@@ -4,11 +4,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace AdminFerreteria.DAL
+namespace AdminFerreteria.DataAccessLogic
 {
     public class UnidadMedidaDAL
     {
-        public static string ObtenerNombreSubUnidad(int? id)
+        public static string ObtenerNombreDeSubUnidad(int? id)
         {
             //metodo que nos sirve para obtener el nombre de la subunidad
             using (var db = new BDFERRETERIAContext())
@@ -20,7 +20,7 @@ namespace AdminFerreteria.DAL
                     return "No tiene";
             }
         }
-        public List<Unidadmedida> listar()
+        public List<Unidadmedida> ListarUnidad()
         {
             using (var db = new BDFERRETERIAContext())
             {
@@ -28,7 +28,7 @@ namespace AdminFerreteria.DAL
                 return lst;
             }
         }
-        public int guardar(Unidadmedida unidadmedida)
+        public int Guardar(Unidadmedida unidadmedida)
         {
             unidadmedida.Fechacreacion = DateTime.Now;
             try
@@ -61,7 +61,7 @@ namespace AdminFerreteria.DAL
                 return 0;
             }
         }
-        public Unidadmedida obtener(int id)
+        public Unidadmedida ObtenerPorId(int id)
         {
             using (var db = new BDFERRETERIAContext())
             {
@@ -69,7 +69,7 @@ namespace AdminFerreteria.DAL
                 return data;
             }
         }
-        public int eliminar(int id)
+        public int Eliminar(int id)
         {
             try
             {

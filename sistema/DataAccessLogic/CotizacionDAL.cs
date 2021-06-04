@@ -6,11 +6,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Transactions;
 
-namespace AdminFerreteria.DAL
+namespace AdminFerreteria.DataAccessLogic
 {
     public class CotizacionDAL
     {
-        public int GuardarCotizacion(string nombre, int tipodocumento, List<DetalleVenta> lstDetalleVenta,int sesion)
+        public int GuardarCotizaciones(string nombre, int tipodocumento, List<DetalleVenta> lstDetalleVenta,int sesion)
         {
             try
             {

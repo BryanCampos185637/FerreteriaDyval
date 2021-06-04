@@ -5,48 +5,49 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace AdminFerreteria.DAL
+namespace AdminFerreteria.DataAccessLogic
 {
     public class ProductoDAL
     {
-        public List<ListProducto> buscarProductos(string Codigo, string Nombre)
+        public List<ListProducto> FiltrarPorCodigo(string Codigo)
         {
             using (var db = new BDFERRETERIAContext())
             {
-                if (Codigo != null)
-                {
-                    #region filtrar por codigo
-                    var lst = (from product in db.Producto
-                               join stock in db.Stock on
-                               product.Iidstock equals stock.Iidstock
-                               join unidad in db.Unidadmedida on
-                               product.Iidunidadmedida equals unidad.Iidunidadmedida
-                               where product.Bhabilitado == "A" && product.Codigoproducto.Equals(Codigo.ToUpper())
-                               select new ListProducto
-                               {
-                                   Iidproducto = product.Iidproducto,
-                                   Codigoproducto = product.Codigoproducto,
-                                   Descripcion = product.Descripcion,
-                                   Preciocompra = product.Preciocompra,
-                                   Iva = product.Iva,
-                                   Ganancia = product.Ganancia,
-                                   Existencias = product.Existencias,
-                                   Precioventa = product.Precioventa,
-                                   Subprecioventa = product.Subprecioventa == null ? -1000 : product.Subprecioventa,
-                                   Subexistencia = product.Subexistencia == null ? -1000 : product.Subexistencia,
-                                   Nombreunidad = unidad.Nombreunidad,
-                                   Subiva = product.Subiva == null ? -1000 : product.Subiva,
-                                   Nombresubunidad = UtilidadesController.ObtenerNombreSubUnidad(product.Subunidad),
-                                   Nombrestock = stock.Nombrestock,
-                                   Restantes = product.Restantes == null ? -1000 : product.Restantes,
-                                   Equivalencia = product.Equivalencia
-                               }).ToList();
-                    return lst;
-                    #endregion
-                }
-                else if (Nombre != null)
-                {
-                    #region filtrar por nombre
+                #region filtrar por codigo
+                var lst = (from product in db.Producto
+                           join stock in db.Stock on
+                           product.Iidstock equals stock.Iidstock
+                           join unidad in db.Unidadmedida on
+                           product.Iidunidadmedida equals unidad.Iidunidadmedida
+                           where product.Bhabilitado == "A" && product.Codigoproducto.Equals(Codigo.ToUpper())
+                           select new ListProducto
+                           {
+                               Iidproducto = product.Iidproducto,
+                               Codigoproducto = product.Codigoproducto,
+                               Descripcion = product.Descripcion,
+                               Preciocompra = product.Preciocompra,
+                               Iva = product.Iva,
+                               Ganancia = product.Ganancia,
+                               Existencias = product.Existencias,
+                               Precioventa = product.Precioventa,
+                               Subprecioventa = product.Subprecioventa == null ? -1000 : product.Subprecioventa,
+                               Subexistencia = product.Subexistencia == null ? -1000 : product.Subexistencia,
+                               Nombreunidad = unidad.Nombreunidad,
+                               Subiva = product.Subiva == null ? -1000 : product.Subiva,
+                               Nombresubunidad = UtilidadesController.ObtenerNombreSubUnidad(product.Subunidad),
+                               Nombrestock = stock.Nombrestock,
+                               Restantes = product.Restantes == null ? -1000 : product.Restantes,
+                               Equivalencia = product.Equivalencia
+                           }).ToList();
+                return lst;
+                #endregion
+            }
+        }
+        public List<ListProducto> FiltrarPorNombre(string Nombre)
+        {
+            using (var db = new BDFERRETERIAContext())
+            {
+                #region filtrar por nombre
                     var lst = (from product in db.Producto
                                join stock in db.Stock on
                                product.Iidstock equals stock.Iidstock
@@ -73,43 +74,45 @@ namespace AdminFerreteria.DAL
                                    Equivalencia = product.Equivalencia
                                }).Take(500).ToList();
                     return lst;
-                    #endregion
-                }
-                else
-                {
-                    #region sin filtro
-                    var lista = (from product in db.Producto
-                                 join stock in db.Stock on
-                                 product.Iidstock equals stock.Iidstock
-                                 join unidad in db.Unidadmedida on
-                                 product.Iidunidadmedida equals unidad.Iidunidadmedida
-                                 orderby product.Iidproducto descending
-                                 where product.Bhabilitado == "A"
-                                 select new ListProducto
-                                 {
-                                     Iidproducto = product.Iidproducto,
-                                     Codigoproducto = product.Codigoproducto,
-                                     Descripcion = product.Descripcion,
-                                     Preciocompra = product.Preciocompra,
-                                     Iva = product.Iva,
-                                     Ganancia = product.Ganancia,
-                                     Existencias = product.Existencias,
-                                     Precioventa = product.Precioventa,
-                                     Subprecioventa = product.Subprecioventa == null ? -1000 : product.Subprecioventa,
-                                     Subexistencia = product.Subexistencia == null ? -1000 : product.Subexistencia,
-                                     Nombreunidad = unidad.Nombreunidad,
-                                     Subiva = product.Subiva == null ? -1000 : product.Subiva,
-                                     Nombresubunidad = UtilidadesController.ObtenerNombreSubUnidad(product.Subunidad),
-                                     Nombrestock = stock.Nombrestock,
-                                     Restantes = product.Restantes == null ? -1000 : product.Restantes,
-                                     Equivalencia = product.Equivalencia
-                                 }).Take(100).ToList();
-                    return lista;
-                    #endregion
-                }
+                #endregion
             }
         }
-        public int guardarProducto(Producto producto)
+        public List<ListProducto> ListarProductosActivos()
+        {
+            using (var db = new BDFERRETERIAContext())
+            {
+                #region sin filtro
+                var lista = (from product in db.Producto
+                             join stock in db.Stock on
+                             product.Iidstock equals stock.Iidstock
+                             join unidad in db.Unidadmedida on
+                             product.Iidunidadmedida equals unidad.Iidunidadmedida
+                             orderby product.Iidproducto descending
+                             where product.Bhabilitado == "A"
+                             select new ListProducto
+                             {
+                                 Iidproducto = product.Iidproducto,
+                                 Codigoproducto = product.Codigoproducto,
+                                 Descripcion = product.Descripcion,
+                                 Preciocompra = product.Preciocompra,
+                                 Iva = product.Iva,
+                                 Ganancia = product.Ganancia,
+                                 Existencias = product.Existencias,
+                                 Precioventa = product.Precioventa,
+                                 Subprecioventa = product.Subprecioventa == null ? -1000 : product.Subprecioventa,
+                                 Subexistencia = product.Subexistencia == null ? -1000 : product.Subexistencia,
+                                 Nombreunidad = unidad.Nombreunidad,
+                                 Subiva = product.Subiva == null ? -1000 : product.Subiva,
+                                 Nombresubunidad = UtilidadesController.ObtenerNombreSubUnidad(product.Subunidad),
+                                 Nombrestock = stock.Nombrestock,
+                                 Restantes = product.Restantes == null ? -1000 : product.Restantes,
+                                 Equivalencia = product.Equivalencia
+                             }).Take(225).ToList();
+                return lista;
+                #endregion
+            }
+        }
+        public int GuardarProducto(Producto producto)
         {
             try
             {
@@ -150,6 +153,10 @@ namespace AdminFerreteria.DAL
                                 if (oProducto.Restantes == null)
                                     oProducto.Restantes = producto.Equivalencia;
                             }
+                            else
+                            {
+                                oProducto.Subunidad = null;
+                            }
                         }
                         db.SaveChanges();
                         return 1;
@@ -165,7 +172,7 @@ namespace AdminFerreteria.DAL
                 return 0;
             }
         }
-        public Producto obtenerProducto(Int64 id)
+        public Producto ObtenerProducto(Int64 id)
         {
             using (var db = new BDFERRETERIAContext())
             {
@@ -173,7 +180,7 @@ namespace AdminFerreteria.DAL
                 return lst;
             }
         }
-        public int eliminarProducto(Int64 id)
+        public int EliminarProducto(Int64 id)
         {
             try
             {
@@ -190,7 +197,7 @@ namespace AdminFerreteria.DAL
                 return 0;
             }
         }
-        public string obtenerNombreUnidad(int id)
+        public string ObtenerNombreUnidad(int id)
         {
             //metodo que nos sirve para obtener el nombre de la subunidad
             using (var db = new BDFERRETERIAContext())
@@ -202,7 +209,7 @@ namespace AdminFerreteria.DAL
                     return "No tiene";
             }
         }
-        public void insertar100productos()
+        public void Insertar100productos()
         {
             using (var db = new BDFERRETERIAContext())
             {
@@ -228,7 +235,7 @@ namespace AdminFerreteria.DAL
                 db.SaveChanges();
             }
         }
-        public int cantidadDeProductos()
+        public int CantidadDeProductosExistente()
         {
             using (var db = new BDFERRETERIAContext())
             {

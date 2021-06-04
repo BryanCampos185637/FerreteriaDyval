@@ -1,5 +1,5 @@
 ﻿using System;
-using AdminFerreteria.DAL;
+using AdminFerreteria.BussinesLogic;
 using AdminFerreteria.Helper.HelperSeguridad;
 using AdminFerreteria.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -9,7 +9,7 @@ namespace AdminFerreteria.Controllers
     [ServiceFilter(typeof(FiltroDeAcciones))]
     public class TipoUsuarioController : Controller
     {
-        TipoUsuarioDAL dal = new TipoUsuarioDAL();
+        TipoUsuarioBL dal = new TipoUsuarioBL();
         [ServiceFilter(typeof(FiltroDeAutenticacionValidacion))]
         public IActionResult Index()
         {

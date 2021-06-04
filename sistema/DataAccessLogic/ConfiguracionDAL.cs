@@ -3,11 +3,11 @@ using AdminFerreteria.Models;
 using System;
 using System.Linq;
 
-namespace AdminFerreteria.DAL
+namespace AdminFerreteria.DataAccessLogic
 {
     public class ConfiguracionDAL
     {
-        public Configuracion obtenerConfiguracionSistema()
+        public Configuracion ObtenerConfiguracionSistema()
         {
             using (var db = new BDFERRETERIAContext())
             {
@@ -15,7 +15,7 @@ namespace AdminFerreteria.DAL
                 return data;
             }
         }
-        public int ActualizarConfiguracion(Configuracion configuracion, string usuario, string contra)
+        public int ActualizarConfiguracionSistema(Configuracion configuracion, string usuario, string contra)
         {
             try
             {

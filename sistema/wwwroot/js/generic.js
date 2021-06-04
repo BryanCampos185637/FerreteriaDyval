@@ -83,7 +83,8 @@ function paintTable(link, headboard, properties, primaryKey, idModal, optionDele
             pageLength: 5,
             lengthChange: false,
             lengthMenu: [5, 8, 10, 15, 20],
-            aaSorting:[],
+            aaSorting: [],
+            ordering: false,
             language: idiomaTabla
         });
     })

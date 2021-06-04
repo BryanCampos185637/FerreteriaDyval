@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using AdminFerreteria.DAL;
+using AdminFerreteria.BussinesLogic;
 using AdminFerreteria.Helper.HelperSeguridad;
 using AdminFerreteria.Models;
 using AdminFerreteria.Request;
@@ -161,7 +161,7 @@ namespace AdminFerreteria.Controllers
         [HttpPost]
         public int confirmarCotizacion(string nombre, int tipodocumento)
         {
-            CotizacionDAL dal = new CotizacionDAL();
+            CotizacionBL dal = new CotizacionBL();
             try
             {
                 #region quitamos el serializado a la lista

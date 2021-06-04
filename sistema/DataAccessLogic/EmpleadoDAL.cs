@@ -5,18 +5,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Transactions;
 
-namespace AdminFerreteria.DAL
+namespace AdminFerreteria.DataAccessLogic
 {
     public class EmpleadoDAL
     {
-        public static Empleado obtenerElPrimerEmpleado()
+        public static Empleado ObtenerElPrimerEmpleado()
         {
             using (var db = new BDFERRETERIAContext())
             {
                 return db.Empleado.Where(p => p.Iidempleado == 1).First();
             }
         }
-        public List<Empleado> listarEmpleados()
+        public List<Empleado> ListarEmpleados()
         {
             using (var db = new BDFERRETERIAContext())
             {
@@ -25,7 +25,7 @@ namespace AdminFerreteria.DAL
                 return lst;
             }
         }
-        public Empleado obtenerEmpleado(int id)
+        public Empleado ObtenerEmpleado(int id)
         {
             using (var db = new BDFERRETERIAContext())
             {
@@ -33,7 +33,7 @@ namespace AdminFerreteria.DAL
                 return oEmpleado;
             }
         }
-        public int eliminar(int id)
+        public int EliminarEmpleado(int id)
         {
             try
             {
@@ -63,7 +63,7 @@ namespace AdminFerreteria.DAL
                 return 0;
             }
         }
-        public int guardarEmpleado(Empleado empleado, Usuario usuario)
+        public int GuardarEmpleado(Empleado empleado, Usuario usuario)
         {
             try
             {
@@ -132,7 +132,7 @@ namespace AdminFerreteria.DAL
                 return 0;
             }
         }
-        public List<Tipousuario> listarTipoUsuario()
+        public List<Tipousuario> ListarTipoUsuario()
         {
             using (var db = new BDFERRETERIAContext())
             {
@@ -140,7 +140,7 @@ namespace AdminFerreteria.DAL
                 return lst;
             }
         }
-        public object obtenerUsuario(Int64 id)
+        public object ObtenerUsuario(Int64 id)
         {
             using (var db = new BDFERRETERIAContext())
             {

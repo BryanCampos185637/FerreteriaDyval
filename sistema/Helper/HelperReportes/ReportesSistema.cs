@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Transactions;
-using AdminFerreteria.Controllers;
-using AdminFerreteria.DAL;
+using AdminFerreteria.BussinesLogic;
 using AdminFerreteria.Models;
 using AdminFerreteria.Request;
 using iText.Kernel.Colors;
@@ -34,47 +33,8 @@ namespace AdminFerreteria.Helper.HelperReportes
                         //doc.SetMargins(5,10,5,10);//arriba, derecha, abajo, izquierda
                         #region obtenemos la data de la factura
 
-                        Factura factura = (from f in db.Factura
-                                           where f.Iidfactura == id
-                                           select new Factura
-                                           {
-                                               Iidusuario = f.Iidusuario,
-                                               Iidfactura = f.Iidfactura,
-                                               Nofactura = f.Nofactura,
-                                               Tipocomprador = f.Tipocomprador.ToUpper(),
-                                               Nombrecliente = f.Nombrecliente.ToUpper(),
-                                               Direccion = f.Direccion.ToUpper() == null ? "" : f.Direccion,
-                                               Registro = f.Registro.ToUpper() == null ? "" : f.Registro,
-                                               Giro = f.Giro.ToUpper() == null ? "" : f.Giro,
-                                               Nit = f.Nit == null ? "" : f.Nit,
-                                               Fechacreacion = f.Fechacreacion,
-                                               Total = f.Total,
-                                               Descuentoglobal = f.Descuentoglobal,
-                                               Porcentajedescuentoglobal = f.Porcentajedescuentoglobal
-                                           }).First();//obtenemos el objeto de la factura
-                        List<DetalleVenta> detallePedido = (from detalle in db.Detallepedido
-                                                            join producto in db.Producto on
-                                                            detalle.Iidproducto equals producto.Iidproducto
-                                                            join unidad in db.Unidadmedida on
-                                                            producto.Iidunidadmedida equals unidad.Iidunidadmedida
-                                                            where detalle.Iidfactura == id
-                                                            select new DetalleVenta
-                                                            {
-                                                                cantidad = detalle.Cantidad,
-                                                                nombreproducto = producto.Descripcion.ToUpper(),
-                                                                preciounitario = (decimal)detalle.Precioactual,
-                                                                total = (decimal)detalle.Subtotal,
-                                                                descuento = (decimal)detalle.Descuento,
-                                                                pdescuento = detalle.Porcentajedescuento,
-                                                                comision = (decimal)detalle.Comision,
-                                                                unidadmedida = unidad.Nombreunidad,
-                                                                precioActual = (decimal)detalle.Precioactual,
-                                                                Nombresubunidad = UtilidadesController.ObtenerNombreSubUnidad(producto.Subunidad),
-                                                                subproducto = detalle.Essubproducto,
-                                                                iva = (decimal)producto.Iva,
-                                                                codigoproducto = producto.Codigoproducto,
-                                                                subiva = producto.Subiva
-                                                            }).ToList();//listamos el detalle del pedido
+                        Factura factura = ReporteBL.obtenerDetalleFactura(db, id);
+                        List<DetalleVenta> detallePedido = ReporteBL.ObtenerListaDetalleFactura(db, id);
                         #endregion
 
                         #region detalle del pedido
@@ -119,7 +79,14 @@ namespace AdminFerreteria.Helper.HelperReportes
                             foreach (var item in detallePedido)
                             {
                                 total += item.total; totaldescuento += item.descuento;
+                                #region validacion tamaño cadena
+                                int largoCadena = item.nombreproducto.Count(), final = 63;
+                                if (largoCadena <= final)
+                                {
+                                    final = largoCadena;
+                                }
 
+                                #endregion
                                 //cant
                                 cellBody = new Cell().Add(new Paragraph(item.cantidad.ToString()).SetFontSize(7).SetWidth(35));
                                 tablaProducto.AddCell(cellBody.SetBorder(Border.NO_BORDER));
@@ -131,8 +98,8 @@ namespace AdminFerreteria.Helper.HelperReportes
                                 if (item.subproducto == "NO") //validamos que unidad es
                                 {
                                     //descripcion
-                                    cellBody = new Cell().Add(new Paragraph(item.nombreproducto + " "
-                                        + item.unidadmedida.Substring(0, 3) + " " + descuento + " " + afectado).SetFontSize(6).SetWidth(232));
+                                    cellBody = new Cell().Add(new Paragraph(item.nombreproducto.Substring(0,final) + " "
+                                        + item.unidadmedida + " " + descuento + " " + afectado).SetFontSize(6).SetWidth(232));
                                     tablaProducto.AddCell(cellBody.SetBorder(Border.NO_BORDER));
                                 }
                                 else
@@ -352,6 +319,7 @@ namespace AdminFerreteria.Helper.HelperReportes
                                         cellBody = new Cell().Add(new Paragraph(total.ToString()).SetFontSize(7));
                                         tablaProducto.AddCell(cellBody.SetBorder(new SolidBorder(ColorConstants.WHITE, 1)));
                                     }
+
                                     else if (i == 5 && c == 5)//sub total + iva
                                     {
                                         factura.Total = Math.Round((decimal)factura.Total, 2);
@@ -392,35 +360,8 @@ namespace AdminFerreteria.Helper.HelperReportes
                         //para factura PageSize.A6
                         Document doc = new Document(facturaPDF, PageSize.LETTER);
                         #region obtenemos la data de la cotizacion
-                        Cotizacion cotizacion = (from f in db.Cotizacion
-                                                 where f.Iidcotizacion == id
-                                                 select new Cotizacion
-                                                 {
-                                                     Iidcotizacion = f.Iidcotizacion,
-                                                     Nocotizacion = f.Nocotizacion,
-                                                     Fechacreacion = f.Fechacreacion,
-                                                     Fechavencimiento = f.Fechavencimiento,
-                                                     Iidusuario = f.Iidusuario,
-                                                     Total = f.Total
-                                                 }).First();//obtenemos el objeto de la factura
-                        List<DetalleVenta> detalleCotizacion = (from detalle in db.Detallecotizacion
-                                                                join producto in db.Producto on
-                                                                detalle.Iidproducto equals producto.Iidproducto
-                                                                join unidad in db.Unidadmedida on
-                                                                producto.Iidunidadmedida equals unidad.Iidunidadmedida
-                                                                where detalle.Iidcotizacion == id
-                                                                select new DetalleVenta
-                                                                {
-                                                                    codigoproducto = producto.Codigoproducto,
-                                                                    cantidad = detalle.Cantidad,
-                                                                    nombreproducto = producto.Descripcion.ToUpper(),
-                                                                    preciounitario = (decimal)detalle.Precioactual,
-                                                                    total = (decimal)detalle.Subtotal,
-                                                                    descuento = (decimal)detalle.Descuento,
-                                                                    comision = (decimal)detalle.Comision,
-                                                                    unidadmedida = unidad.Nombreunidad,
-                                                                    precioActual = (decimal)detalle.Precioactual
-                                                                }).ToList();//listamos el detalle del pedido
+                        Cotizacion cotizacion = ReporteBL.obtenerDetalleCotizacion(db, id);
+                        List<DetalleVenta> detalleCotizacion = ReporteBL.ObtenerListaDetalleCotizacion(db, id);
                         #endregion
 
                         #region creamos el inicio de la cotizacion
@@ -464,6 +405,7 @@ namespace AdminFerreteria.Helper.HelperReportes
                         #endregion
 
                         #region detalle de la cotizacion
+                        #region encabezado
                         Paragraph paragraph = new Paragraph("");
                         doc.Add(paragraph);
                         paragraph = new Paragraph("");
@@ -484,24 +426,47 @@ namespace AdminFerreteria.Helper.HelperReportes
                             tablaProducto.AddHeaderCell(celda);//agregamos la celda
                         }
                         decimal total = 0;
+                        #endregion
+
+                        #region detalle de la tabla
+                        int tamanoTexto = 7;
                         //creamos el cuerpo de la tabla
                         Cell cellBody;
                         int nvecesIterado = 0;
                         foreach (var item in detalleCotizacion)
                         {
                             nvecesIterado++;
-                            cellBody = new Cell().SetBorder(Border.NO_BORDER).Add(new Paragraph(item.cantidad.ToString()).SetFontSize(9).SetWidth(31));
-                            tablaProducto.AddCell(cellBody);
-
-                            cellBody = new Cell().SetBorder(Border.NO_BORDER).Add(new Paragraph(item.nombreproducto).SetFontSize(9).SetWidth(272));
+                            #region validacion tamaño cadena
+                            int largoCadena = item.nombreproducto.Count(), final = 63;
+                            string textoRelleno = "...";
+                            if (largoCadena <= final)
+                            {
+                                final = largoCadena;
+                                textoRelleno = "";
+                            }
+                                
+                            #endregion
+                            if (item.subproducto == "NO") //validamos que unidad es
+                            {
+                                cellBody = new Cell().SetBorder(Border.NO_BORDER).Add(new Paragraph(item.cantidad.ToString()
+                                    + item.unidadmedida).SetFontSize(tamanoTexto).SetWidth(31));
+                                tablaProducto.AddCell(cellBody);
+                            }
+                            else
+                            {
+                                cellBody = new Cell().SetBorder(Border.NO_BORDER).Add(new Paragraph(item.cantidad.ToString()
+                                    + item.Nombresubunidad).SetFontSize(tamanoTexto).SetWidth(31));
+                                tablaProducto.AddCell(cellBody);
+                            }
+                            cellBody = new Cell().SetBorder(Border.NO_BORDER).Add(new Paragraph(item.nombreproducto.Substring(0, final)+textoRelleno).SetFontSize(tamanoTexto).SetWidth(272));
                             tablaProducto.AddCell(cellBody);
                             //obtenemos el precio unitario sumando el precio + la comision
                             decimal precio = ((item.precioActual * item.cantidad) + item.comision) / item.cantidad; precio = Math.Round(precio, 4);
-                            cellBody = new Cell().SetBorder(Border.NO_BORDER).Add(new Paragraph(precio.ToString()).SetFontSize(9).SetWidth(41));
+                            cellBody = new Cell().SetBorder(Border.NO_BORDER).Add(new Paragraph(precio.ToString()).SetFontSize(tamanoTexto).SetWidth(41));
                             tablaProducto.AddCell(cellBody);
 
                             decimal subtotal = precio * item.cantidad; subtotal = Math.Round(subtotal, 2);
-                            cellBody = new Cell().SetBorder(Border.NO_BORDER).Add(new Paragraph(subtotal.ToString()).SetFontSize(9).SetWidth(41));
+                            cellBody = new Cell().SetBorder(Border.NO_BORDER).Add(new Paragraph(subtotal.ToString()).SetFontSize(tamanoTexto).SetWidth(41));
                             tablaProducto.AddCell(cellBody);
                             total = total + subtotal;
                         }
@@ -510,11 +475,13 @@ namespace AdminFerreteria.Helper.HelperReportes
                         {
                             for (int column = 0; column < 4; column++)
                             {
-                                cellBody = new Cell().Add(new Paragraph("ESP").SetFontColor(ColorConstants.WHITE).SetFontSize(9)
+                                cellBody = new Cell().Add(new Paragraph("ESP").SetFontColor(ColorConstants.WHITE).SetFontSize(tamanoTexto)
                                     .SetWidth(anchos[column]));
                                 tablaProducto.AddCell(cellBody.SetBorder(Border.NO_BORDER));
                             }
                         }
+                        #endregion
+
                         #region footer tabla
                         cellBody = new Cell().SetBorder(Border.NO_BORDER).Add(new Paragraph("ESPACIO").SetWidth(31).SetFontSize(12).SetFontColor(ColorConstants.WHITE));
                         tablaProducto.AddFooterCell(cellBody);
@@ -599,7 +566,7 @@ namespace AdminFerreteria.Helper.HelperReportes
                                 tablaDetalle.AddCell(celda);
                             }
                             Int64 id = lstF.iidfactura;
-                            List<DetalleVenta> lstVenta = FacturaDAL.obtenerListaFacturaParaReporte(id);//obtenemos la lista
+                            List<DetalleVenta> lstVenta = FacturaBL.obtenerListaFacturaParaReporte(id);//obtenemos la lista
                             foreach (var lstV in lstVenta)//recorremos el listado de productos
                             {
                                 celda = new Cell().Add(new Paragraph(lstV.cantidad.ToString()).SetFontSize(8));
@@ -620,7 +587,7 @@ namespace AdminFerreteria.Helper.HelperReportes
                                         celda = new Cell().Add(new Paragraph(lstV.nombreproducto).SetFontSize(8));
                                         tablaDetalle.AddCell(celda);
 
-                                        celda = new Cell().Add(new Paragraph(lstV.unidadmedida.Substring(0, 3)).SetFontSize(8));
+                                        celda = new Cell().Add(new Paragraph(lstV.unidadmedida).SetFontSize(8));
                                         tablaDetalle.AddCell(celda);
                                     }
                                 }
@@ -629,7 +596,7 @@ namespace AdminFerreteria.Helper.HelperReportes
                                     celda = new Cell().Add(new Paragraph(lstV.nombreproducto).SetFontSize(8));
                                     tablaDetalle.AddCell(celda);
 
-                                    celda = new Cell().Add(new Paragraph(lstV.Nombresubunidad.Substring(0, 3)).SetFontSize(8));
+                                    celda = new Cell().Add(new Paragraph(lstV.Nombresubunidad).SetFontSize(8));
                                     tablaDetalle.AddCell(celda);
 
                                 }
@@ -704,47 +671,8 @@ namespace AdminFerreteria.Helper.HelperReportes
                         //doc.SetMargins(5,10,5,10);//arriba, derecha, abajo, izquierda
                         #region obtenemos la data de la factura
 
-                        Factura factura = (from f in db.Factura
-                                           where f.Iidfactura == id
-                                           select new Factura
-                                           {
-                                               Iidusuario = f.Iidusuario,
-                                               Iidfactura = f.Iidfactura,
-                                               Nofactura = f.Nofactura,
-                                               Tipocomprador = f.Tipocomprador.ToUpper(),
-                                               Nombrecliente = f.Nombrecliente.ToUpper(),
-                                               Direccion = f.Direccion.ToUpper() == null ? "" : f.Direccion,
-                                               Registro = f.Registro.ToUpper() == null ? "" : f.Registro,
-                                               Giro = f.Giro.ToUpper() == null ? "" : f.Giro,
-                                               Nit = f.Nit == null ? "" : f.Nit,
-                                               Fechacreacion = f.Fechacreacion,
-                                               Total = f.Total,
-                                               Descuentoglobal = f.Descuentoglobal,
-                                               Porcentajedescuentoglobal = f.Porcentajedescuentoglobal,
-                                           }).First();//obtenemos el objeto de la factura
-                        List<DetalleVenta> detallePedido = (from detalle in db.Detallepedido
-                                                            join producto in db.Producto on
-                                                            detalle.Iidproducto equals producto.Iidproducto
-                                                            join unidad in db.Unidadmedida on
-                                                            producto.Iidunidadmedida equals unidad.Iidunidadmedida
-                                                            where detalle.Iidfactura == id
-                                                            select new DetalleVenta
-                                                            {
-                                                                cantidad = detalle.Cantidad,
-                                                                nombreproducto = producto.Descripcion.ToUpper(),
-                                                                preciounitario = (decimal)detalle.Precioactual,
-                                                                total = (decimal)detalle.Subtotal,
-                                                                descuento = (decimal)detalle.Descuento,
-                                                                pdescuento = detalle.Porcentajedescuento,
-                                                                comision = (decimal)detalle.Comision,
-                                                                unidadmedida = unidad.Nombreunidad,
-                                                                precioActual = (decimal)detalle.Precioactual,
-                                                                Nombresubunidad = UnidadMedidaDAL.ObtenerNombreSubUnidad(producto.Subunidad),
-                                                                subproducto = detalle.Essubproducto,
-                                                                iva = (decimal)producto.Iva,
-                                                                codigoproducto = producto.Codigoproducto,
-                                                                subiva = producto.Subiva
-                                                            }).ToList();//listamos el detalle del pedido
+                        Factura factura = ReporteBL.obtenerDetalleFactura(db, id);
+                        List<DetalleVenta> detallePedido = ReporteBL.ObtenerListaDetalleFactura(db, id);
                         #endregion
 
                         #region titulo

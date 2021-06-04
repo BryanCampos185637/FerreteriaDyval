@@ -7,11 +7,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Transactions;
 
-namespace AdminFerreteria.DAL
+namespace AdminFerreteria.DataAccessLogic
 {
     public class BodegainventarioDAL
     {
-        public string guardarBodega(Bodega bodega)
+        public string GuardarBodega(Bodega bodega)
         {
             try
             {
@@ -46,7 +46,7 @@ namespace AdminFerreteria.DAL
                 return e.Message;
             }
         }
-        public List<Bodega> listarBodega()
+        public List<Bodega> ListarBodega()
         {
             using (var db = new BDFERRETERIAContext())
             {
@@ -54,7 +54,7 @@ namespace AdminFerreteria.DAL
                 return lst;
             }
         }
-        public List<ListInventario> listarInventario()
+        public List<ListInventario> ListarInventario()
         {
             List<ListInventario> lst = new List<ListInventario>();
             using (var db = new BDFERRETERIAContext())
@@ -76,7 +76,7 @@ namespace AdminFerreteria.DAL
                 return lst;
             }
         }
-        public Bodega obtenerBodega(int id)
+        public Bodega ObtenerBodegaSegunId(int id)
         {
             using (var db = new BDFERRETERIAContext())
             {
@@ -84,7 +84,7 @@ namespace AdminFerreteria.DAL
                 return data;
             }
         }
-        public List<ListProducto> listarProductos()
+        public List<ListProducto> ListarProductos()
         {
             using (var db = new BDFERRETERIAContext())
             {
@@ -106,7 +106,7 @@ namespace AdminFerreteria.DAL
                 return lst;
             }
         }
-        public string modificarExistenciasSalaDeVenta(Producto producto)
+        public string ModificarExistenciasSalaDeVenta(Producto producto)
         {
             try
             {
@@ -128,7 +128,7 @@ namespace AdminFerreteria.DAL
                 return ex.Message;
             }
         }
-        public string editarExistenciasInventario(Int64 id, Int64 cantidad)
+        public string EditarExistenciasInventario(Int64 id, Int64 cantidad)
         {
             try
             {
@@ -145,7 +145,7 @@ namespace AdminFerreteria.DAL
                 return e.Message;
             }
         }
-        public string eliminarInventario(Int64 id)
+        public string EliminarInventario(Int64 id)
         {
             try
             {
@@ -162,7 +162,7 @@ namespace AdminFerreteria.DAL
                 return e.Message;
             }
         }
-        public List<Bodega> listarBodegaDiferenteDelParametroId(Int64 id)
+        public List<Bodega> ListarBodegaDiferenteDelParametroId(Int64 id)
         {
             using (var db = new BDFERRETERIAContext())
             {
@@ -170,7 +170,7 @@ namespace AdminFerreteria.DAL
                 return lst;
             }
         }
-        public string moverproducto(Int64 cantidad, Int64 bodegaActual, Int64 producto, Int64 ubicacionnueva, int stock)
+        public string MoverProducto(Int64 cantidad, Int64 bodegaActual, Int64 producto, Int64 ubicacionnueva, int stock)
         {
             try
             {
@@ -258,7 +258,7 @@ namespace AdminFerreteria.DAL
                 return e.Message;
             }
         }
-        public ListInventario obtenerInventario(int id)
+        public ListInventario ObtenerInventarioSegunId(int id)
         {
             using (var db = new BDFERRETERIAContext())
             {
@@ -279,7 +279,7 @@ namespace AdminFerreteria.DAL
                 return lst;
             }
         }
-        public string eliminarBodega(int id)
+        public string EliminarBodega(int id)
         {
             try
             {

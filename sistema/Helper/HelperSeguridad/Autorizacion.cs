@@ -1,8 +1,5 @@
-﻿using AdminFerreteria.Models;
+﻿using AdminFerreteria.BussinesLogic;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-
 namespace AdminFerreteria.Helper.HelperSeguridad
 {
     public class Autorizacion
@@ -16,31 +13,13 @@ namespace AdminFerreteria.Helper.HelperSeguridad
         /// <returns></returns>
         public static bool ValidarPermisos(string controller, string action, int idUsuario)
         {
-            
-            int existe = 0;
             try
             {
-                using (var bd = new BDFERRETERIAContext())
-                {
-                    var tipoUsuario = bd.Usuario.Where(p => p.Iidusuario == idUsuario).First();//capturamos el tipo de usuario de la cokie
-                    if (tipoUsuario.Bhabilitado == "A")
-                    {
-                        existe = (from ptu in bd.Paginatipousuario
-                                  join pagina in bd.Pagina on ptu.Iidpagina equals pagina.Iidpagina
-                                  where pagina.Accion.ToLower() == action.ToLower() &&
-                                  pagina.Controlador.ToLower() == controller.ToLower() &&
-                                  ptu.Iidtipousuario == tipoUsuario.Iidtipousuario && ptu.Bhabilitado == "A"
-                                  select new Pagina { Iidpagina = pagina.Iidpagina }).Count();
-                        if (existe > 0)//si el tipo de usuario tiene relacionada esa pagina se retorna un true
-                            return true;
-                        else//de lo contrario un false
-                            return false;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
+                int existe = SeguridadBL.tieneAutorizacion(controller, action, idUsuario);
+                if (existe > 0)//si el tipo de usuario tiene relacionada esa pagina se retorna un true
+                    return true;
+                else//de lo contrario un false
+                    return false;
             }
             catch (Exception e)
             {

@@ -5,11 +5,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace AdminFerreteria.DAL
+namespace AdminFerreteria.DataAccessLogic
 {
     public class CotizacionPendienteDAL
     {
-        public List<DetalleVenta> detalleCotizacion(Int64 id)
+        public List<DetalleVenta> ListarDetalleCotizacion(Int64 id)
         {
             using (var db = new BDFERRETERIAContext())
             {
@@ -42,7 +42,7 @@ namespace AdminFerreteria.DAL
                 return detalleCotizacion;
             }
         }
-        public Cotizacion obtenerCotizacion(Int64 id)
+        public Cotizacion ObtenerCotizacionPorId(Int64 id)
         {
             using (var db = new BDFERRETERIAContext())
             {
@@ -50,7 +50,7 @@ namespace AdminFerreteria.DAL
                 return cotizacion;
             }
         }
-        public List<ListCotizacion> listarCotizacion()
+        public List<ListCotizacion> ListarCotizacion()
         {
             using (var db = new BDFERRETERIAContext())
             {
@@ -78,7 +78,7 @@ namespace AdminFerreteria.DAL
                 return lst;
             }
         }
-        public Cotizacion obtenerNumeroCotizacion(Int64 id)
+        public Cotizacion ObtenerNumeroCotizacion(Int64 id)
         {
             using (var db = new BDFERRETERIAContext())
             {
@@ -86,7 +86,7 @@ namespace AdminFerreteria.DAL
                 return cotizacion;
             }
         }
-        public bool eliminarProductoDeLaCotizacion(Int64 id, Int64 idCotizacion)
+        public bool EliminarProductoDeLaCotizacion(Int64 id, Int64 idCotizacion)
         {
             try
             {
@@ -103,7 +103,7 @@ namespace AdminFerreteria.DAL
                 return false;
             }
         }
-        public object guardarNuevoProducto(Int64 iiproducto, int? descuento, int? comision, Int64 cantidad, Int64 idCotizacion, int? Essubproducto)
+        public object GuardarNuevoProducto(Int64 iiproducto, int? descuento, int? comision, Int64 cantidad, Int64 idCotizacion, int? Essubproducto)
         {
             try
             {

@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using AdminFerreteria.Models;
-using AdminFerreteria.DAL;
 using AdminFerreteria.Helper.HelperSeguridad;
+using AdminFerreteria.BussinesLogic;
 
 namespace AdminFerreteria.Controllers
 {
@@ -14,7 +14,7 @@ namespace AdminFerreteria.Controllers
         {
             return View();
         }
-        BodegainventarioDAL dal = new BodegainventarioDAL();
+        BodegaInventarioBL dal = new BodegaInventarioBL();
         [HttpGet]
         public JsonResult listBodega()
         {

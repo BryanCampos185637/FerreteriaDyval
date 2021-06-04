@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using AdminFerreteria.DAL;
 using AdminFerreteria.Helper.HelperSeguridad;
+using AdminFerreteria.BussinesLogic;
 
 namespace AdminFerreteria.Controllers
 {
     
     public class BitacoraSistemaController : Controller
     {
-        BitacoraSistemaDAL DAL = new BitacoraSistemaDAL();
+        BitacoraSistemaBL DAL = new BitacoraSistemaBL();
         [ServiceFilter(typeof(FiltroDeAutenticacionValidacion))]
         public IActionResult Index(string filtro = null, int pagina = 1, int cantidad = 5)
         {

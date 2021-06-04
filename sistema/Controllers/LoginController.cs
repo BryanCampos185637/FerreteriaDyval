@@ -1,6 +1,7 @@
 ﻿using System.Linq;
-using AdminFerreteria.DAL;
+using AdminFerreteria.BussinesLogic;
 using AdminFerreteria.Helper.HelperBitacora;
+using AdminFerreteria.Helper.HelperInicioSistema;
 using AdminFerreteria.Helper.HelperSession;
 using AdminFerreteria.Models;
 using Microsoft.AspNetCore.Http;
@@ -13,6 +14,7 @@ namespace AdminFerreteria.Controllers
         BDFERRETERIAContext db = new BDFERRETERIAContext();
         public IActionResult Index()
         {
+            CreacionPaginasRol.iniciarSistema();
             int? idUsuario = Cookies.obtenerObjetoSesion(HttpContext.Session, "UsuarioLogueado");
             if (idUsuario > 0 && idUsuario != null) 
             {
@@ -33,7 +35,7 @@ namespace AdminFerreteria.Controllers
         {
             return View();
         }
-        LoginDAL dal = new LoginDAL();
+        LoginBL dal = new LoginBL();
         [HttpPost]
         public int validation(Usuario user)
         {

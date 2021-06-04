@@ -1,5 +1,5 @@
-﻿using AdminFerreteria.Controllers;
-using AdminFerreteria.DAL;
+﻿using AdminFerreteria.BussinesLogic;
+using AdminFerreteria.Controllers;
 using AdminFerreteria.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -11,7 +11,7 @@ namespace AdminFerreteria.Helper.HelperSeguridad
         //antes de retornar el view
         public void OnActionExecuted(ActionExecutedContext context)
         {
-            #region validacion de validacion
+            #region validacion de sesion
             int? sesionActiva = HelperSession.Cookies.obtenerObjetoSesion(context.HttpContext.Session, "UsuarioLogueado");
             if (sesionActiva == null)
                 context.Result = new RedirectResult("/Login/Index");//devolvemos a la vista login
@@ -43,7 +43,7 @@ namespace AdminFerreteria.Helper.HelperSeguridad
                     if (Autorizacion.ValidarPermisos(controller.ToUpper(), action.ToUpper(), (int)sesionActiva))
                     {
                         #region BITACORA
-                        BitacoraSistemaDAL bitacora = new BitacoraSistemaDAL();
+                        BitacoraSistemaBL bitacora = new BitacoraSistemaBL();
                         bitacora.insertarBitacora(new Bitacorasistema
                         {
                             Iidusuario = (int)sesionActiva,
@@ -55,7 +55,7 @@ namespace AdminFerreteria.Helper.HelperSeguridad
                     else
                     {
                         #region BITACORA
-                        BitacoraSistemaDAL bitacora = new BitacoraSistemaDAL();
+                        BitacoraSistemaBL bitacora = new BitacoraSistemaBL();
                         bitacora.insertarBitacora(new Bitacorasistema
                         {
                             Iidusuario = (int)sesionActiva,
@@ -70,6 +70,5 @@ namespace AdminFerreteria.Helper.HelperSeguridad
             }
             #endregion
         }
-
     }
 }

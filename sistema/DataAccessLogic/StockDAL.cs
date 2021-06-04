@@ -4,11 +4,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace AdminFerreteria.DAL
+namespace AdminFerreteria.DataAccessLogic
 {
     public class StockDAL
     {
-        public List<Stock> listarStock()
+        public List<Stock> ListarStock()
         {
             using (var db = new BDFERRETERIAContext())
             {
@@ -16,7 +16,7 @@ namespace AdminFerreteria.DAL
                 return lst;
             }
         }
-        public int guardarStok(Stock stock)
+        public int GuardarStok(Stock stock)
         {
             try
             {
@@ -49,7 +49,7 @@ namespace AdminFerreteria.DAL
                 return 0;
             }
         }
-        public Stock obtenerStock(int id)
+        public Stock ObtenerStock(int id)
         {
             using (var db = new BDFERRETERIAContext())
             {
@@ -57,7 +57,7 @@ namespace AdminFerreteria.DAL
                 return lst;
             }
         }
-        public int eliminar(int id)
+        public int Eliminar(int id)
         {
             try
             {

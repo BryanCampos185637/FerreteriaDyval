@@ -1,5 +1,6 @@
 ﻿using System;
-using AdminFerreteria.DAL;
+using AdminFerreteria.BussinesLogic;
+using AdminFerreteria.Helper.HelperCalculoPrecio;
 using AdminFerreteria.Helper.HelperSeguridad;
 using AdminFerreteria.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -9,7 +10,7 @@ namespace AdminFerreteria.Controllers
     [ServiceFilter(typeof(FiltroDeAcciones))]
     public class ProductoController : Controller
     {
-        ProductoDAL dal = new ProductoDAL();
+        ProductoBL dal = new ProductoBL();
         [ServiceFilter(typeof(FiltroDeAutenticacionValidacion))]
         public IActionResult Index()
         {
@@ -26,9 +27,16 @@ namespace AdminFerreteria.Controllers
             return Json(dal.buscarProductos(Codigo, Nombre));
         }
         [HttpPost]
-        public int saveProducto(Producto producto)
+        public JsonResult saveProducto(Producto producto)
         {
-            return dal.guardarProducto(producto);
+            try
+            {
+                return Json(dal.guardarProducto(CalcularPrecioProducto.calcular(producto)));
+            }
+            catch(Exception e)
+            {
+                return Json(e.Message);
+            }
         }
         [HttpGet]
         public JsonResult getProductoById(Int64 id)

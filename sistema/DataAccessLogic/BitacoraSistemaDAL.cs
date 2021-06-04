@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 
-namespace AdminFerreteria.DAL
+namespace AdminFerreteria.DataAccessLogic
 {
     public class BitacoraSistemaDAL
     {
-        public void insertarBitacora(Bitacorasistema bitacorasistema)
+        public void InsertarBitacoraSistema(Bitacorasistema bitacorasistema)
         {
             try
             {
@@ -23,7 +23,7 @@ namespace AdminFerreteria.DAL
                 throw;
             }
         }
-        public ListBitacoraSistema paginar(int pagina, string filtro)
+        public ListBitacoraSistema PaginarListaBitacora(int pagina, string filtro)
         {
             try
             {

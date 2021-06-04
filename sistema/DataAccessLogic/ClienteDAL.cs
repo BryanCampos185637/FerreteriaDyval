@@ -4,11 +4,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace AdminFerreteria.DAL
+namespace AdminFerreteria.DataAccessLogic
 {
     public class ClienteDAL
     {
-        public List<Cliente> listar()
+        public List<Cliente> ListarClientes()
         {
             using (var db = new BDFERRETERIAContext())
             {
@@ -16,7 +16,7 @@ namespace AdminFerreteria.DAL
                 return lst;
             }
         }
-        public int guardar(Cliente cliente)
+        public int GuardarCliente(Cliente cliente)
         {
             try
             {
@@ -52,7 +52,7 @@ namespace AdminFerreteria.DAL
                 return 0;
             }
         }
-        public Cliente obtenerPorId(Int64 id)
+        public Cliente ObtenerClientePorId(Int64 id)
         {
             using (var db = new BDFERRETERIAContext())
             {
@@ -60,7 +60,7 @@ namespace AdminFerreteria.DAL
                 return lst;
             }
         }
-        public int eliminar(Int64 id)
+        public int EliminarCliente(Int64 id)
         {
             try
             {
