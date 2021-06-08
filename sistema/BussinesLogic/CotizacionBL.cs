@@ -1,5 +1,5 @@
 ﻿using AdminFerreteria.DataAccessLogic;
-using AdminFerreteria.Request;
+using AdminFerreteria.ViewModels;
 using System.Collections.Generic;
 
 namespace AdminFerreteria.BussinesLogic

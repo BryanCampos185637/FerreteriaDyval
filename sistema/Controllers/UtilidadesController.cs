@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AdminFerreteria.Helper.HelperEncriptar;
 using AdminFerreteria.Models;
-using AdminFerreteria.Request;
+using AdminFerreteria.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AdminFerreteria.Helper.HelperReportes;

@@ -1,5 +1,5 @@
 ﻿
-namespace AdminFerreteria.Request
+namespace AdminFerreteria.ViewModels
 {
     public class ListReporteInventario
     {

@@ -5,9 +5,9 @@ $(function () {
 })
 $('#frmReporte').submit(function (e) {
         e.preventDefault();
-        createReport();
+        crearReporteVenta();
 })
-function createReport() {
+function crearReporteVenta() {
     $.get('/reporte/createListReportVenta?desde=' + $('#desde').val() + '&hasta=' + $('#hasta').val(), function (resp) {
         if (resp > 0) {
             Swal.fire({
@@ -30,17 +30,20 @@ function createReport() {
     })
 }
 
-$('#frmReporteInventario').submit(function (e) {
-    e.preventDefault();
-    createReporteInventario();
-})
+document.getElementById('btnCrearReporteInventarioEXCEL').onclick = () =>
+{
+    crearReporteInventario('excel');
+}
+document.getElementById('btnCrearReporteInventarioPDF').onclick = () => {
+    crearReporteInventario('pdf');
+}
 
-function createReporteInventario() {
+function crearReporteInventario(tipo) {
     var frm = new FormData();
     frm.append('Iidbodega', $('#cbxBodega').val());
     frm.append('nombrestock', $('#cbxStock').val());
     $.ajax({
-        url: '/reporte/crearCookieReporteInventario',
+        url: '/reporte/crearListaReporteInventario',
         type: 'POST',
         contentType: false,
         processData: false,
@@ -54,7 +57,10 @@ function createReporteInventario() {
                     showConfirmButton: false,
                     timer: 2000
                 })
-                document.getElementById('btnReporteInventario').click();
+                if (tipo == 'excel')
+                    document.getElementById('btnReporteInventarioExcel').click();
+                else
+                    document.getElementById('btnReporteInventarioPdf').click();
             } else {
                 Swal.fire({
                     position: 'center',

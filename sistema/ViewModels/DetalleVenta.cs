@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AdminFerreteria.Request
+namespace AdminFerreteria.ViewModels
 {
     public class DetalleVenta
     {

@@ -27,7 +27,7 @@ function pintarTabla(titulo,subtitulo, url, cabecera, propiedades, llavePrimaria
         let html = '';
         html += '<h5>' + titulo + '</h5>'
         html += '<span>' + subtitulo + '</span><hr>'
-        html += '<table class="table table-bordered table-hover" id="tablaGenerada">'
+        html += '<table class="table table-hover table-bordered table-responsive-lg table-responsive-md table-responsive-sm" id="tablaGenerada">'
         html += '<thead class="thead-dark">'
         html += '<tr>'
         for (var i = 0; i < cabecera.length; i++) {
@@ -366,7 +366,7 @@ function listarProductos() {
         var html = '';
         html += '<h5>Lista del inventario de sala de ventas</h5>'
         html += '<span>Aqui se muestran todos los productos que estan en sala de venta</span><hr>'
-        html += '<table class="table table-bordered table-hover" id="tablaGenerada">'
+        html += '<table class="table table-hover table-bordered table-responsive-lg table-responsive-md table-responsive-sm" id="tablaGenerada">'
         html += '<thead class="thead-dark">'
         html += '<tr>'
         html += '<th>CODIGO</th>'
@@ -379,7 +379,6 @@ function listarProductos() {
         html += '</thead>'
         html += '<tbody>'
         $.each(data, function (key, item) {
-            console.log(item.descripcion)
             html += '<tr>';
             html += '<td>' + item.codigoproducto + '</td>'
             html += '<td>' + item.descripcion + '</td>'
@@ -426,7 +425,6 @@ function modificarExistencia() {
                 var obj = new FormData();
                 obj.append('Iidproducto', $('#Existiidproducto').val());
                 obj.append('Existencias', $('#txtexistencia').val());
-                console.log(obj);
                 $.ajax({
                     url: '/bodegainventario/modificarexistenciaproducto',
                     type: "POST",

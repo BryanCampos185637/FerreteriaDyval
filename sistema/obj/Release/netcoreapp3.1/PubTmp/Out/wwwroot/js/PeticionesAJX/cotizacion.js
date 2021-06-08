@@ -23,7 +23,7 @@ function paintTable(link, headboard) {
             document.getElementById('totalVenta').innerHTML = '$0.00';
         }
         var html = "";
-        html += '<table class="table table-hover table-bordered table-responsive-md table-responsive-sm" id="pagination">';
+        html += '<table class="table table-hover table-bordered table-responsive-lg table-responsive-md table-responsive-sm" id="pagination">';
         html += '<thead class="thead-dark">'
         html += '<tr>'
         var i = 0;
@@ -114,7 +114,6 @@ function abrirModalProducto(tipo) {
         html += '</thead>';
         html += '<tbody>';
         $.each(data, function (objeto, propiedad) {
-            var existencia = propiedad.existencias * 1;
             var subexistencia = propiedad.subexistencia;
             var subprecio = propiedad.subprecioventa * 1;
             var equivalencia = propiedad.equivalencia;
@@ -232,46 +231,41 @@ function calculateDiscount() {
 function addProductToList() {
     if ($('#iidproducto').val() != "") {
         var cantidad = $('#txtCantidad').val() * 1;
-        var existencias = $('#txtExistencias').val() * 1;
         var comision = $('#txtComision').val();
         var descuento = $('#txtDescuento').val();
         var subUnidad = $('#subunidad').val();
         if (cantidad > 0) {
-            if (cantidad <= existencias) {
-                var frm = new FormData();
-                frm.append('subUnidad', subUnidad);
-                frm.append('iiproducto', $('#iidproducto').val());
-                frm.append('cantidad', $('#txtCantidad').val());
-                if (comision != '')
-                    frm.append('comision', comision);
-                else
-                    frm.append('comision', 0);
-                if (descuento != '')
-                    frm.append('descuento', descuento);
-                else
-                    frm.append('descuento', 0);
-                $.ajax({
-                    url: '/cotizacion/ArmardetalleCotizacion',
-                    type: 'POST',
-                    contentType: false,
-                    processData: false,
-                    data: frm,
-                    success: function (r) {
-                        if (r > 0) {
-                            limpiar();
-                            callTable();
-                            messeges('success', 'Producto agregado');
-                            $('#iidproducto').val('');
-                        } else if (r == -1) {
-                            messeges('warning', 'Este producto ya está en la lista.');
-                        } else {
-                            messeges('error', 'Error en el sistema')
-                        }
+            var frm = new FormData();
+            frm.append('subUnidad', subUnidad);
+            frm.append('iiproducto', $('#iidproducto').val());
+            frm.append('cantidad', $('#txtCantidad').val());
+            if (comision != '')
+                frm.append('comision', comision);
+            else
+                frm.append('comision', 0);
+            if (descuento != '')
+                frm.append('descuento', descuento);
+            else
+                frm.append('descuento', 0);
+            $.ajax({
+                url: '/cotizacion/ArmardetalleCotizacion',
+                type: 'POST',
+                contentType: false,
+                processData: false,
+                data: frm,
+                success: function (r) {
+                    if (r > 0) {
+                        limpiar();
+                        callTable();
+                        messeges('success', 'Producto agregado');
+                        $('#iidproducto').val('');
+                    } else if (r == -1) {
+                        messeges('warning', 'Este producto ya está en la lista.');
+                    } else {
+                        messeges('error', 'Error en el sistema')
                     }
-                })
-            } else {
-                messeges('error', 'La cantidad es mayor que la existencia actual');
-            }//fin de cantidad<=existencias
+                }
+            })
         } else {
             messeges('warning', 'Cantidad no puede ser 0.');
         }//fin validacio cantidad > 0

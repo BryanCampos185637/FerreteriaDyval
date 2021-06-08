@@ -5,7 +5,7 @@ using System.Linq;
 using System.Transactions;
 using AdminFerreteria.Helper.HelperSeguridad;
 using AdminFerreteria.Models;
-using AdminFerreteria.Request;
+using AdminFerreteria.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;

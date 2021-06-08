@@ -6,6 +6,7 @@ using System;
 using AdminFerreteria.Helper.HelperSeguridad;
 using AdminFerreteria.Helper.HelperSession;
 using AdminFerreteria.BussinesLogic;
+using System.Net;
 
 namespace AdminFerreteria.Controllers
 {
@@ -56,6 +57,12 @@ namespace AdminFerreteria.Controllers
             {
                 return 0;
             }
+        }
+        public ActionResult ErrorInicio(string error)
+        {
+            ViewBag.cod = HttpStatusCode.BadRequest;
+            ViewBag.error = error;
+            return View();
         }
     }
 }

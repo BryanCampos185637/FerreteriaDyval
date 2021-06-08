@@ -1,5 +1,5 @@
 ﻿using AdminFerreteria.Models;
-using AdminFerreteria.Request;
+using AdminFerreteria.ViewModels;
 using Microsoft.Data.SqlClient;
 using System.Data;
 using System.Linq;

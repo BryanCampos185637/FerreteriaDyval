@@ -27,7 +27,7 @@ function abrirModalProducto(tipo) {
     }
     $.get(url, function (data) {
         var html = '';
-        html += '<table class="table table-hover table-bordered table-responsive-sm" id="tableproduct">'
+        html += '<table class="table table-hover table-bordered table-responsive-lg table-responsive-md table-responsive-sm" id="tableproduct">'
         html += '<thead class="thead-dark">'
         html += '<tr>'
         html += '<th>CODIGO</th>'

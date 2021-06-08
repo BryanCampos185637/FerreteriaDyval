@@ -1,6 +1,6 @@
 ﻿using AdminFerreteria.Controllers;
 using AdminFerreteria.Models;
-using AdminFerreteria.Request;
+using AdminFerreteria.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

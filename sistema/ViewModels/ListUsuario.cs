@@ -1,5 +1,5 @@
 ﻿
-namespace AdminFerreteria.Request
+namespace AdminFerreteria.ViewModels
 {
     /*todas las clases que contienen la palabra List me sirven para crear listas ya que utilizan 
     propiedades virtuales en la de models y me interfieren con la logica de Ajax

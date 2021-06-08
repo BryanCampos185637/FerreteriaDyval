@@ -1,4 +1,5 @@
 ﻿using AdminFerreteria.BussinesLogic;
+using AdminFerreteria.Controllers;
 using System;
 
 namespace AdminFerreteria.Helper.HelperInicioSistema
@@ -20,7 +21,8 @@ namespace AdminFerreteria.Helper.HelperInicioSistema
             }
             catch (Exception e)
             {
-                iniciarSistema();
+                HomeController home = new HomeController();
+                home.ErrorInicio("Error:" + e.Message);
             }
         }
     }

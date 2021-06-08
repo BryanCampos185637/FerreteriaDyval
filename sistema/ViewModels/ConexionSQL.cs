@@ -1,6 +1,6 @@
 ﻿using AdminFerreteria.Helper.HelperEncriptar;
 
-namespace AdminFerreteria.Request
+namespace AdminFerreteria.ViewModels
 {
     //esta clase funcionara solo para obtener la cadena de conexion utilizando el constructor de la clase
     public class ConexionSQL

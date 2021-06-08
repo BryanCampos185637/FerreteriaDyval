@@ -1,7 +1,5 @@
-﻿using System;
-using AdminFerreteria.Request;
+﻿using AdminFerreteria.ViewModels;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace AdminFerreteria.Models
 {
