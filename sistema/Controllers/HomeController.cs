@@ -4,6 +4,8 @@ using AdminFerreteria.Models;
 using Microsoft.AspNetCore.Http;
 using System;
 using AdminFerreteria.Helper.HelperSeguridad;
+using AdminFerreteria.Helper.HelperSession;
+using AdminFerreteria.BussinesLogic;
 
 namespace AdminFerreteria.Controllers
 {
@@ -12,12 +14,17 @@ namespace AdminFerreteria.Controllers
         [ServiceFilter(typeof(FiltroDeAcciones))]
         public IActionResult Index()
         {
-            BDFERRETERIAContext db = new BDFERRETERIAContext();
-            ViewBag.nombre = HttpContext.Session.GetString("NombreUsuario");
-            ViewBag.unidad = db.Unidadmedida.Where(p => p.Bhabilitado == "A").Count();
-            ViewBag.stock = db.Stock.Where(p => p.Bhabilitado == "A").Count();
-            ViewBag.configuracion = db.Configuracion.Count();
+            obtenerData();
             return View();
+        }
+        private void obtenerData()
+        {
+            ViewBag.nombre = ObtenerNombreUsuarioLogueado.obtenerNombre(
+                    (int)Cookies.obtenerObjetoSesion(HttpContext.Session, "UsuarioLogueado")
+                );
+            ViewBag.unidad = new UnidadMedidaBL().listar().Count();
+            ViewBag.stock = new StockBL().listarStock().Count();
+            ViewBag.configuracion = new ConfiguracionBL().existeConfiguracion();
         }
         public IActionResult Error()
         {

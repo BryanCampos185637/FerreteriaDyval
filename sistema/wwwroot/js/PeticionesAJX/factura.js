@@ -78,7 +78,7 @@ function addIdFacturaCookie(esOriginal = true) {
     let efectivo = document.getElementById('txtEfectivo').value;
     if (efectivo != '') {
         efectivo = efectivo * 1; let total = document.getElementById('total').value * 1;
-        if (efectivo > total) {
+        if (efectivo >= total) {
             var id = document.getElementById('iidfactura').value;
             $.get('/factura/addIdFacturaCookie?id=' + id + '&esOriginal=' + esOriginal + '&efectivo=' + efectivo, function (r) {
                 if (r) {

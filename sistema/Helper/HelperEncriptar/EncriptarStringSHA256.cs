@@ -4,7 +4,7 @@ using System.Text;
 
 namespace AdminFerreteria.Helper.HelperEncriptar
 {
-    public class EncriptarString
+    public class EncriptarStringSHA256
     {
         public static string EncriptarTexto(string pPassword)
         {

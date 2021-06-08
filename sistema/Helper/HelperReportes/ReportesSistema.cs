@@ -32,7 +32,6 @@ namespace AdminFerreteria.Helper.HelperReportes
                         Document doc = new Document(facturaPDF, PageSize.A5);
                         //doc.SetMargins(5,10,5,10);//arriba, derecha, abajo, izquierda
                         #region obtenemos la data de la factura
-
                         Factura factura = ReporteBL.obtenerDetalleFactura(db, id);
                         List<DetalleVenta> detallePedido = ReporteBL.ObtenerListaDetalleFactura(db, id);
                         #endregion
@@ -44,6 +43,7 @@ namespace AdminFerreteria.Helper.HelperReportes
                             doc.SetTopMargin(5);
                             Paragraph paragraph = new Paragraph(factura.Nofactura + " \n \n \n \n");
                             doc.Add(paragraph.SetTextAlignment(iText.Layout.Properties.TextAlignment.RIGHT).SetFontSize(7));
+
                             #region inicio de la factura nombre cliente
                             string fechafactura = factura.Fechacreacion.ToShortDateString();
                             Paragraph fecha = new Paragraph("\n" + fechafactura);
@@ -80,35 +80,40 @@ namespace AdminFerreteria.Helper.HelperReportes
                             {
                                 total += item.total; totaldescuento += item.descuento;
                                 #region validacion tamaño cadena
-                                int largoCadena = item.nombreproducto.Count(), final = 63;
+                                int largoCadena = item.nombreproducto.Count(), final = 45;
+                                string textoRelleno = "...";
                                 if (largoCadena <= final)
                                 {
                                     final = largoCadena;
+                                    textoRelleno = "";
                                 }
 
                                 #endregion
                                 //cant
-                                cellBody = new Cell().Add(new Paragraph(item.cantidad.ToString()).SetFontSize(7).SetWidth(35));
+                                #region validacion nombre unidad
+                                string nombreUnidad = "";
+                                if (item.subproducto == "NO")
+                                {
+                                    if (afectado != "")
+                                        nombreUnidad = item.unidadmedida + afectado;
+                                    else
+                                        nombreUnidad = item.unidadmedida;
+                                }
+                                else { 
+                                    nombreUnidad = item.Nombresubunidad;
+                                }
+                                #endregion
+                                cellBody = new Cell().Add(new Paragraph(item.cantidad.ToString()+nombreUnidad).SetFontSize(6).SetWidth(35));
                                 tablaProducto.AddCell(cellBody.SetBorder(Border.NO_BORDER));
                                 string descuento = "";
-                                if (item.pdescuento > 0)
+                                if (item.pdescuento > 0)//si hay descuento se crea el texto correspontiente
                                 {
-                                    descuento = "[D: " + item.pdescuento.ToString() + "%]";
+                                    descuento = "D: " + item.pdescuento.ToString() + "%";
                                 }
-                                if (item.subproducto == "NO") //validamos que unidad es
-                                {
-                                    //descripcion
-                                    cellBody = new Cell().Add(new Paragraph(item.nombreproducto.Substring(0,final) + " "
-                                        + item.unidadmedida + " " + descuento + " " + afectado).SetFontSize(6).SetWidth(232));
-                                    tablaProducto.AddCell(cellBody.SetBorder(Border.NO_BORDER));
-                                }
-                                else
-                                {
-                                    //descripcion
-                                    cellBody = new Cell().Add(new Paragraph(item.nombreproducto +
-                                        " " + item.Nombresubunidad.Substring(0, 3) + " " + descuento).SetFontSize(6).SetWidth(232));
-                                    tablaProducto.AddCell(cellBody.SetBorder(Border.NO_BORDER));
-                                }
+                                //descripcion
+                                cellBody = new Cell().Add(new Paragraph(item.nombreproducto.Substring(0, final) +
+                                    " " + descuento).SetFontSize(6).SetWidth(232));
+                                tablaProducto.AddCell(cellBody.SetBorder(Border.NO_BORDER));
                                 //precio unitario
                                 decimal precio = (item.comision / item.cantidad) + item.precioActual;//obtenemos el precio unitario sumando el precio + la comision
                                 //precio = Math.Round(precio, 2);
@@ -142,16 +147,16 @@ namespace AdminFerreteria.Helper.HelperReportes
                             if (factura.Descuentoglobal > 0)
                             {
                                 factura.Descuentoglobal = Math.Round(factura.Descuentoglobal, 2);
-                                cellBody = new Cell(1, 5).Add(new Paragraph("Desc. de $" + factura.Descuentoglobal + " (" + factura.Porcentajedescuentoglobal + "%) productos con * afectados" +
+                                cellBody = new Cell(1, 5).Add(new Paragraph("D: $" + factura.Descuentoglobal + " " + factura.Porcentajedescuentoglobal + "% prod con * afectados" +
                                     " Vendedor: " + user.IidempleadoNavigation.Nombrecompleto)
-                                    .SetFontSize(7).SetFontColor(ColorConstants.BLACK));
+                                    .SetFontSize(5).SetFontColor(ColorConstants.BLACK));
                                 tablaProducto.AddCell(cellBody.SetBorder(Border.NO_BORDER));
                             }
                             else
                             {
                                 factura.Descuentoglobal = Math.Round(factura.Descuentoglobal, 2);
                                 cellBody = new Cell(1, 5).Add(new Paragraph("Vendedor:  " + user.IidempleadoNavigation.Nombrecompleto)
-                                    .SetFontSize(7).SetFontColor(ColorConstants.BLACK));
+                                    .SetFontSize(5).SetFontColor(ColorConstants.BLACK));
                                 tablaProducto.AddCell(cellBody.SetBorder(Border.NO_BORDER));
                             }
                             //pegar el total al final
@@ -250,7 +255,7 @@ namespace AdminFerreteria.Helper.HelperReportes
                                 if (item.subproducto == "NO") //validamos que unidad es
                                 {
 
-                                    cellBody = new Cell().Add(new Paragraph(item.nombreproducto + " " + item.unidadmedida.Substring(0, 3)).SetFontSize(7).SetWidth(238));
+                                    cellBody = new Cell().Add(new Paragraph(item.nombreproducto + " " + item.unidadmedida).SetFontSize(7).SetWidth(238));
                                     tablaProducto.AddCell(cellBody.SetBorder(new SolidBorder(ColorConstants.WHITE, 1)));
 
                                     decimal precio = item.precioActual - item.iva;//obtenemos el precio sin iva
@@ -261,7 +266,7 @@ namespace AdminFerreteria.Helper.HelperReportes
                                 }
                                 else
                                 {
-                                    cellBody = new Cell().Add(new Paragraph(item.nombreproducto + " " + item.Nombresubunidad.Substring(0, 3)).SetFontSize(7).SetWidth(238));
+                                    cellBody = new Cell().Add(new Paragraph(item.nombreproducto + " " + item.Nombresubunidad).SetFontSize(7).SetWidth(238));
                                     tablaProducto.AddCell(cellBody.SetBorder(new SolidBorder(ColorConstants.WHITE, 1)));
 
                                     decimal precio = item.precioActual - (decimal)item.subiva;//obtenemos el precio sin iva
@@ -429,7 +434,7 @@ namespace AdminFerreteria.Helper.HelperReportes
                         #endregion
 
                         #region detalle de la tabla
-                        int tamanoTexto = 7;
+                        int tamanoTexto = 9;
                         //creamos el cuerpo de la tabla
                         Cell cellBody;
                         int nvecesIterado = 0;
@@ -437,7 +442,7 @@ namespace AdminFerreteria.Helper.HelperReportes
                         {
                             nvecesIterado++;
                             #region validacion tamaño cadena
-                            int largoCadena = item.nombreproducto.Count(), final = 63;
+                            int largoCadena = item.nombreproducto.Count(), final = 45;
                             string textoRelleno = "...";
                             if (largoCadena <= final)
                             {
@@ -736,7 +741,7 @@ namespace AdminFerreteria.Helper.HelperReportes
                             {
                                 //descripcion
                                 cellBody = new Cell().Add(new Paragraph(item.nombreproducto +
-                                    " " + item.Nombresubunidad.Substring(0, 3) + " " + descuento).SetFontSize(7));
+                                    " " + item.Nombresubunidad + " " + descuento).SetFontSize(7));
                                 tablaProducto.AddCell(cellBody.SetWidth(140));
                             }
                             //precio unitario

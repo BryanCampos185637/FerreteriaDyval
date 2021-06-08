@@ -641,16 +641,17 @@ function aplicarDescuentoGeneral() {
             processData: false,
             data: frm,
             success: function (e) {
-                if (e > 0) {
+                if (e == '-1') {
+                    messeges('error', 'No tiene permiso para aplicar el descuento')
+                } else if (e == '0') {
+                    messeges('error', 'Error al aplicar descuento general')
+                }
+                else {
                     document.getElementById('btnCerrarModalDescuento').click();
                     messeges('success', 'Descuento aplicado');
                     document.getElementById('txtNombreUsuario').value = '';
                     document.getElementById('txtContraseñaUsuario').value = '';
                     document.getElementById('total').value = e;
-                } else if (e == -1) {
-                    messeges('error', 'No tiene permiso para aplicar el descuento')
-                } else {
-                    messeges('error', 'Error al aplicar descuento general')
                 }
             }
         })

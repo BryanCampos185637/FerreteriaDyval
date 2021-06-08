@@ -32,10 +32,11 @@ namespace AdminFerreteria.DataAccessLogic
             {
                 using (var db = new BDFERRETERIAContext())
                 {
-                    dataFactura.Efectivo = efectivo;
-                    dataFactura.Cambio = efectivo - dataFactura.Total;
-                    dataFactura.Original = "SI";
-                    dataFactura.Facturaemitida = "SI";//MODIFICAMOS SU PROPIEDAD Y LO GUARDAMOS
+                    var objeto = db.Factura.Where(p => p.Iidfactura.Equals(dataFactura.Iidfactura)).FirstOrDefault();
+                    objeto.Efectivo = efectivo;
+                    objeto.Cambio = efectivo - dataFactura.Total;
+                    objeto.Original = "SI";
+                    objeto.Facturaemitida = "SI";//MODIFICAMOS SU PROPIEDAD Y LO GUARDAMOS
                     db.SaveChanges();//solo si de descontaron guardamos los cambios
                 };
                 return true;

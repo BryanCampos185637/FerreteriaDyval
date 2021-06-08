@@ -14,5 +14,9 @@ namespace AdminFerreteria.BussinesLogic
         {
             return dal.ActualizarConfiguracionSistema(configuracion, usuario, contra);
         }
+        public int existeConfiguracion()
+        {
+            return dal.ExisteConfiguracion();
+        }
     }
 }

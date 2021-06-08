@@ -139,7 +139,7 @@ namespace AdminFerreteria.Controllers
         }
         public static string encryptPassword(string pPassword)
         {
-            return EncriptarString.EncriptarTexto(pPassword);
+            return EncriptarStringSHA256.EncriptarTexto(pPassword);
         }
         public static byte[] facturaPDF(Int64 id)
         {

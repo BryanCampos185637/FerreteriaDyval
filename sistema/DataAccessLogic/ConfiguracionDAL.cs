@@ -52,5 +52,19 @@ namespace AdminFerreteria.DataAccessLogic
                 return 0;
             }
         }
+        public int ExisteConfiguracion()
+        {
+            try
+            {
+                using(var db = new BDFERRETERIAContext())
+                {
+                    return db.Configuracion.ToList().Count();
+                }
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+        }
     }
 }

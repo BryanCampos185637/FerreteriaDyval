@@ -18,11 +18,11 @@ namespace AdminFerreteria.BussinesLogic
         }
         public Empleado obtenerEmpleado(int id)
         {
-            return obtenerEmpleado(id);
+            return dal.ObtenerEmpleado(id);
         }
         public int eliminar(int id)
         {
-            return eliminar(id);
+            return dal.EliminarEmpleado(id);
         }
         public int guardarEmpleado(Empleado empleado, Usuario usuario)
         {

@@ -43,7 +43,6 @@ namespace AdminFerreteria.Controllers
             if (rpt >0) 
             {
                 Usuario usuario = dal.obtenerDataUsuarioLog(user);
-                HttpContext.Session.SetString("NombreUsuario", usuario.IidempleadoNavigation.Nombrecompleto);
                 Cookies.crearCookieSession(HttpContext.Session, "UsuarioLogueado", usuario.Iidusuario);
                 LogicaBitacoraSistema.InsertarBitacoraBL
                 (

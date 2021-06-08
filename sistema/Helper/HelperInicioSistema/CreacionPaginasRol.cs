@@ -20,8 +20,7 @@ namespace AdminFerreteria.Helper.HelperInicioSistema
             }
             catch (Exception e)
             {
-                string error = e.Message;
-                throw;
+                iniciarSistema();
             }
         }
     }
