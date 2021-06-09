@@ -8,6 +8,11 @@ namespace AdminFerreteria.BussinesLogic
     public class ClienteBL
     {
         ClienteDAL dal = new ClienteDAL();
+        public static int existCliente(Cliente cliente)
+        {
+            return ClienteDAL.ExistCliente(cliente);
+        }
+
         public List<Cliente> listar()
         {
             return dal.ListarClientes();

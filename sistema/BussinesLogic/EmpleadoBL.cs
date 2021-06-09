@@ -8,6 +8,14 @@ namespace AdminFerreteria.BussinesLogic
     public class EmpleadoBL
     {
         EmpleadoDAL dal = new EmpleadoDAL();
+        public static int existeUsuario(Usuario oUsuario)
+        {
+            return EmpleadoDAL.ExistUsuario(oUsuario);
+        }
+        public static int existeEmpleado(Empleado oEmpleado)
+        {
+            return EmpleadoDAL.ExistEmpleado(oEmpleado);
+        }
         public static Empleado obtenerElPrimerEmpleado()
         {
             return EmpleadoDAL.ObtenerElPrimerEmpleado();

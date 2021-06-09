@@ -916,3 +916,4 @@ C:\Users\Bryan J. Campos\Documents\GitHub\FerreteriaDyval\sistema\obj\Release\ne
 C:\Users\Bryan J. Campos\Documents\GitHub\FerreteriaDyval\sistema\obj\Release\netcoreapp3.1\Razor\Views\Login\_RegistrarPrimerEmpleado.cshtml.g.cs
 C:\Users\Bryan J. Campos\Documents\GitHub\FerreteriaDyval\sistema\obj\Release\netcoreapp3.1\Razor\Views\Reporte\_FormularioReporteInventario.cshtml.g.cs
 C:\Users\Bryan J. Campos\Documents\GitHub\FerreteriaDyval\sistema\obj\Release\netcoreapp3.1\Razor\Views\Reporte\_FormularioReporteVenta.cshtml.g.cs
+C:\Users\Bryan J. Campos\Documents\GitHub\FerreteriaDyval\sistema\obj\Release\netcoreapp3.1\Razor\Views\Home\ErrorInicio.cshtml.g.cs

@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using AdminFerreteria.BussinesLogic;
+using AdminFerreteria.Helper.HelperBitacora;
 using AdminFerreteria.Helper.HelperSeguridad;
+using AdminFerreteria.Helper.HelperSession;
 using AdminFerreteria.Models;
 using AdminFerreteria.ViewModels;
 using Microsoft.AspNetCore.Http;
@@ -162,6 +164,7 @@ namespace AdminFerreteria.Controllers
         public int confirmarCotizacion(string nombre, int tipodocumento)
         {
             CotizacionBL dal = new CotizacionBL();
+            string documento = "";
             try
             {
                 #region quitamos el serializado a la lista
@@ -172,6 +175,15 @@ namespace AdminFerreteria.Controllers
                 int rpt = dal.GuardarCotizacion(nombre, tipodocumento, lstDetalleVenta, (int)HttpContext.Session.GetInt32("UsuarioLogueado"));
                 if (rpt == 1)
                 {
+                    if (tipodocumento == 1)
+                        documento = "Cotización";
+                    else
+                        documento = "Factura provisional";
+                    LogicaBitacoraSistema.InsertarBitacoraSistema(
+                        "Creo una "+documento+" para el cliente "+nombre, Cookies.obtenerObjetoSesion(
+                            HttpContext.Session,"UsuarioLogueado"
+                       )
+                    );
                     HttpContext.Session.Remove("listaCotizacion");
                     return rpt;
                 }

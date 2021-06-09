@@ -14,36 +14,36 @@ namespace AdminFerreteria.Controllers
         {
             return View();
         }
-        EmpleadoBL dal = new EmpleadoBL();
+        EmpleadoBL bl = new EmpleadoBL();
         [HttpGet]
         public JsonResult listEmpleado()
         {
-            return Json(dal.listarEmpleados());
+            return Json(bl.listarEmpleados());
         }
         [HttpGet]
         public JsonResult geEmpleadotById(int id)
         {
-            return Json(dal.obtenerEmpleado(id));
+            return Json(bl.obtenerEmpleado(id));
         }
         [HttpGet]
         public int deleteEmpleado(int id)
         {
-            return dal.eliminar(id);
+            return bl.eliminar(id);
         }
         [HttpPost]
         public int saveEmpleado(Empleado empleado, Usuario usuario)
         {
-            return dal.guardarEmpleado(empleado, usuario);
+            return bl.guardarEmpleado(empleado, usuario);
         }
         [HttpGet]
         public JsonResult listTipoUsuario()
         {
-            return Json(dal.listarTipoUsuario());
+            return Json(bl.listarTipoUsuario());
         }
         [HttpGet]
         public JsonResult obtenerUsuario(Int64 id)
         {
-            return Json(dal.obtenerUsuario(id));
+            return Json(bl.obtenerUsuario(id));
         }
     }
 }

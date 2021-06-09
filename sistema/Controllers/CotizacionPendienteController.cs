@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Transactions;
 using AdminFerreteria.BussinesLogic;
+using AdminFerreteria.Helper.HelperBitacora;
 using AdminFerreteria.Helper.HelperSeguridad;
+using AdminFerreteria.Helper.HelperSession;
 using AdminFerreteria.Models;
 using AdminFerreteria.ViewModels;
 using Microsoft.AspNetCore.Http;
@@ -165,6 +167,15 @@ namespace AdminFerreteria.Controllers
                                             configuracion.Noactualcreditofiscal = configuracion.Noactualcreditofiscal + 1;
                                             db.SaveChanges();//una vez guardado el comprobante incrementamos el contador
                                             #endregion
+                                            LogicaBitacoraSistema.InsertarBitacoraSistema(
+                                            "Facturo la cotización numero " + new CotizacionPendienteBL().obtenerNumeroCotizacion(iidCotizacion).Nocotizacion + " como factura de credito fiscal numero "+
+                                            pFactura.Nofactura,
+                                            Cookies.obtenerObjetoSesion
+                                            (
+                                                HttpContext.Session,
+                                                "UsuarioLogueado"
+                                            )
+                                         );
                                             break;
                                         #endregion
 
@@ -245,6 +256,15 @@ namespace AdminFerreteria.Controllers
 
                                             configuracion.Noactualfactura = configuracion.Noactualfactura + 1;
                                             db.SaveChanges();//una vez guardada la factura incrementamos el contador
+
+                                            LogicaBitacoraSistema.InsertarBitacoraSistema(
+                                            "Facturo la cotización numero " + new CotizacionPendienteBL().obtenerNumeroCotizacion(iidCotizacion).Nocotizacion + " como factura de cliente final numero "+ pFactura.Nofactura,
+                                            Cookies.obtenerObjetoSesion
+                                            (
+                                                HttpContext.Session,
+                                                "UsuarioLogueado"
+                                            )
+                                         );
                                             break;
                                             #endregion
                                     }

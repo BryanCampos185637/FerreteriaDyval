@@ -5,7 +5,7 @@ namespace AdminFerreteria.Helper.HelperBitacora
 {
     public class LogicaBitacoraSistema
     {
-        public static void InsertarBitacoraBL(string mensaje, int? UsuarioLogueado)
+        public static void InsertarBitacoraSistema(string mensaje, int? UsuarioLogueado)
         {
             BitacoraSistemaBL bitacora = new BitacoraSistemaBL();
             bitacora.insertarBitacora(new Bitacorasistema

@@ -73,5 +73,13 @@ namespace AdminFerreteria.DataAccessLogic
                 return 0;
             }
         }
+        public static int ExistDetalleCotizacion(long idCotizacion, long idProducto)
+        {
+            using (var db = new BDFERRETERIAContext())
+            {
+                return db.Detallecotizacion.Where(p => p.Iidproducto == idProducto
+                    && p.Iidcotizacion == idCotizacion).Count();
+            }
+        }
     }
 }

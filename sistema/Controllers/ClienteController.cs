@@ -9,7 +9,7 @@ namespace AdminFerreteria.Controllers
     [ServiceFilter(typeof(FiltroDeAcciones))]
     public class ClienteController : Controller
     {
-        ClienteBL dal = new ClienteBL();
+        ClienteBL bl = new ClienteBL();
         [ServiceFilter(typeof(FiltroDeAutenticacionValidacion))]
         public IActionResult Index()
         {
@@ -18,23 +18,23 @@ namespace AdminFerreteria.Controllers
         [HttpGet]
         public JsonResult listCliente()
         {
-            return Json(dal.listar());
+            return Json(bl.listar());
         }
         [HttpPost]
         public int saveCliente(Cliente cliente)
         {
             cliente.Fechacreacion = DateTime.Now;
-            return dal.guardar(cliente);
+            return bl.guardar(cliente);
         }
         [HttpGet]
         public JsonResult getClienteById(Int64 id)
         {
-            return Json(dal.obtenerPorId(id));
+            return Json(bl.obtenerPorId(id));
         }
         [HttpGet]
         public int deleteCliente(Int64 id)
         {
-            return dal.eliminar(id);
+            return bl.eliminar(id);
         }
     }
 }

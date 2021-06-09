@@ -11,6 +11,21 @@ namespace AdminFerreteria.DataAccessLogic
 {
     public class BodegainventarioDAL
     {
+        public static int BodegaEnUso(int id)
+        {
+            using (var db = new BDFERRETERIAContext())
+            {
+                return db.Inventario.Where(p => p.Iidbodega == id && p.Bhabilitado == "A" && p.Cantidad > 0).Count();
+            }
+        }
+        public static int YaExiteEsteInventario(int id, int idproducto)
+        {
+            using (var db = new BDFERRETERIAContext())
+            {
+                var nveces = db.Inventario.Where(p => p.Iidbodega == id && p.Iidproducto == idproducto && p.Bhabilitado == "A").Count();
+                return nveces;
+            }
+        }
         public string GuardarBodega(Bodega bodega)
         {
             try

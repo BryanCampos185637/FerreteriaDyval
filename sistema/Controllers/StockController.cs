@@ -8,7 +8,7 @@ namespace AdminFerreteria.Controllers
     [ServiceFilter(typeof(FiltroDeAcciones))]
     public class StockController : Controller
     {
-        StockBL dal = new StockBL();
+        StockBL bl = new StockBL();
         [ServiceFilter(typeof(FiltroDeAutenticacionValidacion))]
         public IActionResult Index()
         {
@@ -17,22 +17,22 @@ namespace AdminFerreteria.Controllers
         [HttpGet]
         public JsonResult listStock()
         {
-            return Json(dal.listarStock());   
+            return Json(bl.listarStock());   
         }
         [HttpPost]
         public int saveStock(Stock stock)
         {
-            return dal.guardarStok(stock);
+            return bl.guardarStok(stock);
         }
         [HttpGet]
         public JsonResult getStockById(int id)
         {
-            return Json(dal.obtenerStock(id));
+            return Json(bl.obtenerStock(id));
         }
         [HttpGet]
         public int deleteStock(int id)
         {
-            return dal.eliminar(id);
+            return bl.eliminar(id);
         }
         
     }

@@ -9,6 +9,14 @@ namespace AdminFerreteria.DataAccessLogic
 {
     public class ProductoDAL
     {
+        public static int ExistProducto(Producto producto)
+        {
+            using (var db = new BDFERRETERIAContext())
+            {
+                return db.Producto.Where(p => p.Bhabilitado == "A" && p.Iidproducto != producto.Iidproducto
+                    && p.Codigoproducto == producto.Codigoproducto).Count();
+            }
+        }
         public List<ListProducto> FiltrarPorCodigo(string Codigo)
         {
             using (var db = new BDFERRETERIAContext())

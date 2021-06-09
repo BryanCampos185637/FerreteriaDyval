@@ -8,6 +8,10 @@ namespace AdminFerreteria.BussinesLogic
     public class TipoUsuarioBL
     {
         TipoUsuarioDAL dal = new TipoUsuarioDAL();
+        public static int existTipoUsuario(Tipousuario tipousuario)
+        {
+            return TipoUsuarioDAL.ExistTipoUsuario(tipousuario);
+        }
         public void insertarRolAdministrador()
         {
             dal.InsertarRolAdministrador();

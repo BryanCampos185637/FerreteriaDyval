@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Transactions;
+using AdminFerreteria.Helper.HelperBitacora;
 using AdminFerreteria.Helper.HelperSeguridad;
+using AdminFerreteria.Helper.HelperSession;
 using AdminFerreteria.Models;
 using AdminFerreteria.ViewModels;
 using Microsoft.AspNetCore.Http;
@@ -228,6 +230,14 @@ namespace AdminFerreteria.Controllers
                                         var facturaCredito = UtilidadesController.crearFactura(pFactura);
                                         db.Factura.Add(facturaCredito);
                                         db.SaveChanges();
+                                        LogicaBitacoraSistema.InsertarBitacoraSistema(
+                                            "Creo la factura de creadito fiscal numero " +pFactura.Nofactura,
+                                            Cookies.obtenerObjetoSesion
+                                            (
+                                                HttpContext.Session,
+                                                "UsuarioLogueado"
+                                            )
+                                         );
                                         #endregion
 
                                         #region utilizamos la lista de los productos para crear el detalle de pedido en la bd
@@ -320,6 +330,14 @@ namespace AdminFerreteria.Controllers
                                         var facturaFinal = UtilidadesController.crearFactura(pFactura);
                                         db.Factura.Add(facturaFinal);
                                         db.SaveChanges();
+                                        LogicaBitacoraSistema.InsertarBitacoraSistema(
+                                            "Creo la factura de cliente final numero " + pFactura.Nofactura,
+                                            Cookies.obtenerObjetoSesion
+                                            (
+                                                HttpContext.Session,
+                                                "UsuarioLogueado"
+                                            )
+                                         );
                                         #endregion
 
                                         #region utilizamos la lista de los productos para crear el detalle de pedido en la bd
@@ -397,6 +415,7 @@ namespace AdminFerreteria.Controllers
                             {
                                 return "finalFactura";
                             }
+
                         }
                     } while (lstDetalleVenta.Count() > 0);
                     transaction.Complete();// si todo sale bien guardamos

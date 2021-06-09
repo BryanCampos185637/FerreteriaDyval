@@ -16,7 +16,7 @@ namespace AdminFerreteria.ViewModels
         public string cadenaConexion { get; set; }
         public ConexionSQL()
         {
-            cadenaConexion = CifrarCadenaConLlave.descifrar(cadLocalCifrada);
+            cadenaConexion = CifrarCadenaConLlave.descifrar(cadFerreteriaCifrada);
         }
     }
 }

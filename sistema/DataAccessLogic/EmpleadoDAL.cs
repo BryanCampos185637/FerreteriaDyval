@@ -9,6 +9,25 @@ namespace AdminFerreteria.DataAccessLogic
 {
     public class EmpleadoDAL
     {
+        public static int ExistUsuario(Usuario oUsuario)
+        {
+            using (var db = new BDFERRETERIAContext())
+            {
+               return db.Usuario.Where(p => p.Iidusuario != oUsuario.Iidusuario &&
+                    p.Nombreusuario.ToLower() == oUsuario.Nombreusuario.ToLower() &&
+                    p.Bhabilitado == "A").Count();
+            }
+        }
+        public static int ExistEmpleado(Empleado oEmpleado)
+        {
+            using (var db = new BDFERRETERIAContext())
+            {
+                var nveces = db.Empleado.Where(p => p.Iidempleado != oEmpleado.Iidempleado &&
+                    p.Dui.ToLower() == oEmpleado.Dui.ToLower() &&
+                    p.Bhabilitado == "A").Count();
+                return nveces;
+            }
+        }
         public static Empleado ObtenerElPrimerEmpleado()
         {
             using (var db = new BDFERRETERIAContext())

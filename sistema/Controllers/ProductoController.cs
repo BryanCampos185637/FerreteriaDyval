@@ -10,7 +10,7 @@ namespace AdminFerreteria.Controllers
     [ServiceFilter(typeof(FiltroDeAcciones))]
     public class ProductoController : Controller
     {
-        ProductoBL dal = new ProductoBL();
+        ProductoBL bl = new ProductoBL();
         [ServiceFilter(typeof(FiltroDeAutenticacionValidacion))]
         public IActionResult Index()
         {
@@ -19,19 +19,19 @@ namespace AdminFerreteria.Controllers
         [HttpGet]
         public JsonResult TotalProductos()
         {
-            return Json(dal.cantidadDeProductos());
+            return Json(bl.cantidadDeProductos());
         }
         [HttpGet]
         public JsonResult filtrarProductos(string Codigo, string Nombre)
         {
-            return Json(dal.buscarProductos(Codigo, Nombre));
+            return Json(bl.buscarProductos(Codigo, Nombre));
         }
         [HttpPost]
         public JsonResult saveProducto(Producto producto)
         {
             try
             {
-                return Json(dal.guardarProducto(CalcularPrecioProducto.calcular(producto)));
+                return Json(bl.guardarProducto(CalcularPrecioProducto.calcular(producto)));
             }
             catch(Exception e)
             {
@@ -41,17 +41,17 @@ namespace AdminFerreteria.Controllers
         [HttpGet]
         public JsonResult getProductoById(Int64 id)
         {
-            return Json(dal.obtenerProducto(id));
+            return Json(bl.obtenerProducto(id));
         }
         [HttpGet]
         public int deleteProducto(Int64 id)
         {
-            return dal.eliminarProducto(id);
+            return bl.eliminarProducto(id);
         }
         [HttpGet]
         public string ObtenerNombreUnidad(int id)
         {
-            return dal.obtenerNombreUnidad(id);
+            return bl.obtenerNombreUnidad(id);
         }
     }
 }

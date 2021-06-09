@@ -1,9 +1,6 @@
 ﻿using AdminFerreteria.DataAccessLogic;
 using AdminFerreteria.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace AdminFerreteria.BussinesLogic
 {
@@ -29,6 +26,10 @@ namespace AdminFerreteria.BussinesLogic
         public int eliminar(int id)
         {
             return dal.Eliminar(id);
+        }
+        public static int existUnidad(Unidadmedida unidad)
+        {
+            return UnidadMedidaDAL.ExistUnidad(unidad);
         }
     }
 }

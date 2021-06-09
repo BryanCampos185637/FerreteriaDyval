@@ -9,7 +9,7 @@ namespace AdminFerreteria.Controllers
     [ServiceFilter(typeof(FiltroDeAcciones))]
     public class TipoUsuarioController : Controller
     {
-        TipoUsuarioBL dal = new TipoUsuarioBL();
+        TipoUsuarioBL bl = new TipoUsuarioBL();
         [ServiceFilter(typeof(FiltroDeAutenticacionValidacion))]
         public IActionResult Index()
         {
@@ -18,32 +18,32 @@ namespace AdminFerreteria.Controllers
         [HttpGet]
         public JsonResult getTipoUsuarioById(int id)
         {
-            return Json(dal.ObtenerTipoUsuario(id));
+            return Json(bl.ObtenerTipoUsuario(id));
         }
         [HttpGet]
         public JsonResult listTipoUsuario()
         {
-            return Json(dal.Listar());
+            return Json(bl.Listar());
         }
         [HttpPost]
         public int saveTipoUsuario(Tipousuario tipousuario, int[] idPaginas)
         {
-            return dal.guardar(tipousuario, idPaginas);
+            return bl.guardar(tipousuario, idPaginas);
         }
         [HttpGet]
         public JsonResult listPaginasAsignadas(Int64 id)
         {
-            return Json(dal.listarPaginasAsignadas(id));
+            return Json(bl.listarPaginasAsignadas(id));
         }
         [HttpGet]
         public JsonResult listPaginas()
         {
-            return Json(dal.listarPaginasExistentes());
+            return Json(bl.listarPaginasExistentes());
         }
         [HttpGet]
         public int deleteTipoUsuario(int id)
         {
-            return dal.eliminar(id);
+            return bl.eliminar(id);
         }
     }
 }

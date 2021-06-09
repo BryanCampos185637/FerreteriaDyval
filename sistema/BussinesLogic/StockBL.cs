@@ -7,6 +7,10 @@ namespace AdminFerreteria.BussinesLogic
     public class StockBL
     {
         StockDAL dal = new StockDAL();
+        public static int existStock(Stock stock)
+        {
+            return StockDAL.ExistStock(stock);
+        }
         public List<Stock> listarStock()
         {
             return dal.ListarStock();

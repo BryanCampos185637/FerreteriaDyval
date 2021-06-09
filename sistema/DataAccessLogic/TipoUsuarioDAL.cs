@@ -224,5 +224,14 @@ namespace AdminFerreteria.DataAccessLogic
                 return 0;
             }
         }
+        public static int ExistTipoUsuario(Tipousuario tipousuario)
+        {
+            using (var db = new BDFERRETERIAContext())
+            {
+                return db.Tipousuario.Where(p => p.Iidtipousuario != tipousuario.Iidtipousuario &&
+                    p.Nombretipousuario.ToLower() == tipousuario.Nombretipousuario.ToLower() &&
+                    p.Bhabilitado == "A").Count();
+            }
+        }
     }
 }

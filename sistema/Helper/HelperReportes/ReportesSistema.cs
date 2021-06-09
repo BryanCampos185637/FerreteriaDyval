@@ -13,12 +13,74 @@ using iText.Layout;
 using iText.Layout.Borders;
 using iText.Layout.Element;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using OfficeOpenXml;
 
 namespace AdminFerreteria.Helper.HelperReportes
 {
     public class ReportesSistema
     {
+        public static byte[] generarPDFExistenciasBajas(string listaSerializada)
+        {
+            List<ListProducto> listaProducto = JsonConvert.DeserializeObject<List<ListProducto>>(listaSerializada);//obtenemos la lista
+            string[] cabera = { "Codigo", "Descripción", "UM", "Stock", "Existencia", "Precio compra" };
+            using (var memoryString = new MemoryStream())
+            {
+                PdfWriter writer = new PdfWriter(memoryString);
+                using (var PDF = new PdfDocument(writer))
+                {
+                    Document doc = new Document(PDF, PageSize.LETTER);
+                    Paragraph titulo = new Paragraph("Productos que necesitas comprar.");
+                    titulo.SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER);
+                    titulo.SetFontSize(13);
+                    doc.Add(titulo);
+                    if (listaProducto != null)
+                    {
+                        Table tablaProductos = new Table(6).UseAllAvailableWidth();
+                        Cell celda;
+                        //creamos la cabecera de la tabla
+                        for (int i = 0; i < cabera.Length; i++)
+                        {
+                            celda = new Cell().Add(new Paragraph(cabera[i]).SetFontSize(11)).SetBackgroundColor(ColorConstants.CYAN);
+                            tablaProductos.AddHeaderCell(celda);
+                        }
+                        decimal total = 0;
+                        //creamos el cuerpo de la tabla
+                        foreach (var item in listaProducto)
+                        {
+                            celda = new Cell().Add(new Paragraph(item.Codigoproducto).SetFontSize(10));
+                            tablaProductos.AddCell(celda);
+                            celda = new Cell().Add(new Paragraph(item.Descripcion).SetFontSize(10));
+                            tablaProductos.AddCell(celda);
+                            celda = new Cell().Add(new Paragraph(item.Nombreunidad).SetFontSize(10));
+                            tablaProductos.AddCell(celda);
+                            celda = new Cell().Add(new Paragraph(item.Nombrestock).SetFontSize(10));
+                            tablaProductos.AddCell(celda);
+                            celda = new Cell().Add(new Paragraph(item.Existencias.ToString()).SetFontSize(10));
+                            tablaProductos.AddCell(celda);
+                            celda = new Cell().Add(new Paragraph("$" + item.Preciocompra.ToString()).SetFontSize(10));
+                            tablaProductos.AddCell(celda);
+                            total += (decimal)item.Preciocompra * 5;
+                        }
+                        int totalProductos = listaProducto.Count();
+                        Table finalTabla = new Table(2).UseAllAvailableWidth();
+                        celda = new Cell().Add(new Paragraph("Cantidad productos listados: " + totalProductos.ToString())
+                            .SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER).SetFontSize(10))
+                            .SetBackgroundColor(ColorConstants.CYAN);
+                        finalTabla.AddFooterCell(celda);
+                        celda = new Cell().Add(new Paragraph("Costo aproximado[5 unidades por producto]: $" + total.ToString())
+                            .SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER).SetFontSize(10))
+                            .SetBackgroundColor(ColorConstants.CYAN);
+                        finalTabla.AddFooterCell(celda);
+                        doc.Add(tablaProductos);
+                        doc.Add(finalTabla);
+                    }
+                    doc.Close();//cerramos el documento
+                    writer.Close();//y la escritura
+                }
+                return memoryString.ToArray();
+            }
+        }
         public static byte[] GenerarfacturaPDF(Int64 id)
         {
             using (var memoryString = new MemoryStream())

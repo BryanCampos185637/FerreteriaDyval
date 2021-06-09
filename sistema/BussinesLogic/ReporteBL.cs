@@ -31,5 +31,13 @@ namespace AdminFerreteria.BussinesLogic
         {
             return ReporteDAL.ObtenerDetalleFactura(db, id);
         }
+        public List<ListReporteInventario> obtenerListarProductosReporteInventario()
+        {
+            return new ReporteDAL().ObtenerListarProductosReporteInventario();
+        }
+        public List<ListReporteInventario> obteneListaProductosDeInventarioReporteInventario()
+        {
+            return new ReporteDAL().ObteneListaProductosDeInventarioReporteInventario();
+        }
     }
 }

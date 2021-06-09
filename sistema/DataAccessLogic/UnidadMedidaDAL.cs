@@ -86,5 +86,13 @@ namespace AdminFerreteria.DataAccessLogic
                 return 0;
             }
         }
+        public static int ExistUnidad(Unidadmedida unidad)
+        {
+            using (var db = new BDFERRETERIAContext())
+            {
+                return db.Unidadmedida.Where(p => p.Bhabilitado == "A" && p.Iidunidadmedida != unidad.Iidunidadmedida
+                    && p.Nombreunidad == unidad.Nombreunidad).Count();
+            }
+        }
     }
 }

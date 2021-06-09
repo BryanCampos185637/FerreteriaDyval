@@ -74,5 +74,13 @@ namespace AdminFerreteria.DataAccessLogic
                 return 0;
             }
         }
+        public static int ExistStock(Stock stock)
+        {
+            using (var db = new BDFERRETERIAContext())
+            {
+                return db.Stock.Where(p => p.Iidstock != stock.Iidstock &&
+                    p.Nombrestock == stock.Nombrestock && p.Bhabilitado == "A").Count();
+            }
+        }
     }
 }

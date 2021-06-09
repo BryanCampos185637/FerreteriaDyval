@@ -14,18 +14,18 @@ namespace AdminFerreteria.Controllers
         {
             return View();
         }
-        EntradaBL dal = new EntradaBL();
+        EntradaBL bl = new EntradaBL();
         [HttpGet]
         public JsonResult listEntrada()
         {
-            return Json(dal.listarEntrada());
+            return Json(bl.listarEntrada());
         }
         [HttpPost]
         public int saveEntrada(Entrada entrada, Int64[] bodegas, Int64[] cantidades, Int64 ventas, Int64[] stock, decimal precioCompra)
         {
             try
             {
-                return dal.guardarEntrada(entrada, bodegas, cantidades, ventas, stock, precioCompra);
+                return bl.guardarEntrada(entrada, bodegas, cantidades, ventas, stock, precioCompra);
             }
             catch(Exception e)
             {
@@ -35,12 +35,12 @@ namespace AdminFerreteria.Controllers
         [HttpGet]
         public int deleteEntrada(Int64 id)
         {
-            return dal.eliminarEntrada(id);
+            return bl.eliminarEntrada(id);
         }
         [HttpGet]
         public JsonResult listarStock()
         {
-            return Json(dal.listarStock());
+            return Json(bl.listarStock());
         }
     }
 }

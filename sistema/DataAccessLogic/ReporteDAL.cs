@@ -1,6 +1,7 @@
 ﻿using AdminFerreteria.Controllers;
 using AdminFerreteria.Models;
 using AdminFerreteria.ViewModels;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -223,6 +224,50 @@ namespace AdminFerreteria.DataAccessLogic
                         Descuentoglobal = f.Descuentoglobal,
                         Porcentajedescuentoglobal = f.Porcentajedescuentoglobal
                     }).First();//obtenemos el objeto de la factura
+        }
+
+        public List<ListReporteInventario> ObtenerListarProductosReporteInventario()
+        {
+            using (var db = new BDFERRETERIAContext())
+            {
+                return db.Producto.Where(p => p.Bhabilitado == "A").Include(x => x.IidstockNavigation)
+                    .Include(x => x.IidstockNavigation).Select(p => new ListReporteInventario
+                    {
+                        Iidproducto = p.Iidproducto,
+                        Nombrebodega = "Sala de venta".ToUpper(),
+                        Nombreproducto = p.Descripcion,
+                        Nombreunidad = p.IidunidadmedidaNavigation.Nombreunidad,
+                        Precio = p.Precioventa.ToString(),
+                        Nombrestock = p.IidstockNavigation.Nombrestock,
+                        Cantidad = (long)p.Existencias,
+                        Nombresubunidad = db.Unidadmedida.Where(y => y.Iidunidadmedida == p.Subunidad).FirstOrDefault().Nombreunidad,
+                        Subcantidad = (decimal)p.Subexistencia,
+                        Subprecio = p.Subprecioventa.ToString(),
+                        Codigoproducto = p.Codigoproducto
+                    }).ToList();
+            }
+        }
+        public List<ListReporteInventario> ObteneListaProductosDeInventarioReporteInventario()
+        {
+            using (var db = new BDFERRETERIAContext())
+            {
+                return db.Inventario.Where(p => p.Bhabilitado == "A")
+                            .Include(x => x.IidstockNavigation).Include(x => x.IidbodegaNavigation)
+                            .Include(x => x.IidproductoNavigation).Select(p => new ListReporteInventario
+                            {
+                                Iidproducto = p.Iidproducto,
+                                Nombrebodega = p.IidbodegaNavigation.Nombrebodega,
+                                Nombreproducto = p.IidproductoNavigation.Descripcion,
+                                Nombreunidad = db.Unidadmedida.Where(y => y.Iidunidadmedida == p.IidproductoNavigation.Iidunidadmedida).FirstOrDefault().Nombreunidad,
+                                Precio = p.IidproductoNavigation.Precioventa.ToString(),
+                                Nombrestock = p.IidstockNavigation.Nombrestock,
+                                Cantidad = (long)p.IidproductoNavigation.Existencias,
+                                Nombresubunidad = db.Unidadmedida.Where(y => y.Iidunidadmedida == p.IidproductoNavigation.Subunidad).FirstOrDefault().Nombreunidad,
+                                Subcantidad = (decimal)p.IidproductoNavigation.Subexistencia,
+                                Subprecio = p.IidproductoNavigation.Subprecioventa.ToString(),
+                                Codigoproducto = p.IidproductoNavigation.Codigoproducto
+                            }).ToList();
+            }
         }
     }
 }

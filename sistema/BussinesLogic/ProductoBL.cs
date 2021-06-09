@@ -9,6 +9,10 @@ namespace AdminFerreteria.BussinesLogic
     public class ProductoBL
     {
         ProductoDAL dal = new ProductoDAL();
+        public static int existProducto(Producto producto)
+        {
+            return ProductoDAL.ExistProducto(producto);
+        }
         public List<ListProducto> buscarProductos(string Codigo, string Nombre)
         {
             if (Codigo != null)

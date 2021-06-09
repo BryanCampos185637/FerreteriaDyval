@@ -17,16 +17,16 @@ namespace AdminFerreteria.Controllers
         {
             return View();
         }
-        ConfiguracionBL dal = new ConfiguracionBL();
+        ConfiguracionBL bl = new ConfiguracionBL();
 
         public JsonResult getConfiguration()
         {
-            return Json(dal.obtenerConfiguracionSistema());
+            return Json(bl.obtenerConfiguracionSistema());
         }
         [HttpPost]
         public int updateConfiguracion(Configuracion configuracion, string usuario,string contra)
         {
-            return dal.ActualizarConfiguracion(configuracion, usuario, contra);
+            return bl.ActualizarConfiguracion(configuracion, usuario, contra);
         }
     }
 }

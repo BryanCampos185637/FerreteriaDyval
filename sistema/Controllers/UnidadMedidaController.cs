@@ -9,7 +9,7 @@ namespace AdminFerreteria.Controllers
     [ServiceFilter(typeof(FiltroDeAcciones))]
     public class UnidadMedidaController : Controller
     {
-        UnidadMedidaBL dal = new UnidadMedidaBL();
+        UnidadMedidaBL bl = new UnidadMedidaBL();
         [ServiceFilter(typeof(FiltroDeAutenticacionValidacion))]
         public IActionResult Index()
         {
@@ -18,23 +18,23 @@ namespace AdminFerreteria.Controllers
         [HttpGet]
         public JsonResult listUnidad()
         {
-            return Json(dal.listar());
+            return Json(bl.listar());
         }
         [HttpPost]
         public int saveUnidad(Unidadmedida unidadmedida)
         {
             unidadmedida.Fechacreacion = DateTime.Now;
-            return dal.guardar(unidadmedida);
+            return bl.guardar(unidadmedida);
         }
         [HttpGet]
         public JsonResult getUnidadById(int id)
         {
-            return Json(dal.obtener(id));
+            return Json(bl.obtener(id));
         }
         [HttpGet]
         public int deleteUnidad(int id)
         {
-            return dal.eliminar(id);
+            return bl.eliminar(id);
         }
     }
 }

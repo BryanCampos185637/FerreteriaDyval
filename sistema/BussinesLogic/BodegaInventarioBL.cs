@@ -9,9 +9,17 @@ namespace AdminFerreteria.BussinesLogic
     public class BodegaInventarioBL
     {
         private BodegainventarioDAL dal = new BodegainventarioDAL();
+        public static int bodegaEnUso(int id)
+        {
+            return BodegainventarioDAL.BodegaEnUso(id);
+        }
         public string guardarBodega(Bodega bodega)
         {
             return dal.GuardarBodega(bodega);
+        }
+        public static int yaExiteEsteInventario(int id, int idproducto)
+        {
+            return BodegainventarioDAL.YaExiteEsteInventario(id, idproducto);
         }
         public List<Bodega> listarBodega()
         {

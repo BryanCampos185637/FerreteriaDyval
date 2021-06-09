@@ -11,7 +11,6 @@ namespace AdminFerreteria.Controllers
 {
     public class LoginController : Controller
     {
-        BDFERRETERIAContext db = new BDFERRETERIAContext();
         public IActionResult Index()
         {
             CreacionPaginasRol.iniciarSistema();
@@ -22,7 +21,7 @@ namespace AdminFerreteria.Controllers
             }
             else
             {
-                ViewBag.Empleados = db.Empleado.Where(p => p.Bhabilitado == "A").Count();
+                ViewBag.Empleados = new EmpleadoBL().listarEmpleados().Count();
                 return View();
             }
                 
@@ -35,16 +34,16 @@ namespace AdminFerreteria.Controllers
         {
             return View();
         }
-        LoginBL dal = new LoginBL();
+        LoginBL bl = new LoginBL();
         [HttpPost]
         public int validation(Usuario user)
         {
-            int rpt = dal.Login(user);
+            int rpt = bl.Login(user);
             if (rpt >0) 
             {
-                Usuario usuario = dal.obtenerDataUsuarioLog(user);
+                Usuario usuario = bl.obtenerDataUsuarioLog(user);
                 Cookies.crearCookieSession(HttpContext.Session, "UsuarioLogueado", usuario.Iidusuario);
-                LogicaBitacoraSistema.InsertarBitacoraBL
+                LogicaBitacoraSistema.InsertarBitacoraSistema
                 (
                     "Inicio de sesión",
                     Cookies.obtenerObjetoSesion
@@ -59,11 +58,11 @@ namespace AdminFerreteria.Controllers
         [HttpPost]
         public int Registrar(Empleado empleado, string nombreusuario, string contraseña)
         {
-            return dal.RegistrarUsuarioNuevo(empleado, nombreusuario, contraseña);
+            return bl.RegistrarUsuarioNuevo(empleado, nombreusuario, contraseña);
         }
         public IActionResult cerrarSesion()
         {
-            LogicaBitacoraSistema.InsertarBitacoraBL("Cierre de sesión",
+            LogicaBitacoraSistema.InsertarBitacoraSistema("Cierre de sesión",
                      (int)HttpContext.Session.GetInt32("UsuarioLogueado"));
             destruirCookiesSesion();
             return RedirectToAction("Index");
@@ -71,12 +70,12 @@ namespace AdminFerreteria.Controllers
         public void destruirCookiesSesion()
         {
             HttpContext.Session.Remove("UsuarioLogueado");
-            HttpContext.Session.Remove("NombreUsuario");
+            HttpContext.Session.Clear();
         }
         [HttpGet]
         public JsonResult generarMenu()
         {
-            return Json(dal.listarPaginasMenu
+            return Json(bl.listarPaginasMenu
             (
                 (int)Cookies.obtenerObjetoSesion(HttpContext.Session, "UsuarioLogueado")
             ));

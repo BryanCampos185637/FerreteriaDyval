@@ -77,5 +77,14 @@ namespace AdminFerreteria.DataAccessLogic
                 return 0;
             }
         }
+        public static int ExistCliente(Cliente cliente)
+        {
+            using (var db = new BDFERRETERIAContext())
+            {
+                return db.Cliente.Where(p => p.Iidcliente != cliente.Iidcliente &&
+                    p.Nombrecompleto == cliente.Nombrecompleto && p.Registro == cliente.Registro &&
+                    p.Nit == cliente.Nit && p.Bhabilitado == "A").Count();
+            }
+        }
     }
 }

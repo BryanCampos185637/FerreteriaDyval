@@ -11,5 +11,9 @@ namespace AdminFerreteria.BussinesLogic
         {
             return dal.GuardarCotizaciones(nombre, tipodocumento, lstDetalleVenta, sesion);
         }
+        public static int existDetalleCotizacion(long idCotizacion, long idProducto)
+        {
+            return CotizacionDAL.ExistDetalleCotizacion(idCotizacion, idProducto);
+        }
     }
 }

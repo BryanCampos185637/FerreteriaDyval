@@ -16,10 +16,7 @@ namespace AdminFerreteria.Controllers
         static int nveces = 0;
         public static string obtenerNombrePagina(string action, string controller)
         {
-            using (var db = new BDFERRETERIAContext())
-            {
-                return db.Pagina.Where(p => p.Accion.Equals(action) && p.Controlador.Equals(controller) && p.Bhabilitado == "A").First().Mensaje;
-            }
+            return PaginaBL.obtenerNombrePagina(action, controller);
         }
         public static Bitacoraentrada crearBitacora(Int64 idBodega, Int64 idProducto, Int64 cantidad,
             Int64 idstock, decimal subcantidad, Int64 identrada)
@@ -35,107 +32,47 @@ namespace AdminFerreteria.Controllers
         }
         public static int yaExiteEsteInventario(int id,int idproducto)
         {
-            using (var db = new BDFERRETERIAContext())
-            {
-                nveces = db.Inventario.Where(p => p.Iidbodega == id && p.Iidproducto == idproducto && p.Bhabilitado == "A").Count();
-                return nveces;
-            }
+            return BodegaInventarioBL.yaExiteEsteInventario(id, idproducto);
         }
         public static int BodegaEnUso(int id)
         {
-            using (var db = new BDFERRETERIAContext())
-            {
-                nveces = db.Inventario.Where(p => p.Iidbodega == id && p.Bhabilitado == "A" && p.Cantidad > 0).Count();
-                return nveces;
-            }
+            return BodegaInventarioBL.bodegaEnUso(id);
         }
         public static string ObtenerNombreSubUnidad(int? id)
         {
-            //metodo que nos sirve para obtener el nombre de la subunidad
-            using (var db = new BDFERRETERIAContext())
-            {
-                var unidad = db.Unidadmedida.Where(p => p.Iidunidadmedida.Equals(id)).FirstOrDefault();
-                if (unidad != null)
-                    return unidad.Nombreunidad;
-                else
-                    return "No tiene";
-            }
+            return UnidadMedidaBL.ObtenerNombreSubUnidad(id);
         }
         public static int existEmpleado(Empleado oEmpleado)
         {
-            using(var db = new BDFERRETERIAContext())
-            {
-                nveces = db.Empleado.Where(p => p.Iidempleado != oEmpleado.Iidempleado && 
-                    p.Dui.ToLower() == oEmpleado.Dui.ToLower() &&
-                    p.Bhabilitado=="A").Count();
-                return nveces;
-            }
+            return EmpleadoBL.existeEmpleado(oEmpleado);
         }
         public static int existUsuario(Usuario oUsuario)
         {
-            using (var db = new BDFERRETERIAContext())
-            {
-                nveces = db.Usuario.Where(p => p.Iidusuario != oUsuario.Iidusuario &&
-                    p.Nombreusuario.ToLower() == oUsuario.Nombreusuario.ToLower() &&
-                    p.Bhabilitado == "A").Count();
-                return nveces;
-            }
+            return EmpleadoBL.existeUsuario(oUsuario);
         }
         public static int existStock(Stock stock)
         {
-            using (var db = new BDFERRETERIAContext())
-            {
-                nveces = db.Stock.Where(p => p.Iidstock != stock.Iidstock &&
-                    p.Nombrestock==stock.Nombrestock && p.Bhabilitado == "A").Count();
-                return nveces;
-            }
+            return StockBL.existStock(stock);
         }
         public static int existCliente(Cliente cliente)
         {
-            using (var db = new BDFERRETERIAContext())
-            {
-                nveces = db.Cliente.Where(p => p.Iidcliente != cliente.Iidcliente &&
-                    p.Nombrecompleto == cliente.Nombrecompleto && p.Registro==cliente.Registro &&
-                    p.Nit==cliente.Nit && p.Bhabilitado == "A").Count();
-                return nveces;
-            }
+            return ClienteBL.existCliente(cliente);
         }
         public static int existTipoUsuario(Tipousuario tipousuario)
         {
-            using (var db = new BDFERRETERIAContext())
-            {
-                nveces = db.Tipousuario.Where(p => p.Iidtipousuario != tipousuario.Iidtipousuario &&
-                    p.Nombretipousuario.ToLower() == tipousuario.Nombretipousuario.ToLower() &&
-                    p.Bhabilitado == "A").Count();
-                return nveces;
-            }
+            return TipoUsuarioBL.existTipoUsuario(tipousuario);
         }
         public static int existProducto(Producto producto)
         {
-            using (var db = new BDFERRETERIAContext())
-            {
-                nveces = db.Producto.Where(p=>p.Bhabilitado=="A" && p.Iidproducto!=producto.Iidproducto
-                    && p.Codigoproducto==producto.Codigoproducto).Count();
-                return nveces;
-            }
+            return ProductoBL.existProducto(producto);
         }
         public static int existDetalleCotizacion(long idCotizacion,long idProducto)
         {
-            using (var db = new BDFERRETERIAContext())
-            {
-                nveces = db.Detallecotizacion.Where(p =>p.Iidproducto == idProducto
-                    && p.Iidcotizacion == idCotizacion).Count();
-                return nveces;
-            }
+            return CotizacionBL.existDetalleCotizacion(idCotizacion, idProducto);
         }
         public static int existUnidad(Unidadmedida unidad)
         {
-            using (var db = new BDFERRETERIAContext())
-            {
-                nveces = db.Unidadmedida.Where(p => p.Bhabilitado == "A" && p.Iidunidadmedida != unidad.Iidunidadmedida
-                    && p.Nombreunidad == unidad.Nombreunidad).Count();
-                return nveces;
-            }
+            return UnidadMedidaBL.existUnidad(unidad);
         }
         public static string encryptPassword(string pPassword)
         {
@@ -154,7 +91,6 @@ namespace AdminFerreteria.Controllers
         {
             return ReportesSistema.GenerarReporteVentaPDF(lstFactura);
         }
-        
         public static string crearNoDocumento(string noactual, int nodigitos)
         {
             string codigo = "";
@@ -212,7 +148,7 @@ namespace AdminFerreteria.Controllers
                 pfactura.Descuentoglobal = factura.Descuentoglobal;
                 return pfactura;
             }
-            catch(Exception e) 
+            catch(Exception) 
             {
                 return null;
             }
@@ -231,7 +167,7 @@ namespace AdminFerreteria.Controllers
                 cliente.Bhabilitado = "A";
                 return cliente;
             }
-            catch(Exception e)
+            catch(Exception)
             {
                 return null;
             }
@@ -258,7 +194,7 @@ namespace AdminFerreteria.Controllers
                 cotizacion.Fechavencimiento = DateTime.Now.AddDays(30);
                 return cotizacion;
             }
-            catch(Exception e)
+            catch(Exception)
             {
                 return null;
             }
@@ -286,7 +222,7 @@ namespace AdminFerreteria.Controllers
                     oDetalle.Essubproducto = "NO";
                 return oDetalle;
             }
-            catch(Exception e)
+            catch(Exception)
             {
                 return null;
             }
@@ -295,7 +231,6 @@ namespace AdminFerreteria.Controllers
         {
             return ReportesSistema.GenerarfacturaProvisionalPDF(id);
         }
-
         public static Inventario crearObjetInventario(int idBodega, int idProducto, int cantidad, int stock)
         {
             Inventario inventario = new Inventario();
@@ -306,7 +241,6 @@ namespace AdminFerreteria.Controllers
             inventario.Bhabilitado = "A";
             return inventario;
         }
-
         public static byte[] crearReporteInventario<T>(string tipo, List<T> lst, string[] cabecera, string[] propiedades)
         {
             if(tipo=="excel")
@@ -314,7 +248,6 @@ namespace AdminFerreteria.Controllers
             else
                 return ReportesSistema.GenerarReporteInventarioPDF(lst, cabecera, propiedades);
         }
-
         public static List<ListReporteInventario> crearListaReporteSala(Inventario inventario, string nombrestock)
         {
             List<ListReporteInventario> lst = new List<ListReporteInventario>();
@@ -364,7 +297,6 @@ namespace AdminFerreteria.Controllers
             }
             return lst;
         }
-
         public static List<ListReporteInventario> crearlistaReporteBodega(Inventario inventario, string nombrestock)
         {
             List<ListReporteInventario> lst = new List<ListReporteInventario>();
