@@ -48,7 +48,7 @@ namespace AdminFerreteria.Controllers
                 List<ListProducto> listaDeProductosConBajaExistencia = new List<ListProducto>();
                 for (int i = 0; i < lst.Count; i++)
                 {
-                    if (lst[i].Existencias <= 10)//si la existencia es menor o igual a 10 lo agregamos a la lista
+                    if (lst[i].Existencias <= 3)//si la existencia es menor o igual a 10 lo agregamos a la lista
                     {
                         listaDeProductosConBajaExistencia.Add(lst[i]);
                     }

@@ -441,7 +441,7 @@ namespace AdminFerreteria.Helper.HelperReportes
                         paragraph1.SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER);
                         doc.Add(paragraph1);
                         Paragraph direccion = new Paragraph("Calle a Nahulingo, Local 6, Urb. Las Victorias, Lote 3, Plaza San Andres I, Prolongacion 6º CI. Ote. Sonsonate. Cel.: 7647-5162");
-                        direccion.SetFontSize(8).SetFontColor(ColorConstants.WHITE);
+                        direccion.SetFontSize(9).SetFontColor(ColorConstants.WHITE);
                         direccion.SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER);
                         doc.Add(direccion);
                         #endregion
@@ -451,32 +451,37 @@ namespace AdminFerreteria.Helper.HelperReportes
                         string fechaVencimiento = cotizacion.Fechavencimiento.ToString("dd/MM/yyyy");
                         string nombreVendedor = db.Usuario.Where(p => p.Iidusuario == cotizacion.Iidusuario)
                            .Include(x => x.IidempleadoNavigation).First().IidempleadoNavigation.Nombrecompleto;
-                        if (cotizacion.Nocotizacion == "-1000")
-                        {
-                            Paragraph dtoCliente = new Paragraph("Factura provisional Emitida el " + fecha + " Creado por: " + nombreVendedor);
-                            dtoCliente.SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER);
-                            dtoCliente.SetFontColor(ColorConstants.WHITE);
-                            dtoCliente.SetFontSize(10);
-                            doc.Add(dtoCliente);
-                        }
-                        else
-                        {
-                            Paragraph dtoCliente = new Paragraph("Cotizacion No. " + cotizacion.Nocotizacion.ToString() + " Emitida el " + fecha +
-                                " Creado por: " + nombreVendedor);
-                            dtoCliente.SetFontColor(ColorConstants.WHITE);
-                            dtoCliente.SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER);
-                            dtoCliente.SetFontSize(10);
-                            doc.Add(dtoCliente);
-                        }
-
+                        //if (cotizacion.Nocotizacion == "-1000")
+                        //{
+                        //    Paragraph dtoCliente = new Paragraph("Factura provisional Emitida el " + fecha + " Creado por: " + nombreVendedor);
+                        //    dtoCliente.SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER);
+                        //    dtoCliente.SetFontColor(ColorConstants.WHITE);
+                        //    dtoCliente.SetFontSize(10);
+                        //    doc.Add(dtoCliente);
+                        //}
+                        //else
+                        //{
+                        //    Paragraph dtoCliente = new Paragraph(cotizacion.Nombrecliente.ToString());
+                        //    dtoCliente.SetFontColor(ColorConstants.BLACK);
+                        //    dtoCliente.SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER);
+                        //    dtoCliente.SetFontSize(10);
+                        //    doc.Add(dtoCliente);
+                        //}
+                        Paragraph dtoCliente = new Paragraph(cotizacion.Nombrecliente.ToString());
+                        dtoCliente.SetFontColor(ColorConstants.BLACK);
+                        dtoCliente.SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER);
+                        dtoCliente.SetFontSize(10);
+                        doc.Add(dtoCliente);
                         #endregion
 
                         #region detalle de la cotizacion
                         #region encabezado
                         Paragraph paragraph = new Paragraph("");
                         doc.Add(paragraph);
+                        #region innecesario
                         paragraph = new Paragraph("");
-                        doc.Add(paragraph);
+                        //doc.Add(paragraph);
+                        #endregion
                         Table tablaProducto = new Table(4).UseAllAvailableWidth();
                         Cell titulotabla = new Cell(1, 4).SetBorder(Border.NO_BORDER).Add(new Paragraph("Con deseo de servirles, nos permitimos ofrecerle" +
                             " la mejor oferta en materiales electricos y construccion").SetFontColor(ColorConstants.WHITE)
@@ -554,9 +559,9 @@ namespace AdminFerreteria.Helper.HelperReportes
                         tablaProducto.AddFooterCell(cellBody);
                         cellBody = new Cell().SetBorder(Border.NO_BORDER).Add(new Paragraph("validá hasta " + fechaVencimiento).SetFontSize(12).SetFontColor(ColorConstants.BLACK));
                         tablaProducto.AddFooterCell(cellBody);
-                        cellBody = new Cell().SetBorder(Border.NO_BORDER).Add(new Paragraph(total.ToString()).SetFontSize(12).SetFontColor(ColorConstants.BLACK));
+                        cellBody = new Cell().SetBorder(Border.NO_BORDER).Add(new Paragraph("ESPACIO").SetFontSize(12).SetFontColor(ColorConstants.WHITE));
                         tablaProducto.AddFooterCell(cellBody);
-                        cellBody = new Cell().SetBorder(Border.NO_BORDER).Add(new Paragraph("ESPACIO").SetWidth(31).SetFontSize(12).SetFontColor(ColorConstants.WHITE));
+                        cellBody = new Cell().SetBorder(Border.NO_BORDER).Add(new Paragraph(total.ToString()).SetWidth(31).SetFontSize(12).SetFontColor(ColorConstants.BLACK));
                         tablaProducto.AddFooterCell(cellBody);
                         #endregion
 

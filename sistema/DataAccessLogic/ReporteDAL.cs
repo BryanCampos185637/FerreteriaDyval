@@ -175,7 +175,8 @@ namespace AdminFerreteria.DataAccessLogic
                  Fechacreacion = f.Fechacreacion,
                  Fechavencimiento = f.Fechavencimiento,
                  Iidusuario = f.Iidusuario,
-                 Total = f.Total
+                 Total = f.Total,
+                 Nombrecliente= f.Nombrecliente
              }).First();//obtenemos el objeto de la factura
         }
         public static List<DetalleVenta> ObtenerListadoDetalleFactura(BDFERRETERIAContext db, long id)
