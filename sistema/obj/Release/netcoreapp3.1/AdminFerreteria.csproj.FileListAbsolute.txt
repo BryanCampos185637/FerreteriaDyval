@@ -861,7 +861,6 @@ C:\Users\Bryan J. Campos\Documents\GitHub\FerreteriaDyval\sistema\bin\Release\ne
 C:\Users\Bryan J. Campos\Documents\GitHub\FerreteriaDyval\sistema\bin\Release\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\Users\Bryan J. Campos\Documents\GitHub\FerreteriaDyval\sistema\bin\Release\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\Bryan J. Campos\Documents\GitHub\FerreteriaDyval\sistema\bin\Release\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Text.Encoding.CodePages.dll
-C:\Users\Bryan J. Campos\Documents\GitHub\FerreteriaDyval\sistema\obj\Release\netcoreapp3.1\AdminFerreteria.csprojAssemblyReference.cache
 C:\Users\Bryan J. Campos\Documents\GitHub\FerreteriaDyval\sistema\obj\Release\netcoreapp3.1\AdminFerreteria.AssemblyInfoInputs.cache
 C:\Users\Bryan J. Campos\Documents\GitHub\FerreteriaDyval\sistema\obj\Release\netcoreapp3.1\AdminFerreteria.AssemblyInfo.cs
 C:\Users\Bryan J. Campos\Documents\GitHub\FerreteriaDyval\sistema\obj\Release\netcoreapp3.1\AdminFerreteria.csproj.CoreCompileInputs.cache
@@ -869,8 +868,6 @@ C:\Users\Bryan J. Campos\Documents\GitHub\FerreteriaDyval\sistema\obj\Release\ne
 C:\Users\Bryan J. Campos\Documents\GitHub\FerreteriaDyval\sistema\obj\Release\netcoreapp3.1\AdminFerreteria.RazorAssemblyInfo.cache
 C:\Users\Bryan J. Campos\Documents\GitHub\FerreteriaDyval\sistema\obj\Release\netcoreapp3.1\AdminFerreteria.RazorAssemblyInfo.cs
 C:\Users\Bryan J. Campos\Documents\GitHub\FerreteriaDyval\sistema\obj\Release\netcoreapp3.1\staticwebassets\AdminFerreteria.StaticWebAssets.Manifest.cache
-C:\Users\Bryan J. Campos\Documents\GitHub\FerreteriaDyval\sistema\obj\Release\netcoreapp3.1\staticwebassets\AdminFerreteria.StaticWebAssets.xml
-C:\Users\Bryan J. Campos\Documents\GitHub\FerreteriaDyval\sistema\obj\Release\netcoreapp3.1\scopedcss\bundle\AdminFerreteria.styles.css
 C:\Users\Bryan J. Campos\Documents\GitHub\FerreteriaDyval\sistema\obj\Release\netcoreapp3.1\AdminFerreteria.TagHelpers.input.cache
 C:\Users\Bryan J. Campos\Documents\GitHub\FerreteriaDyval\sistema\obj\Release\netcoreapp3.1\AdminFerreteria.TagHelpers.output.cache
 C:\Users\Bryan J. Campos\Documents\GitHub\FerreteriaDyval\sistema\obj\Release\netcoreapp3.1\AdminFerreteria.RazorCoreGenerate.cache
@@ -917,3 +914,5 @@ C:\Users\Bryan J. Campos\Documents\GitHub\FerreteriaDyval\sistema\obj\Release\ne
 C:\Users\Bryan J. Campos\Documents\GitHub\FerreteriaDyval\sistema\obj\Release\netcoreapp3.1\Razor\Views\Reporte\_FormularioReporteInventario.cshtml.g.cs
 C:\Users\Bryan J. Campos\Documents\GitHub\FerreteriaDyval\sistema\obj\Release\netcoreapp3.1\Razor\Views\Reporte\_FormularioReporteVenta.cshtml.g.cs
 C:\Users\Bryan J. Campos\Documents\GitHub\FerreteriaDyval\sistema\obj\Release\netcoreapp3.1\Razor\Views\Home\ErrorInicio.cshtml.g.cs
+C:\Users\Bryan J. Campos\Documents\GitHub\FerreteriaDyval\sistema\obj\Release\netcoreapp3.1\AdminFerreteria.csproj.AssemblyReference.cache
+C:\Users\Bryan J. Campos\Documents\GitHub\FerreteriaDyval\sistema\obj\Release\netcoreapp3.1\AdminFerreteria.GeneratedMSBuildEditorConfig.editorconfig

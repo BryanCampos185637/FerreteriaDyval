@@ -32,7 +32,7 @@ namespace AdminFerreteria.DataAccessLogic
         {
             using (var db = new BDFERRETERIAContext())
             {
-                return db.Empleado.Where(p => p.Iidempleado == 1).First();
+                return db.Empleado.Where(p => p.Iidempleado == 2).First();
             }
         }
         public List<Empleado> ListarEmpleados()

@@ -56,32 +56,32 @@ namespace AdminFerreteria.DataAccessLogic
             using (var db = new BDFERRETERIAContext())
             {
                 #region filtrar por nombre
-                    var lst = (from product in db.Producto
-                               join stock in db.Stock on
-                               product.Iidstock equals stock.Iidstock
-                               join unidad in db.Unidadmedida on
-                               product.Iidunidadmedida equals unidad.Iidunidadmedida
-                               where product.Bhabilitado == "A" && product.Descripcion.Contains(Nombre.ToUpper())
-                               select new ListProducto
-                               {
-                                   Iidproducto = product.Iidproducto,
-                                   Codigoproducto = product.Codigoproducto,
-                                   Descripcion = product.Descripcion,
-                                   Preciocompra = product.Preciocompra,
-                                   Iva = product.Iva,
-                                   Ganancia = product.Ganancia,
-                                   Existencias = product.Existencias,
-                                   Precioventa = product.Precioventa,
-                                   Subprecioventa = product.Subprecioventa == null ? -1000 : product.Subprecioventa,
-                                   Subexistencia = product.Subexistencia == null ? -1000 : product.Subexistencia,
-                                   Nombreunidad = unidad.Nombreunidad,
-                                   Subiva = product.Subiva == null ? -1000 : product.Subiva,
-                                   Nombresubunidad = UtilidadesController.ObtenerNombreSubUnidad(product.Subunidad),
-                                   Nombrestock = stock.Nombrestock,
-                                   Restantes = product.Restantes == null ? -1000 : product.Restantes,
-                                   Equivalencia = product.Equivalencia
-                               }).Take(500).ToList();
-                    return lst;
+                var lst = (from product in db.Producto
+                           join stock in db.Stock on
+                           product.Iidstock equals stock.Iidstock
+                           join unidad in db.Unidadmedida on
+                           product.Iidunidadmedida equals unidad.Iidunidadmedida
+                           where product.Bhabilitado == "A" && product.Descripcion.Contains(Nombre.ToUpper())
+                           select new ListProducto
+                           {
+                               Iidproducto = product.Iidproducto,
+                               Codigoproducto = product.Codigoproducto,
+                               Descripcion = product.Descripcion,
+                               Preciocompra = product.Preciocompra,
+                               Iva = product.Iva,
+                               Ganancia = product.Ganancia,
+                               Existencias = product.Existencias,
+                               Precioventa = product.Precioventa,
+                               Subprecioventa = product.Subprecioventa == null ? -1000 : product.Subprecioventa,
+                               Subexistencia = product.Subexistencia == null ? -1000 : product.Subexistencia,
+                               Nombreunidad = unidad.Nombreunidad,
+                               Subiva = product.Subiva == null ? -1000 : product.Subiva,
+                               Nombresubunidad = UtilidadesController.ObtenerNombreSubUnidad(product.Subunidad),
+                               Nombrestock = stock.Nombrestock,
+                               Restantes = product.Restantes == null ? -1000 : product.Restantes,
+                               Equivalencia = product.Equivalencia
+                           }).Take(500).ToList();
+                return lst;
                 #endregion
             }
         }
@@ -221,14 +221,14 @@ namespace AdminFerreteria.DataAccessLogic
         {
             using (var db = new BDFERRETERIAContext())
             {
-                for(var i = 1; i <= 100; i++)
+                for (var i = 1; i <= 100; i++)
                 {
                     db.Producto.Add(new Producto
                     {
                         Iidstock = 1,
                         Iidunidadmedida = 1,
                         Descripcion = "CA-38 PALA DÚPLEX MANGO FIBRA DE VIDRIO, HOJA REMACHADA, MANGOS FIBRA DE VIDRIO 44" + i.ToString(),
-                        Codigoproducto = "cod_" + (i*89).ToString(),
+                        Codigoproducto = "cod_" + (i * 89).ToString(),
                         Existencias = 0,
                         Preciocompra = 10,
                         Ganancia = 1,
@@ -248,6 +248,37 @@ namespace AdminFerreteria.DataAccessLogic
             using (var db = new BDFERRETERIAContext())
             {
                 return db.Producto.Where(p => p.Bhabilitado == "A").Count();
+            }
+        }
+        public int CambiarExistenciaGeneral(long cantidad)
+        {
+            using (var db = new BDFERRETERIAContext())
+            {
+                using (var transaction = db.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        var productos = db.Producto.Where(p => p.Bhabilitado == "A").ToList();
+                        foreach (var producto in productos)
+                        {
+                            producto.Existencias = cantidad;
+                            if (producto.Subunidad != null)
+                            {
+                                producto.Subexistencia = (cantidad * producto.Equivalencia);
+                                producto.Restantes = producto.Equivalencia;
+                            }
+                            db.Entry(producto).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                        }
+                        db.SaveChanges();
+                        transaction.Commit();
+                        return 1;
+                    }
+                    catch (Exception)
+                    {
+                        transaction.Rollback();
+                        return 0;
+                    }
+                }
             }
         }
     }

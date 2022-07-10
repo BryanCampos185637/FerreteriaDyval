@@ -43,6 +43,7 @@ namespace AdminFerreteria.Controllers
             {
                 Usuario usuario = bl.obtenerDataUsuarioLog(user);
                 Cookies.crearCookieSession(HttpContext.Session, "UsuarioLogueado", usuario.Iidusuario);
+                Cookies.crearCookieSession(HttpContext.Session, "Rol", usuario.Iidtipousuario);
                 LogicaBitacoraSistema.InsertarBitacoraSistema
                 (
                     "Inicio de sesión",

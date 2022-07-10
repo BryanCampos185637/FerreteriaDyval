@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Index";
 }
 
@@ -12,9 +11,13 @@
             <a asp-action="existenciasPDF" asp-controller="Existencia" id="btnImprimirReporte"></a>
         </div>
     </div>
-    <div class="col-lg-12" id="tableData">
-        <div class="text-justify">
-            <span>Cargando productos...</span>
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body" id="tableData">
+                <div class="text-justify">
+                    <span>Cargando productos...</span>
+                </div>
+            </div>
         </div>
     </div>
     <!-- Modal -->

@@ -39,8 +39,8 @@ buscador: define si se usara el buscador de datatable o uno programado en el bac
 */
 function paintTable(link, headboard, properties, primaryKey, idModal, optionDelete = true, optionEdit = true, buscador = true) {
     fetch(window.location.protocol + '//' + window.location.host + link).then(p => p.json()).then(data=> {
-        var html = "";
-        html += '<table class="table table-hover table-bordered table-responsive-lg table-responsive-md table-responsive-sm" id="pagination">';
+        var html = "<div class='table-responsive'>";
+        html += '<table class="table table-hover table-bordered" id="pagination">';
         html += '<thead class="thead-dark">'
         html += '<tr class="text-center">'
         var i = 0;
@@ -76,7 +76,7 @@ function paintTable(link, headboard, properties, primaryKey, idModal, optionDele
             html += '</tr>';
         }
         html += '</tbody>'
-        html += '</table>'
+        html += '</table></div>'
         document.getElementById('tableData').innerHTML = html;
         $("#pagination").DataTable({
             searching: buscador,

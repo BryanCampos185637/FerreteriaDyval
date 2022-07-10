@@ -14,6 +14,7 @@ namespace AdminFerreteria.Controllers
         [ServiceFilter(typeof(FiltroDeAutenticacionValidacion))]
         public IActionResult Index()
         {
+            ViewBag.Rol = Helper.HelperSession.Cookies.obtenerObjetoSesion(HttpContext.Session, "Rol");
             return View();
         }
         [HttpGet]
@@ -52,6 +53,11 @@ namespace AdminFerreteria.Controllers
         public string ObtenerNombreUnidad(int id)
         {
             return bl.obtenerNombreUnidad(id);
+        }
+
+        public JsonResult CambiarExistenciaGeneral(long cantidad)
+        {
+            return Json(bl.CambiarExistenciaGeneral(cantidad));
         }
     }
 }

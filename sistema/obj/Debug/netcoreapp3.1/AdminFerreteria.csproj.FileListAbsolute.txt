@@ -1042,8 +1042,6 @@ C:\Users\Bryan J. Campos\Documents\GitHub\FerreteriaDyval\sistema\obj\Debug\netc
 C:\Users\Bryan J. Campos\Documents\GitHub\FerreteriaDyval\sistema\obj\Debug\netcoreapp3.1\AdminFerreteria.RazorAssemblyInfo.cache
 C:\Users\Bryan J. Campos\Documents\GitHub\FerreteriaDyval\sistema\obj\Debug\netcoreapp3.1\AdminFerreteria.RazorAssemblyInfo.cs
 C:\Users\Bryan J. Campos\Documents\GitHub\FerreteriaDyval\sistema\obj\Debug\netcoreapp3.1\staticwebassets\AdminFerreteria.StaticWebAssets.Manifest.cache
-C:\Users\Bryan J. Campos\Documents\GitHub\FerreteriaDyval\sistema\obj\Debug\netcoreapp3.1\staticwebassets\AdminFerreteria.StaticWebAssets.xml
-C:\Users\Bryan J. Campos\Documents\GitHub\FerreteriaDyval\sistema\obj\Debug\netcoreapp3.1\scopedcss\bundle\AdminFerreteria.styles.css
 C:\Users\Bryan J. Campos\Documents\GitHub\FerreteriaDyval\sistema\obj\Debug\netcoreapp3.1\AdminFerreteria.TagHelpers.input.cache
 C:\Users\Bryan J. Campos\Documents\GitHub\FerreteriaDyval\sistema\obj\Debug\netcoreapp3.1\AdminFerreteria.TagHelpers.output.cache
 C:\Users\Bryan J. Campos\Documents\GitHub\FerreteriaDyval\sistema\obj\Debug\netcoreapp3.1\AdminFerreteria.RazorCoreGenerate.cache
@@ -1089,5 +1087,6 @@ C:\Users\Bryan J. Campos\Documents\GitHub\FerreteriaDyval\sistema\obj\Debug\netc
 C:\Users\Bryan J. Campos\Documents\GitHub\FerreteriaDyval\sistema\obj\Debug\netcoreapp3.1\AdminFerreteria.dll
 C:\Users\Bryan J. Campos\Documents\GitHub\FerreteriaDyval\sistema\obj\Debug\netcoreapp3.1\AdminFerreteria.pdb
 C:\Users\Bryan J. Campos\Documents\GitHub\FerreteriaDyval\sistema\obj\Debug\netcoreapp3.1\AdminFerreteria.genruntimeconfig.cache
-C:\Users\Bryan J. Campos\Documents\GitHub\FerreteriaDyval\sistema\obj\Debug\netcoreapp3.1\AdminFerreteria.csprojAssemblyReference.cache
 C:\Users\Bryan J. Campos\Documents\GitHub\FerreteriaDyval\sistema\obj\Debug\netcoreapp3.1\Razor\Views\Home\ErrorInicio.cshtml.g.cs
+C:\Users\Bryan J. Campos\Documents\GitHub\FerreteriaDyval\sistema\obj\Debug\netcoreapp3.1\AdminFerreteria.csproj.AssemblyReference.cache
+C:\Users\Bryan J. Campos\Documents\GitHub\FerreteriaDyval\sistema\obj\Debug\netcoreapp3.1\AdminFerreteria.GeneratedMSBuildEditorConfig.editorconfig

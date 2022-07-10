@@ -246,3 +246,29 @@ function guardarProducto(link, data, errorMessage = 'Registro ya existe', error2
         }
     })
 }
+
+const CambiarExistencias = () => {
+    Swal.fire({
+        title: 'Cambiar existencias',
+        text: '¿Estas seguro que deseas cambiar la existencia?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, cambiar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.get(`/producto/CambiarExistenciaGeneral?cantidad=${$('#txtCantidadProductoReset').val()}`, (result) => {
+                if (result > 0) {
+                    messeges('success', "exito");
+                    document.getElementById('modalExistencia').click();
+                    callTable();
+                } else {
+                    messeges('error', "Error de sistema intente mas tarde");
+                }
+            })
+        }
+    })
+
+    
+}

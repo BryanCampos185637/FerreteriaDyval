@@ -14,31 +14,13 @@ namespace AdminFerreteria.DataAccessLogic
         {
             using (var db = new BDFERRETERIAContext())
             {
-                Usuario usuario = db.Usuario.Where(p => p.Nombreusuario == user.Nombreusuario.ToUpper() && p.Bhabilitado == "A")
-                    .Include(p => p.IidempleadoNavigation).FirstOrDefault();
+                Usuario usuario = db.Usuario.FirstOrDefault(p => p.Nombreusuario == user.Nombreusuario.ToUpper() && p.Bhabilitado == "A");
                 if (usuario != null)
                 {
                     string passwordEncrypt = UtilidadesController.encryptPassword(user.Contraseña);
-                    if (usuario.Bhabilitado == "A")
-                    {
-                        if (usuario.Contraseña == passwordEncrypt)
-                        {
-                            return 1;
-                        }
-                        else
-                        {
-                            return 0;
-                        }
-                    }
-                    else
-                    {
-                        return -1;
-                    }
+                    return usuario.Contraseña == passwordEncrypt ? 1 : 0;
                 }
-                else
-                {
-                    return 0;
-                }
+                return 0;
             }
         }
         public Usuario ObtenerDataUsuarioLog(Usuario user)

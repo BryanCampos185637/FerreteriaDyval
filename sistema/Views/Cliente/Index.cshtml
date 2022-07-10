@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Index";
 }
 
@@ -12,7 +11,11 @@
 </div>
 <!--TABLA-->
 <div class="row">
-    <div class="col-lg-12" id="tableData"><span>Cargando...</span></div>
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body" id="tableData"></div>
+        </div>
+    </div>
 </div>
 <!-- Modal -->
 <div class="modal fade" id="modalCliente" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -28,31 +31,31 @@
                             <input type="hidden" class="form-control data" id="iidcliente" name="iidcliente" />
                             <div class="form-group">
                                 <label>Nombre:</label>
-                                <input type="text" class="form-control data requerid" placeholder="Escribe el nombre del cliente" id="nombrecompleto" name="nombrecompleto" autocomplete="off"/>
+                                <input type="text" class="form-control data requerid" placeholder="Escribe el nombre del cliente" id="nombrecompleto" name="nombrecompleto" autocomplete="off" />
                             </div>
                         </div>
                         <div class="col-lg-12 col-sm-12">
                             <div class="form-group">
                                 <label>Dirección:</label>
-                                <input type="text" class="form-control data requerid" id="direccion" name="direccion" placeholder="Direccion del cliente" autocomplete="off"/>
+                                <input type="text" class="form-control data requerid" id="direccion" name="direccion" placeholder="Direccion del cliente" autocomplete="off" />
                             </div>
                         </div>
                         <div class="col-lg-12 col-sm-12">
                             <div class="form-group">
                                 <label>Registro:</label>
-                                <input type="text" class="form-control data requerid" id="registro" name="registro" placeholder="No. Registro" autocomplete="off"/>
+                                <input type="text" class="form-control data requerid" id="registro" name="registro" placeholder="No. Registro" autocomplete="off" />
                             </div>
                         </div>
                         <div class="col-lg-12 col-sm-12">
                             <div class="form-group">
                                 <label>Giró:</label>
-                                <input type="text" class="form-control data requerid" id="giro" name="giro" placeholder="Escribe el giro" autocomplete="off"/>
+                                <input type="text" class="form-control data requerid" id="giro" name="giro" placeholder="Escribe el giro" autocomplete="off" />
                             </div>
                         </div>
                         <div class="col-lg-12 col-sm-12">
                             <div class="form-group">
                                 <label>NIT:</label>
-                                <input type="text" class="form-control data requerid" id="nit" name="nit" placeholder="No. NIT" autocomplete="off"/>
+                                <input type="text" class="form-control data requerid" id="nit" name="nit" placeholder="No. NIT" autocomplete="off" />
                             </div>
                         </div>
                     </div>

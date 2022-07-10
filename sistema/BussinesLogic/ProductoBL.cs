@@ -42,5 +42,10 @@ namespace AdminFerreteria.BussinesLogic
         {
             return dal.CantidadDeProductosExistente();
         }
+
+        public int CambiarExistenciaGeneral(long cantidad)
+        {
+            return dal.CambiarExistenciaGeneral(cantidad);
+        }
     }
 }
