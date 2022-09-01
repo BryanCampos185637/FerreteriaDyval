@@ -1,26 +1,32 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Bryan J. Campos\\Documents\\GitHub\\FerreteriaDyval\\sistema\\AdminFerreteria.csproj": {}
+    "C:\\Users\\bryan.campos\\Documents\\GitHub\\FerreteriaDyval\\sistema\\AdminFerreteria.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Bryan J. Campos\\Documents\\GitHub\\FerreteriaDyval\\sistema\\AdminFerreteria.csproj": {
+    "C:\\Users\\bryan.campos\\Documents\\GitHub\\FerreteriaDyval\\sistema\\AdminFerreteria.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Bryan J. Campos\\Documents\\GitHub\\FerreteriaDyval\\sistema\\AdminFerreteria.csproj",
+        "projectUniqueName": "C:\\Users\\bryan.campos\\Documents\\GitHub\\FerreteriaDyval\\sistema\\AdminFerreteria.csproj",
         "projectName": "AdminFerreteria",
-        "projectPath": "C:\\Users\\Bryan J. Campos\\Documents\\GitHub\\FerreteriaDyval\\sistema\\AdminFerreteria.csproj",
-        "packagesPath": "C:\\Users\\Bryan J. Campos\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Bryan J. Campos\\Documents\\GitHub\\FerreteriaDyval\\sistema\\obj\\",
+        "projectPath": "C:\\Users\\bryan.campos\\Documents\\GitHub\\FerreteriaDyval\\sistema\\AdminFerreteria.csproj",
+        "packagesPath": "C:\\Users\\bryan.campos\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\bryan.campos\\Documents\\GitHub\\FerreteriaDyval\\sistema\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Bryan J. Campos\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\bryan.campos\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 19.1.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\DevExpress 19.1\\Components\\System\\Components\\Packages": {},
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
@@ -77,7 +83,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -89,7 +96,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     }
