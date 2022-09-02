@@ -10,7 +10,7 @@ namespace AdminFerreteria.DataAccessLogic
 {
     public class ReporteDAL
     {
-        public static List<ListFactura>CrearListadoReporteVenta(string desde, string hasta)
+        public static List<ListFactura> CrearListadoReporteVenta(string desde, string hasta)
         {
             List<ListFactura> lstFactura = new List<ListFactura>();
             using (var db = new BDFERRETERIAContext())
@@ -111,7 +111,7 @@ namespace AdminFerreteria.DataAccessLogic
             #region recorremos la lista para obtener los proveedores de los productos
             if (lst.Count > 0)
             {
-                int totalRgistros = lst.Count, filaActual=0;
+                int totalRgistros = lst.Count, filaActual = 0;
                 foreach (var item in lst)
                 {
                     filaActual++;
@@ -141,43 +141,45 @@ namespace AdminFerreteria.DataAccessLogic
         public static List<DetalleVenta> ObtenerListadoDetalleCotizacion(BDFERRETERIAContext db, long id)
         {
             return (from detalle in db.Detallecotizacion
-             join producto in db.Producto on
-             detalle.Iidproducto equals producto.Iidproducto
-             join unidad in db.Unidadmedida on
-             producto.Iidunidadmedida equals unidad.Iidunidadmedida
-             where detalle.Iidcotizacion == id
-             select new DetalleVenta
-             {
-                 cantidad = detalle.Cantidad,
-                 nombreproducto = producto.Descripcion.ToUpper(),
-                 preciounitario = (decimal)detalle.Precioactual,
-                 total = (decimal)detalle.Subtotal,
-                 descuento = (decimal)detalle.Descuento,
-                 pdescuento = detalle.Porcentajedescuento,
-                 comision = (decimal)detalle.Comision,
-                 unidadmedida = unidad.Nombreunidad,
-                 precioActual = (decimal)detalle.Precioactual,
-                 Nombresubunidad = UtilidadesController.ObtenerNombreSubUnidad(producto.Subunidad),
-                 subproducto = detalle.Essubproducto,
-                 iva = (decimal)producto.Iva,
-                 codigoproducto = producto.Codigoproducto,
-                 subiva = producto.Subiva
-             }).ToList();//listamos el detalle del pedido
+                    join producto in db.Producto on
+                    detalle.Iidproducto equals producto.Iidproducto
+                    join unidad in db.Unidadmedida on
+                    producto.Iidunidadmedida equals unidad.Iidunidadmedida
+                    join stock in db.Stock on producto.Iidstock equals stock.Iidstock
+                    where detalle.Iidcotizacion == id
+                    select new DetalleVenta
+                    {
+                        cantidad = detalle.Cantidad,
+                        nombreproducto = producto.Descripcion.ToUpper(),
+                        preciounitario = (decimal)detalle.Precioactual,
+                        total = (decimal)detalle.Subtotal,
+                        descuento = (decimal)detalle.Descuento,
+                        pdescuento = detalle.Porcentajedescuento,
+                        comision = (decimal)detalle.Comision,
+                        unidadmedida = unidad.Nombreunidad,
+                        precioActual = (decimal)detalle.Precioactual,
+                        Nombresubunidad = UtilidadesController.ObtenerNombreSubUnidad(producto.Subunidad),
+                        subproducto = detalle.Essubproducto,
+                        iva = (decimal)producto.Iva,
+                        codigoproducto = producto.Codigoproducto,
+                        subiva = producto.Subiva,
+                        nombreStock= stock.Nombrestock
+                    }).ToList();//listamos el detalle del pedido
         }
         public static Cotizacion ObtenerDetalleCotizacion(BDFERRETERIAContext db, long id)
         {
             return (from f in db.Cotizacion
-             where f.Iidcotizacion == id
-             select new Cotizacion
-             {
-                 Iidcotizacion = f.Iidcotizacion,
-                 Nocotizacion = f.Nocotizacion,
-                 Fechacreacion = f.Fechacreacion,
-                 Fechavencimiento = f.Fechavencimiento,
-                 Iidusuario = f.Iidusuario,
-                 Total = f.Total,
-                 Nombrecliente= f.Nombrecliente
-             }).First();//obtenemos el objeto de la factura
+                    where f.Iidcotizacion == id
+                    select new Cotizacion
+                    {
+                        Iidcotizacion = f.Iidcotizacion,
+                        Nocotizacion = f.Nocotizacion,
+                        Fechacreacion = f.Fechacreacion,
+                        Fechavencimiento = f.Fechavencimiento,
+                        Iidusuario = f.Iidusuario,
+                        Total = f.Total,
+                        Nombrecliente = f.Nombrecliente
+                    }).First();//obtenemos el objeto de la factura
         }
         public static List<DetalleVenta> ObtenerListadoDetalleFactura(BDFERRETERIAContext db, long id)
         {
@@ -226,7 +228,6 @@ namespace AdminFerreteria.DataAccessLogic
                         Porcentajedescuentoglobal = f.Porcentajedescuentoglobal
                     }).First();//obtenemos el objeto de la factura
         }
-
         public List<ListReporteInventario> ObtenerListarProductosReporteInventario()
         {
             using (var db = new BDFERRETERIAContext())

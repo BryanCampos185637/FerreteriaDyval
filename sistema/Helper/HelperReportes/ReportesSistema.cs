@@ -530,7 +530,7 @@ namespace AdminFerreteria.Helper.HelperReportes
                                     + item.Nombresubunidad).SetFontSize(tamanoTexto).SetWidth(31));
                                 tablaProducto.AddCell(cellBody);
                             }
-                            cellBody = new Cell().SetBorder(Border.NO_BORDER).Add(new Paragraph(item.nombreproducto.Substring(0, final)+textoRelleno).SetFontSize(tamanoTexto).SetWidth(272));
+                            cellBody = new Cell().SetBorder(Border.NO_BORDER).Add(new Paragraph(item.nombreStock+"-"+item.nombreproducto.Substring(0, final)+textoRelleno).SetFontSize(tamanoTexto).SetWidth(272));
                             tablaProducto.AddCell(cellBody);
                             //obtenemos el precio unitario sumando el precio + la comision
                             decimal precio = ((item.precioActual * item.cantidad) + item.comision) / item.cantidad; precio = Math.Round(precio, 4);

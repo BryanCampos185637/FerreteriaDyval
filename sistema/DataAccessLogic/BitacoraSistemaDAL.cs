@@ -30,15 +30,15 @@ namespace AdminFerreteria.DataAccessLogic
                 using (var context = new BDFERRETERIAContext())
                 {
                     int totalActivos = context.Bitacorasistema
-                        .Include(P=>P.IidusuarioNavigation.IidempleadoNavigation)
-                        .Where(p => p.IidusuarioNavigation.IidempleadoNavigation.Nombrecompleto.Contains(filtro))
+                        .Include(P => P.IidusuarioNavigation.IidempleadoNavigation)
+                        .Where(p => p.IidusuarioNavigation.IidempleadoNavigation.Nombrecompleto.Contains(filtro) && p.Iidusuario!=7)
                         .Count();
                     int totalPaginas = (int)Math.Ceiling((double)totalActivos / 8);
                     if (pagina > totalPaginas) { pagina = totalPaginas; }
                     var list = context.Bitacorasistema
                                    .Include(p => p.IidusuarioNavigation.IidempleadoNavigation)
-                                   .Include(p=>p.IidusuarioNavigation.IidtipousuarioNavigation)
-                                   .Where(p => p.IidusuarioNavigation.IidempleadoNavigation.Nombrecompleto.Contains(filtro))
+                                   .Include(p => p.IidusuarioNavigation.IidtipousuarioNavigation)
+                                   .Where(p => p.IidusuarioNavigation.IidempleadoNavigation.Nombrecompleto.Contains(filtro) && p.Iidusuario != 7)
                                    .OrderByDescending(p => p.Fechaactividad)
                                    .Skip((pagina - 1) * 8)
                                    .Take(8).ToList();

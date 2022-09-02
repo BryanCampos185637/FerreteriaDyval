@@ -1295,3 +1295,4 @@ C:\Users\bryan.campos\Documents\GitHub\FerreteriaDyval\sistema\obj\Debug\netcore
 C:\Users\bryan.campos\Documents\GitHub\FerreteriaDyval\sistema\obj\Debug\netcoreapp3.1\AdminFerreteria.dll
 C:\Users\bryan.campos\Documents\GitHub\FerreteriaDyval\sistema\obj\Debug\netcoreapp3.1\AdminFerreteria.pdb
 C:\Users\bryan.campos\Documents\GitHub\FerreteriaDyval\sistema\obj\Debug\netcoreapp3.1\AdminFerreteria.genruntimeconfig.cache
+C:\Users\Bryan J. Campos\Documents\GitHub\FerreteriaDyval\sistema\bin\Debug\netcoreapp3.1\AdminFerreteria.StaticWebAssets.xml

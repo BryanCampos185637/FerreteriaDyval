@@ -27,5 +27,6 @@ namespace AdminFerreteria.ViewModels
         public decimal precioconcomision { get; set; }
         public decimal? subiva { get; set; }
         public Int64 Idlista { get; set; }
+        public string nombreStock { get; set; }
     }
 }

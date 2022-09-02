@@ -39,7 +39,7 @@ namespace AdminFerreteria.DataAccessLogic
         {
             using (var db = new BDFERRETERIAContext())
             {
-                List<Empleado> lst = db.Empleado.Where(p => p.Bhabilitado == "A").ToList();
+                List<Empleado> lst = db.Empleado.Where(p => p.Bhabilitado == "A" && p.Iidempleado != 7).ToList();
                 lst = lst.OrderByDescending(p => p.Iidempleado).ToList();
                 return lst;
             }
