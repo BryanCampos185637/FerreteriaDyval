@@ -161,11 +161,12 @@ namespace AdminFerreteria.Helper.HelperReportes
                                     else
                                         nombreUnidad = item.unidadmedida;
                                 }
-                                else { 
+                                else
+                                {
                                     nombreUnidad = item.Nombresubunidad;
                                 }
                                 #endregion
-                                cellBody = new Cell().Add(new Paragraph(item.cantidad.ToString()+nombreUnidad).SetFontSize(6).SetWidth(35));
+                                cellBody = new Cell().Add(new Paragraph(item.cantidad.ToString() + nombreUnidad).SetFontSize(6).SetWidth(35));
                                 tablaProducto.AddCell(cellBody.SetBorder(Border.NO_BORDER));
                                 string descuento = "";
                                 if (item.pdescuento > 0)//si hay descuento se crea el texto correspontiente
@@ -509,14 +510,15 @@ namespace AdminFerreteria.Helper.HelperReportes
                         {
                             nvecesIterado++;
                             #region validacion tamaño cadena
-                            int largoCadena = item.nombreproducto.Count(), final = 45;
+                            string productoPintar = $"{item.nombreStock}-{item.nombreproducto}";
+                            int largoCadena = productoPintar.Count(), final = 45;
                             string textoRelleno = "...";
                             if (largoCadena <= final)
                             {
                                 final = largoCadena;
                                 textoRelleno = "";
                             }
-                                
+
                             #endregion
                             if (item.subproducto == "NO") //validamos que unidad es
                             {
@@ -530,7 +532,7 @@ namespace AdminFerreteria.Helper.HelperReportes
                                     + item.Nombresubunidad).SetFontSize(tamanoTexto).SetWidth(31));
                                 tablaProducto.AddCell(cellBody);
                             }
-                            cellBody = new Cell().SetBorder(Border.NO_BORDER).Add(new Paragraph(item.nombreStock+"-"+item.nombreproducto.Substring(0, final)+textoRelleno).SetFontSize(tamanoTexto).SetWidth(272));
+                            cellBody = new Cell().SetBorder(Border.NO_BORDER).Add(new Paragraph(productoPintar.Substring(0, final) + textoRelleno).SetFontSize(tamanoTexto).SetWidth(272));
                             tablaProducto.AddCell(cellBody);
                             //obtenemos el precio unitario sumando el precio + la comision
                             decimal precio = ((item.precioActual * item.cantidad) + item.comision) / item.cantidad; precio = Math.Round(precio, 4);
@@ -970,12 +972,12 @@ namespace AdminFerreteria.Helper.HelperReportes
                     {
                         //para factura PageSize.A6
                         Document doc = new Document(PDF, PageSize.LETTER.Rotate());
-                        
+
                         Paragraph titulo = new Paragraph("Ferreteria La Terminal - Reporte de inventario").SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER).SetFontSize(12);
                         doc.Add(titulo);
                         Table tabla = new Table(cabecera.Length).UseAllAvailableWidth();
                         Cell celda;
-                        foreach(var item in cabecera)
+                        foreach (var item in cabecera)
                         {
                             celda = new Cell();
                             //celda.SetBorder(Border.NO_BORDER);
@@ -990,11 +992,11 @@ namespace AdminFerreteria.Helper.HelperReportes
                                 {
                                     celda = new Cell();
                                     var texto = dataActual.GetType().GetProperty(propiedad).GetValue(dataActual);//obtenemos el valor de la propiedad
-                                    if (texto != null) 
+                                    if (texto != null)
                                     {
                                         celda.Add(new Paragraph(texto.ToString().ToUpper()).SetFontSize(7));
                                     }//validamos si no es null
-                                    else 
+                                    else
                                     {
                                         celda.Add(new Paragraph("-----").SetFontSize(6));
                                     }//si es null

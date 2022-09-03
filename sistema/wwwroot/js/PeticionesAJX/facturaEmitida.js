@@ -50,7 +50,7 @@ function edit(id) {
                 </tbody>`;
 
             if (data.original == 'NO') {
-                var html = '';
+                let html = '';
                 html += '<button type="button" onclick="addIdFacturaCookie(true)" class="btn-sm btn-primary">';
                 html += '<i class="fas fa-print"></i> Imprimir';
                 html += '</button>';
@@ -60,7 +60,7 @@ function edit(id) {
             }
         });
         $.get('/factura/getDetallePedidoByIidfactura?id=' + id, function (lst) {
-            var html = '';
+            let html = '';
             html += '<table class="table table-hover table-bordered table-responsive-lg table-responsive-md table-responsive-sm" id = "listProductsFactura">';
             html += '<thead class="thead-dark">';
             html += '<tr>';
@@ -107,7 +107,7 @@ function addIdFacturaCookie(esOriginal = true) {
     let efectivo = document.getElementById('efectivo').value;
     if (efectivo != '') {
         efectivo = efectivo * 1;
-        var id = document.getElementById('iidfactura').value;
+        let id = document.getElementById('iidfactura').value;
         $.get('/factura/addIdFacturaCookie?id=' + id + '&esOriginal=' + esOriginal + '&efectivo=' + efectivo, function (r) {
             if (r) {
                 messeges('success', 'Creando factura')

@@ -39,11 +39,11 @@ buscador: define si se usara el buscador de datatable o uno programado en el bac
 */
 function paintTable(link, headboard, properties, primaryKey, idModal, optionDelete = true, optionEdit = true, buscador = true) {
     fetch(window.location.protocol + '//' + window.location.host + link).then(p => p.json()).then(data=> {
-        var html = "<div class='table-responsive'>";
+        let html = "<div class='table-responsive'>";
         html += '<table class="table table-hover table-bordered" id="pagination">';
         html += '<thead class="thead-dark">'
         html += '<tr class="text-center">'
-        var i = 0;
+        let i = 0;
         while (i < headboard.length) {
             html += '<th>' + headboard[i].toUpperCase() + '</th>'
             i++;
@@ -54,11 +54,11 @@ function paintTable(link, headboard, properties, primaryKey, idModal, optionDele
         html += '</tr>'
         html += '</thead>'
         html += '<tbody>'
-        for (var c = 0; c < data.length; c++) {
+        for (let c = 0; c < data.length; c++) {
             html += '<tr class="">';
-            var objectCurret = data[c];
-            for (var f = 0; f < properties.length; f++) {
-                var propertyCurret = properties[f];
+            let objectCurret = data[c];
+            for (let f = 0; f < properties.length; f++) {
+                let propertyCurret = properties[f];
                 if (objectCurret[propertyCurret] != null && objectCurret[propertyCurret] != -1000) {
                     html += '<td>' + objectCurret[propertyCurret] + '</td>';
                 } else {
@@ -94,9 +94,9 @@ funcion que valdia que los campos requeridos no vayan vacios
 toma todos los input select y textarea con la clase requerid
 */
 function validateEmpty() {
-    var rpt = true;
-    var inputs = document.getElementsByClassName("requerid");
-    for (var i = 0; i < inputs.length; i++) {
+    let rpt = true;
+    let inputs = document.getElementsByClassName("requerid");
+    for (let i = 0; i < inputs.length; i++) {
         if (inputs[i].value.trim() == "") {
             rpt = false;
             inputs[i].style.borderColor = "red";
@@ -111,8 +111,8 @@ funcion que captura los datos de la vista
 toma todos los controles que tengan la clase data
 */
 function capturarData(frm) {
-    var dataVista = document.getElementsByClassName("data");//recoje todos los que tengan la clase data
-    for (var i = 0; i < dataVista.length; i++) {//itera todos los inputs
+    let dataVista = document.getElementsByClassName("data");//recoje todos los que tengan la clase data
+    for (let i = 0; i < dataVista.length; i++) {//itera todos los inputs
         if (dataVista[i].name != 'contraseña') {
             frm.append(dataVista[i].name, dataVista[i].value.trim().toUpperCase());// y forma el arreglo
         } else {
@@ -125,8 +125,8 @@ function capturarData(frm) {
 limpia los formularios recoge todo los inputs con la clase form-control
 */
 function clearData() {
-    var dataVista = document.getElementsByClassName("form-control");//recoje todos los que tengan la clase data
-    for (var i = 0; i < dataVista.length; i++) {//itera todos los inputs
+    let dataVista = document.getElementsByClassName("form-control");//recoje todos los que tengan la clase data
+    for (let i = 0; i < dataVista.length; i++) {//itera todos los inputs
         dataVista[i].value = "";
         dataVista[i].style.borderColor = "#ccc";
     }
@@ -135,8 +135,8 @@ function clearData() {
 regresa al color por defecto de los controles
 */
 function colorDefault() {
-    var dataVista = document.getElementsByClassName("form-control");//recoje todos los que tengan la clase data
-    for (var i = 0; i < dataVista.length; i++) {//itera todos los inputs
+    let dataVista = document.getElementsByClassName("form-control");//recoje todos los que tengan la clase data
+    for (let i = 0; i < dataVista.length; i++) {//itera todos los inputs
         dataVista[i].style.borderColor = "#ccc";
     }
 }
@@ -152,9 +152,9 @@ information: el primer option que se le mostrara al usuario
 function fillCombo(link, value, text, idSelect, description = '', information = 'Selecciona uno') {
     $.get(link, function (data) {
         if (data != null || data != "") {
-            var html = '<option value="">' + information + '</option>';
-            for (var i = 0; i < data.length; i++) {
-                var objectCurret = data[i];
+            let html = '<option value="">' + information + '</option>';
+            for (let i = 0; i < data.length; i++) {
+                let objectCurret = data[i];
                 if (description == '')
                     html += '<option value="' + objectCurret[value] + '">' + objectCurret[text] + '</option>';
                 else
@@ -162,7 +162,7 @@ function fillCombo(link, value, text, idSelect, description = '', information = 
             }
             $('#' + idSelect).html(html);
         } else {
-            var html = '<option value="">--No hay registros--</option>';
+            let html = '<option value="">--No hay registros--</option>';
             $('#' + idSelect).html(html);
         }
     })
@@ -208,8 +208,8 @@ obtiene la data del controlador
 */
 function getDataById(link, properties) {
     $.get(link, function (data) {
-        var dataActual = data;
-        for (var i = 0; i < properties.length; i++) {
+        let dataActual = data;
+        for (let i = 0; i < properties.length; i++) {
             $('#' + properties[i]).val(dataActual[properties[i]]);
         }
     });

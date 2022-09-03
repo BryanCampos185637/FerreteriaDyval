@@ -39,7 +39,7 @@ document.getElementById('btnCrearReporteInventarioPDF').onclick = () => {
 }
 
 function crearReporteInventario(tipo) {
-    var frm = new FormData();
+    let frm = new FormData();
     frm.append('Iidbodega', $('#cbxBodega').val());
     frm.append('nombrestock', $('#cbxStock').val());
     $.ajax({
@@ -77,15 +77,15 @@ function crearReporteInventario(tipo) {
 function fillCombo(link, value, text, idSelect, esBodega) {
     $.get(link, function (data) {
         if (data != null || data != "") {
-            var html = '<option value="">--seleccione una opcion--</option>';
+            let html = '<option value="">--seleccione una opcion--</option>';
             if (esBodega) { html += '<option value="-1">SALA DE VENTA</option>'; }
-            for (var i = 0; i < data.length; i++) {
-                var objectCurret = data[i];
+            for (let i = 0; i < data.length; i++) {
+                let objectCurret = data[i];
                 html += '<option value="' + objectCurret[value] + '">' + objectCurret[text] + '</option>';
             }
             $('#' + idSelect).html(html);
         } else {
-            var html = '<option value="">--No hay registros--</option>';
+            let html = '<option value="">--No hay registros--</option>';
             $('#' + idSelect).html(html);
         }
     })

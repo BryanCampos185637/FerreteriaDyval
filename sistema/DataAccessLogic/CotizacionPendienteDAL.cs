@@ -20,6 +20,7 @@ namespace AdminFerreteria.DataAccessLogic
                                                         dt.Iidproducto equals producto.Iidproducto
                                                         join unida in db.Unidadmedida on
                                                         producto.Iidunidadmedida equals unida.Iidunidadmedida
+                                                        join stock in db.Stock on producto.Iidstock equals stock.Iidstock
                                                         where dt.Bhabilitado == "A" && dt.Iidcotizacion == id
                                                         select new DetalleVenta
                                                         {
@@ -36,7 +37,8 @@ namespace AdminFerreteria.DataAccessLogic
                                                             unidadmedida = unida.Nombreunidad,
                                                             nocotizacion = cotizacion.Nocotizacion,
                                                             Nombresubunidad = UtilidadesController.ObtenerNombreSubUnidad(producto.Subunidad),
-                                                            subproducto = dt.Essubproducto
+                                                            subproducto = dt.Essubproducto,
+                                                            nombreStock= stock.Nombrestock
                                                         }).ToList();
 
                 return detalleCotizacion;

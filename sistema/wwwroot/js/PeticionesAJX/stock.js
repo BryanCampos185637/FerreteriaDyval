@@ -4,7 +4,7 @@ function callTable() {
 }
 function save() {
     if (validateEmpty()) {
-        var frm = new FormData();
+        let frm = new FormData();
         capturarData(frm);
         sendDataController('/stock/saveStock', frm, 'Este stock ya existe');
     } else {

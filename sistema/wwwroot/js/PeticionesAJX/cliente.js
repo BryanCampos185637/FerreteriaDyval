@@ -9,7 +9,7 @@ $(document).ready(function ($) {
 })
 document.getElementById('btnGuardar').onclick = function () {
     if (validateEmpty()) {
-        var frm = new FormData();
+        let frm = new FormData();
         capturarData(frm);
         sendDataController('/cliente/saveCliente', frm);
     } else {

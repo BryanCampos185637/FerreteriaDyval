@@ -9,9 +9,9 @@ function callTable() {
 };
 /*funcion que pinta la tabla en la modal de productos */
 function abrirModalProducto(tipo) {
-    var url = '/producto/filtrarProductos';
-    var codigo = document.getElementById('filtrarPorCodigo');
-    var descripcion = document.getElementById('filtrarPorDescripcion');
+    let url = '/producto/filtrarProductos';
+    let codigo = document.getElementById('filtrarPorCodigo');
+    let descripcion = document.getElementById('filtrarPorDescripcion');
     switch (tipo) {
         case 1:
             descripcion.value = '';
@@ -28,7 +28,7 @@ function abrirModalProducto(tipo) {
             break;
     }
     $.get(url, function (data) {
-        var html = '';
+        let html = '';
         html += '<table class="table table-hover table-bordered table-responsive-lg table-responsive-md table-responsive-sm" id="tableproduct">';
         html += '<thead class="thead-dark">';
         html += '<tr>';
@@ -45,10 +45,10 @@ function abrirModalProducto(tipo) {
         html += '</thead>';
         html += '<tbody>';
         $.each(data, function (objeto, propiedad) {
-            var existencia = propiedad.existencias * 1;
-            var subexistencia = propiedad.subexistencia * 1;
-            var subprecio = propiedad.subprecioventa * 1;
-            var equivalencia = propiedad.equivalencia;
+            let existencia = propiedad.existencias * 1;
+            let subexistencia = propiedad.subexistencia * 1;
+            let subprecio = propiedad.subprecioventa * 1;
+            let equivalencia = propiedad.equivalencia;
             html += '<tr>';
             html += '<td>' + propiedad.codigoproducto + '</td>';
             html += '<td>' + propiedad.descripcion + '</td>';
@@ -144,11 +144,11 @@ function getSubProducto(id) {
 }
 /*funcion para calcular descuento y comision segun los porcentajes*/
 function calculateDiscount() {
-    var txtDescuento = document.getElementById('txtDescuento').value * 1;
-    var txtComision = document.getElementById('txtComision').value * 1;
-    var precioUnitario = document.getElementById('txtPrecioUnitario').value * 1;
-    var txtCantidad = document.getElementById('txtCantidad').value * 1;
-    var tcomision = 0; var tdescuento = 0; var comision = 0; var descuento = 0;
+    let txtDescuento = document.getElementById('txtDescuento').value * 1;
+    let txtComision = document.getElementById('txtComision').value * 1;
+    let precioUnitario = document.getElementById('txtPrecioUnitario').value * 1;
+    let txtCantidad = document.getElementById('txtCantidad').value * 1;
+    let tcomision = 0; let tdescuento = 0; let comision = 0; let descuento = 0;
     //calculos
     if (txtDescuento != "" || txtComision != "" || txtCantidad!="") {
         //obtener comision
@@ -157,7 +157,7 @@ function calculateDiscount() {
         document.getElementById('txtTcomision').value = comision.toFixed(4);//se muestra el total
         //obtener descuento
         if (tcomision > 0) {//si se le a aplicado comision
-            var precioUnitarioConComision = precioUnitario + tcomision;//se suma el precio unitario + el total de la comison
+            let precioUnitarioConComision = precioUnitario + tcomision;//se suma el precio unitario + el total de la comison
             tdescuento = ((precioUnitarioConComision / 100) * txtDescuento);//se le saca el descuento al resultado anterior
             descuento = tdescuento * txtCantidad;//se multiplica por la cantidad de producto que se llevara
             document.getElementById('txtTdescuento').value = descuento.toFixed(4);//se muestra el total
@@ -167,8 +167,8 @@ function calculateDiscount() {
             document.getElementById('txtTdescuento').value = descuento.toFixed(4);//se muestra el total
         }
         //dar el total
-        var totalPrecioUnitario = precioUnitario * txtCantidad;//se obtiene el total de la compra 
-        var totalVenta = (totalPrecioUnitario + comision) - descuento;//se suman el total de la comision mas el precio unitario y a eso se le descuenta el total de descuento
+        let totalPrecioUnitario = precioUnitario * txtCantidad;//se obtiene el total de la compra 
+        let totalVenta = (totalPrecioUnitario + comision) - descuento;//se suman el total de la comision mas el precio unitario y a eso se le descuenta el total de descuento
         document.getElementById('txtTotal').value = totalVenta.toFixed(4);//se muestra el total
     }
 }
@@ -179,7 +179,7 @@ function paintTable(link, headboard) {
 * @param {any} link solicitamos la url del controlador que contenga la accion
 * @param {any} headboard//y los encabezados de la tabla
 */
-    var totalComision = 0; var totalDescuento = 0;var totalPagar = 0;
+    let totalComision = 0; let totalDescuento = 0;let totalPagar = 0;
     $.get(link, function (data) {
         ProductosListados = data.length + 1;
         if (data.length>0) {//si la data es mayor a 0 se desbloquean los botones
@@ -192,11 +192,11 @@ function paintTable(link, headboard) {
             document.getElementById('totalDescuento').innerHTML = '$0.0000';
             document.getElementById('totalVenta').innerHTML = '$0.0000';
         }
-        var html = "";
+        let html = "";
         html += '<table class="table table-hover table-bordered table-responsive-lg table-responsive-md table-responsive-sm" id="pagination">';
         html += '<thead class="thead-dark">'
         html += '<tr>'
-        var i = 0;
+        let i = 0;
         while (i < headboard.length) {
             html += '<th>' + headboard[i].toUpperCase() + '</th>'
             i++;
@@ -206,7 +206,7 @@ function paintTable(link, headboard) {
         html += '</thead>'
         html += '<tbody>'
         $.each(data, function (obj, item) {
-            var esSubProducto = item.essubproducto;
+            let esSubProducto = item.essubproducto;
             html += '<tr>';
             html += '<td>' + item.nombreproducto + '</td>';
             if (!esSubProducto)
@@ -239,7 +239,7 @@ function paintTable(link, headboard) {
         });
         //agreamos al detalle de la venta los totales
         //agreamos al detalle de la venta los totales
-        var comisionmenosdescuento = totalComision - totalDescuento;
+        let comisionmenosdescuento = totalComision - totalDescuento;
         document.getElementById('totalComisionMenosDescuento').innerHTML = '$' + comisionmenosdescuento.toFixed(4);
         document.getElementById('totalComision').innerHTML = '$' + totalComision.toFixed(4);
         document.getElementById('totalDescuento').innerHTML = '$' + totalDescuento.toFixed(4);
@@ -312,11 +312,11 @@ function CancelSale() {
 }
 /*limpia el formulario donde se agrega descuento y comision*/
 function limpiar() {
-    var inpust = document.getElementsByClassName('form-control');
-    var descuento = document.getElementById('txtDescuento').value * 1;
-    var comision = document.getElementById('txtComision').value * 1;
-    for (var i = 0; i < inpust.length; i++) {
-        var nombre = inpust[i].name;
+    let inpust = document.getElementsByClassName('form-control');
+    let descuento = document.getElementById('txtDescuento').value * 1;
+    let comision = document.getElementById('txtComision').value * 1;
+    for (let i = 0; i < inpust.length; i++) {
+        let nombre = inpust[i].name;
         if (nombre == 'cantidad') {
             inpust[i].value = 1;
         } else if (nombre == 'descuento') {
@@ -345,7 +345,7 @@ function saveFactura() {
     if ($('#tipocomprador').val() != '') {
         document.getElementById('tipocomprador').style.borderColor = '#ccc';
         if (validateEmpty()) {
-            var frm = new FormData();
+            let frm = new FormData();
             frm.append('Tipocomprador', $('#tipocomprador').val().toUpperCase());
             frm.append('Nombrecliente', $('#nombrecliente').val().toUpperCase());
             frm.append('Direccion', $('#direccion').val().toUpperCase());
@@ -395,9 +395,9 @@ function saveFactura() {
 }
 /*validar que los campos no esten vacios*/
 function validateEmpty() {
-    var rpt = true;
-    var input = document.getElementsByClassName('r');
-    for (var i = 0; i < input.length; i++) {
+    let rpt = true;
+    let input = document.getElementsByClassName('r');
+    for (let i = 0; i < input.length; i++) {
         if (input[i].value.trim()== '') {
             input[i].style.borderColor = 'red'; rpt = false;
         } else {
@@ -408,9 +408,9 @@ function validateEmpty() {
 }
 /*verificamos el tipo de comprador*/
 document.getElementById('tipocomprador').onchange = function () {
-    var tipo = document.getElementById('tipocomprador').value;
-    var inputP = document.getElementsByClassName('n');
-    for (var i = 0; i < inputP.length; i++) {
+    let tipo = document.getElementById('tipocomprador').value;
+    let inputP = document.getElementsByClassName('n');
+    for (let i = 0; i < inputP.length; i++) {
         if (tipo == 'CREDITO FISCAL') {
             inputP[i].classList.add('r');
             document.getElementById('buscadorCliente').style.display = 'block';
@@ -425,8 +425,8 @@ document.getElementById('tipocomprador').onchange = function () {
 }
 //limpia los inputs
 function clearData() {
-    var dataVista = document.getElementsByClassName("form-control");//recoje todos los que tengan la clase data
-    for (var i = 0; i < dataVista.length; i++) {//itera todos los inputs
+    let dataVista = document.getElementsByClassName("form-control");//recoje todos los que tengan la clase data
+    for (let i = 0; i < dataVista.length; i++) {//itera todos los inputs
         if (dataVista[i].name != 'total') {
             dataVista[i].value = "";
             dataVista[i].style.borderColor = "#ccc";
@@ -440,7 +440,7 @@ document.getElementById('btnImprimir').onclick = function () {
 //muestra los clientes fiscal
 function abrirModalCliente() {
     $.get('/cliente/listCliente', function (data) {
-        var html = '';
+        let html = '';
         html += '<table class="table table-hover table-bordered table-responsive-lg table-responsive-md table-responsive-sm" id="tablecliente">';
         html += '<thead class="thead-dark">';
         html += '<tr>';
@@ -519,12 +519,12 @@ function descuentoGeneralAntesDeFacturar() {
 
 function mostrarPosiblesProductosParDescuentoGeneral(link, headboard) {
     $.get(link, function (data) {
-        var html = ""; var totalComision = 0; var totalFactura = 0; var totalDescuento = 0;
-        var totalComisionProductosListados = 0; var totalFacturaProductosListados = 0; var totalProductosNoListados = 0;
+        let html = ""; let totalComision = 0; let totalFactura = 0; let totalDescuento = 0;
+        let totalComisionProductosListados = 0; let totalFacturaProductosListados = 0; let totalProductosNoListados = 0;
         html += '<table class="table table-hover table-bordered table-responsive-lg table-responsive-md table-responsive-sm" id="ListaProductosDescuento">';
         html += '<thead class="thead-dark">'
         html += '<tr>'
-        var i = 0;
+        let i = 0;
         while (i < headboard.length) {
             html += '<th>' + headboard[i].toUpperCase() + '</th>'
             i++;
@@ -533,7 +533,7 @@ function mostrarPosiblesProductosParDescuentoGeneral(link, headboard) {
         html += '</thead>'
         html += '<tbody>'
         $.each(data, function (obj, item) {
-            var esSubProducto = item.essubproducto;
+            let esSubProducto = item.essubproducto;
             if (!esSubProducto) {//solo se muestra si es un subproducto
                 html += '<tr>';
                 html += '<td>' + item.nombreproducto + '</td>';
@@ -575,29 +575,29 @@ function mostrarPosiblesProductosParDescuentoGeneral(link, headboard) {
 }
 //calcula el descuento nuevo a aplicar
 function calculateDescuentoGeneral() {
-    var totalActual = parseFloat(document.getElementById('txtActual').value);
-    var comisionActual = parseFloat(document.getElementById('txtComisionActual').value);
-    var porcentajeDescuento = document.getElementById('txtPorcentajeGeneral').value;
-    var totalFacturaProductosListados = parseFloat(document.getElementById('totalFacturaProductosListados').value);
-    var totalProductosNoListados = parseFloat(document.getElementById('txtActualNoListados').value);
+    let totalActual = parseFloat(document.getElementById('txtActual').value);
+    let comisionActual = parseFloat(document.getElementById('txtComisionActual').value);
+    let porcentajeDescuento = document.getElementById('txtPorcentajeGeneral').value;
+    let totalFacturaProductosListados = parseFloat(document.getElementById('totalFacturaProductosListados').value);
+    let totalProductosNoListados = parseFloat(document.getElementById('txtActualNoListados').value);
     if (porcentajeDescuento != '') {//si esta diferente de vacio se procede a calcular
         if (!isNaN(porcentajeDescuento))
         {
             if (porcentajeDescuento > 0)
             {//si el porcentaje es mayor a 0 
-                var descuento = (totalFacturaProductosListados / 100) * porcentajeDescuento;//sacamos el descuento al total de los productos listados
+                let descuento = (totalFacturaProductosListados / 100) * porcentajeDescuento;//sacamos el descuento al total de los productos listados
                 if (comisionActual == 0)
                 {//si la comision es igual a 0 entonces se saca descuento al total de la factura
                     document.getElementById('txtDescuentoGeneral').value = descuento.toFixed(4);
-                    var precioNuevo = (totalActual - descuento) + totalProductosNoListados;
+                    let precioNuevo = (totalActual - descuento) + totalProductosNoListados;
                     document.getElementById('txtTotalNuevo').value = precioNuevo.toFixed(4);
                 }
                 else
                 {//si no se le saca descuento a la comision
                     document.getElementById('txtDescuentoGeneral').value = descuento.toFixed(4);
-                    var comisionNueva = comisionActual - descuento;
+                    let comisionNueva = comisionActual - descuento;
                     document.getElementById('txtComisionNuevo').value = comisionNueva.toFixed(4);
-                    var precioNuevo = (totalActual - descuento) + totalProductosNoListados;//calculamos el nuevo total 
+                    let precioNuevo = (totalActual - descuento) + totalProductosNoListados;//calculamos el nuevo total 
                     document.getElementById('txtTotalNuevo').value = precioNuevo.toFixed(4);
                 }
             }
@@ -626,11 +626,11 @@ document.getElementById('btnAplicarDescuento').onclick = function () {
     })
 }
 function aplicarDescuentoGeneral() {
-    var txtNombreUsuario = document.getElementById('txtNombreUsuario').value;
-    var txtContraseñaUsuario = document.getElementById('txtContraseñaUsuario').value;
-    var porcentajeDescuento = document.getElementById('txtPorcentajeGeneral').value;
+    let txtNombreUsuario = document.getElementById('txtNombreUsuario').value;
+    let txtContraseñaUsuario = document.getElementById('txtContraseñaUsuario').value;
+    let porcentajeDescuento = document.getElementById('txtPorcentajeGeneral').value;
     if (!(txtNombreUsuario.trim() == '' || txtContraseñaUsuario.trim() == '')) {
-        var frm = new FormData();
+        let frm = new FormData();
         frm.append('Nombreusuario', txtNombreUsuario);
         frm.append('Contraseña', txtContraseñaUsuario);
         frm.append('porcentajedescuento', porcentajeDescuento);
@@ -664,14 +664,14 @@ function aplicarDescuentoGeneral() {
 /*funcion para agregar un producto a la lista de venta(PRUEBA)*/
 function addProductToList() {
     if ($('#iidproducto').val() != "") {
-        var cantidad = $('#txtCantidad').val() * 1
-        var comision = $('#txtComision').val();
-        var descuento = $('#txtDescuento').val();
-        var subUnidad = $('#subunidad').val();
-        var existencias = $('#txtExistencias').val() * 1;
+        let cantidad = $('#txtCantidad').val() * 1
+        let comision = $('#txtComision').val();
+        let descuento = $('#txtDescuento').val();
+        let subUnidad = $('#subunidad').val();
+        let existencias = $('#txtExistencias').val() * 1;
         if (cantidad > 0) {
             if (cantidad <= existencias) {
-                var frm = new FormData();
+                let frm = new FormData();
                 frm.append('subUnidad', subUnidad);
                 frm.append('iiproducto', $('#iidproducto').val());
                 frm.append('cantidad', $('#txtCantidad').val());

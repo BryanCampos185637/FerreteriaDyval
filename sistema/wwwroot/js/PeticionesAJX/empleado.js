@@ -44,15 +44,15 @@ function sendData() {
         if ($('#edad').val() > 0) {
             if (!isNaN($('#telefono').val())) {
                 document.getElementById('telefono').style.borderColor = '#ccc';
-                var dui = document.getElementById('dui').value;
+                let dui = document.getElementById('dui').value;
                 if (dui.length == 10) {
                     document.getElementById('dui').style.borderColor = '#ccc';
-                    var contraseña1 = document.getElementById('contraseña1').value;
-                    var contraseña = document.getElementById('contraseña').value;
+                    let contraseña1 = document.getElementById('contraseña1').value;
+                    let contraseña = document.getElementById('contraseña').value;
                     if (contraseña1.length >= 5) {
                         document.getElementById('contraseña1').style.borderColor = '#ccc';
                         if (contraseña1.trim() == contraseña.trim()) {
-                            var frm = new FormData();
+                            let frm = new FormData();
                             capturarData(frm);
                             sendDataController('/empleado/saveEmpleado', frm, 'Este DUI ya existe en la base de datos');
                         } else {
