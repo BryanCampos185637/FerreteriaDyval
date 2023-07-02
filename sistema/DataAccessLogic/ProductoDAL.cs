@@ -21,6 +21,7 @@ namespace AdminFerreteria.DataAccessLogic
         {
             using (var db = new BDFERRETERIAContext())
             {
+                var unidades = db.Unidadmedida.ToList();
                 #region filtrar por codigo
                 var lst = (from product in db.Producto
                            join stock in db.Stock on
@@ -42,11 +43,18 @@ namespace AdminFerreteria.DataAccessLogic
                                Subexistencia = product.Subexistencia == null ? -1000 : product.Subexistencia,
                                Nombreunidad = unidad.Nombreunidad,
                                Subiva = product.Subiva == null ? -1000 : product.Subiva,
-                               Nombresubunidad = UtilidadesController.ObtenerNombreSubUnidad(product.Subunidad),
+                               Nombresubunidad = string.Empty,
                                Nombrestock = stock.Nombrestock,
                                Restantes = product.Restantes == null ? -1000 : product.Restantes,
-                               Equivalencia = product.Equivalencia
-                           }).ToList();
+                               Equivalencia = product.Equivalencia,
+                               Subunidad = product.Subunidad,
+                           }).Take(500).ToList();
+
+                foreach (var item in lst)
+                {
+                    if (item.Subunidad != null)
+                        item.Nombresubunidad = unidades.FirstOrDefault(p => p.Iidunidadmedida == item.Subunidad).Nombreunidad;
+                }
                 return lst;
                 #endregion
             }
@@ -55,6 +63,7 @@ namespace AdminFerreteria.DataAccessLogic
         {
             using (var db = new BDFERRETERIAContext())
             {
+                var unidades = db.Unidadmedida.ToList();
                 #region filtrar por nombre
                 var lst = (from product in db.Producto
                            join stock in db.Stock on
@@ -76,11 +85,18 @@ namespace AdminFerreteria.DataAccessLogic
                                Subexistencia = product.Subexistencia == null ? -1000 : product.Subexistencia,
                                Nombreunidad = unidad.Nombreunidad,
                                Subiva = product.Subiva == null ? -1000 : product.Subiva,
-                               Nombresubunidad = UtilidadesController.ObtenerNombreSubUnidad(product.Subunidad),
+                               Nombresubunidad = string.Empty,
                                Nombrestock = stock.Nombrestock,
                                Restantes = product.Restantes == null ? -1000 : product.Restantes,
-                               Equivalencia = product.Equivalencia
+                               Equivalencia = product.Equivalencia,
+                               Subunidad = product.Subunidad,
                            }).Take(500).ToList();
+
+                foreach (var item in lst)
+                {
+                    if (item.Subunidad != null)
+                        item.Nombresubunidad = unidades.FirstOrDefault(p => p.Iidunidadmedida == item.Subunidad).Nombreunidad;
+                }
                 return lst;
                 #endregion
             }
@@ -89,6 +105,7 @@ namespace AdminFerreteria.DataAccessLogic
         {
             using (var db = new BDFERRETERIAContext())
             {
+                var unidades = db.Unidadmedida.ToList();
                 #region sin filtro
                 var lista = (from product in db.Producto
                              join stock in db.Stock on
@@ -111,11 +128,18 @@ namespace AdminFerreteria.DataAccessLogic
                                  Subexistencia = product.Subexistencia == null ? -1000 : product.Subexistencia,
                                  Nombreunidad = unidad.Nombreunidad,
                                  Subiva = product.Subiva == null ? -1000 : product.Subiva,
-                                 Nombresubunidad = UtilidadesController.ObtenerNombreSubUnidad(product.Subunidad),
+                                 Nombresubunidad = string.Empty,
                                  Nombrestock = stock.Nombrestock,
                                  Restantes = product.Restantes == null ? -1000 : product.Restantes,
-                                 Equivalencia = product.Equivalencia
-                             }).Take(225).ToList();
+                                 Equivalencia = product.Equivalencia,
+                                 Subunidad = product.Subunidad,
+                             }).Take(500).ToList();
+
+                foreach (var item in lista)
+                {
+                    if (item.Subunidad != null)
+                        item.Nombresubunidad = unidades.FirstOrDefault(p => p.Iidunidadmedida == item.Subunidad).Nombreunidad;
+                }
                 return lista;
                 #endregion
             }

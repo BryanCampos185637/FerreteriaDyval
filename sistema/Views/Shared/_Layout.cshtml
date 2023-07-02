@@ -12,6 +12,7 @@
     <link href="~/css/simple-sidebar.css" rel="stylesheet" />
     <link href="~/lib/limonte-sweetalert2/sweetalert2.min.css" rel="stylesheet" />
     <link href="~/lib/fontawesome-free-5.14.0-web/css/all.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/js/PeticionesAJX/menu.js"></script>
     <style>
@@ -25,6 +26,7 @@
             overflow: hidden auto;
             height: 80vh;
         }
+
     </style>
 </head>
 <body style="background:#fff" id="aside">
@@ -45,7 +47,7 @@
                 <div id="btnCerrarSesion" class="text-right"></div>
                 <h5 class="text-light ml-2">@DateTime.Now.ToString("dd/MM/yyyy")</h5>
             </nav>
-            <div style="margin-right:15px; margin-left:17px;">
+            <div style="margin-right:15px; margin-left:17px;" class=" animate__animated animate__fadeIn">
                 @RenderBody()
             </div>
             <div class="text-center">

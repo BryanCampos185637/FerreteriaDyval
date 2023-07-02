@@ -12,6 +12,7 @@ namespace AdminFerreteria.DataAccessLogic
         {
             using (var db = new BDFERRETERIAContext())
             {
+                var unidades = db.Unidadmedida.ToList();
                 #region obtener la lista de productos activos
                 List<ListProducto> lst = (from prod in db.Producto
                                           join stock in db.Stock on
@@ -32,21 +33,38 @@ namespace AdminFerreteria.DataAccessLogic
                                               Subprecioventa = prod.Subprecioventa == null ? -1000 : prod.Subprecioventa,
                                               Subexistencia = prod.Subexistencia == null ? -1000 : prod.Subexistencia,
                                               Nombreunidad = unidad.Nombreunidad,
-                                              Nombresubunidad = UnidadMedidaDAL.ObtenerNombreDeSubUnidad(prod.Subunidad),
+                                              //Nombresubunidad = UnidadMedidaDAL.ObtenerNombreDeSubUnidad(prod.Subunidad),
+                                              Nombresubunidad= string.Empty,
+                                              Subunidad=prod.Subunidad,
                                               Nombrestock = stock.Nombrestock,
                                               Restantes = prod.Restantes == null ? -1000 : prod.Restantes,
                                               Equivalencia = prod.Equivalencia
                                           }).ToList();
+                foreach (var item in lst)
+                {
+                    if (item.Subunidad != null)
+                        item.Nombresubunidad = unidades.FirstOrDefault(p => p.Iidunidadmedida == item.Subunidad).Nombreunidad;
+                }
                 return lst;
                 #endregion
             }
         }
-        public List<Inventario> ObtenerInventario(long Iidproducto)
+        public List<Inventario> ObtenerInventario(long Iidproducto,bool soloCantidad)
         {
-            using(var db = new BDFERRETERIAContext())
+            using (var db = new BDFERRETERIAContext())
             {
-                return db.Inventario.Where(p => p.Iidproducto == Iidproducto && p.Bhabilitado == "A" && p.Cantidad > 0)
-                        .Include(p => p.IidproductoNavigation).ToList();
+                if (soloCantidad)
+                {
+                    return db.Inventario.Where(p => p.Iidproducto == Iidproducto && p.Bhabilitado == "A" && p.Cantidad > 0).Select(p => new Inventario
+                    {
+                        Cantidad = p.Cantidad,
+                    }).ToList();
+                }
+                else
+                {
+                    return db.Inventario.Where(p => p.Iidproducto == Iidproducto && p.Bhabilitado == "A" && p.Cantidad > 0)
+                       .Include(p => p.IidproductoNavigation).ToList();
+                }
             }
         }
     }

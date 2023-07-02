@@ -1,14 +1,31 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+<style>
+    .contenedor{
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        height:100vh;
+        flex-direction:column;
+        width:100%;
+    }
+    .title{
+        font-weight:bold;
+        letter-spacing:inherit.5em;
+    }
+</style>
 
 
-<!--Login-->
-<div class="offset-lg-3 col-lg-6 col-sm-12">
+<div class="contenedor animate__animated animate__fadeIn">
+    <!--Login-->
     <div class="text-center">
-        <h2>Ferreteria Dyval La Terminal</h2>
+        <h2 class="title">Ferreteria Dyval La Terminal</h2>
     </div><hr />
-    <div class="card mb-5">
+    <div class="card mb-5" style="width:450px">
         <div class="card-header bg-dark">
             <center>
                 <h3 class="text-light">Inicie sesión</h3>

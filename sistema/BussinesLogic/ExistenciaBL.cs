@@ -12,9 +12,9 @@ namespace AdminFerreteria.BussinesLogic
         {
             return dal.ListarProductosActivos();
         }
-        public List<Inventario> obtenerInventario(long Iidproducto)
+        public List<Inventario> obtenerInventario(long Iidproducto, bool soloCantidad=false)
         {
-            return dal.ObtenerInventario(Iidproducto);
+            return dal.ObtenerInventario(Iidproducto,soloCantidad);
         }
     }
 }

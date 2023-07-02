@@ -39,7 +39,7 @@ buscador: define si se usara el buscador de datatable o uno programado en el bac
 */
 function paintTable(link, headboard, properties, primaryKey, idModal, optionDelete = true, optionEdit = true, buscador = true) {
     fetch(window.location.protocol + '//' + window.location.host + link).then(p => p.json()).then(data=> {
-        let html = "<div class='table-responsive'>";
+        let html = "<div class='table-responsive animate__animated animate__fadeInLeft'>";
         html += '<table class="table table-hover table-bordered" id="pagination">';
         html += '<thead class="thead-dark">'
         html += '<tr class="text-center">'
