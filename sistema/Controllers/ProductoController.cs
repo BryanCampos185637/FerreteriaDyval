@@ -32,7 +32,7 @@ namespace AdminFerreteria.Controllers
         {
             try
             {
-                return Json(bl.guardarProducto(CalcularPrecioProducto.calcular(producto)));
+                return Json(bl.guardarProducto(CalcularPrecioProducto.calcular(producto))); 
             }
             catch(Exception e)
             {

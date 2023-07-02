@@ -8,9 +8,9 @@ function callTable() {
  * @param {any} headboard//y los encabezados de la tabla
  */
 function paintTable(link, headboard) {
-    var totalComision = 0;
-    var totalDescuento = 0;
-    var totalPagar = 0;
+    let totalComision = 0;
+    let totalDescuento = 0;
+    let totalPagar = 0;
     $.get(link, function (data) {
         if (data.length > 0) {
             document.getElementById('btnImprimir').removeAttribute('disabled');
@@ -22,11 +22,11 @@ function paintTable(link, headboard) {
             document.getElementById('totalDescuento').innerHTML = '$0.00';
             document.getElementById('totalVenta').innerHTML = '$0.00';
         }
-        var html = "";
+        let html = "";
         html += '<table class="table table-hover table-bordered table-responsive-lg table-responsive-md table-responsive-sm" id="pagination">';
         html += '<thead class="thead-dark">'
         html += '<tr>'
-        var i = 0;
+        let i = 0;
         while (i < headboard.length) {
             html += '<th>' + headboard[i].toUpperCase() + '</th>'
             i++;
@@ -36,7 +36,7 @@ function paintTable(link, headboard) {
         html += '</thead>'
         html += '<tbody>'
         $.each(data, function (obj, item) {
-            var esSubProducto = item.essubproducto;
+            let esSubProducto = item.essubproducto;
             html += '<tr>';
             html += '<td>' + item.nombreproducto + '</td>';
             if (!esSubProducto)
@@ -68,7 +68,7 @@ function paintTable(link, headboard) {
             language: idiomaTabla
         });
         //agreamos al detalle de la venta los totales
-        var comisionmenosdescuento = totalComision - totalDescuento;
+        let comisionmenosdescuento = totalComision - totalDescuento;
         document.getElementById('totalComisionMenosDescuento').innerHTML = '$' + comisionmenosdescuento.toFixed(4);
         document.getElementById('totalComision').innerHTML = '$' + totalComision.toFixed(4);
         document.getElementById('totalDescuento').innerHTML = '$' + totalDescuento.toFixed(4);
@@ -78,9 +78,9 @@ function paintTable(link, headboard) {
 
 /*funcion que pinta la tabla en la modal de productos */
 function abrirModalProducto(tipo) {
-    var url = '/producto/filtrarProductos';
-    var codigo = document.getElementById('filtrarPorCodigo');
-    var descripcion = document.getElementById('filtrarPorDescripcion');
+    let url = '/producto/filtrarProductos';
+    let codigo = document.getElementById('filtrarPorCodigo');
+    let descripcion = document.getElementById('filtrarPorDescripcion');
     switch (tipo) {
         case 1:
             descripcion.value = '';
@@ -97,7 +97,7 @@ function abrirModalProducto(tipo) {
             break;
     }
     $.get(url, function (data) {
-        var html = '';
+        let html = '';
         html += '<table class="table table-hover table-bordered table-responsive-lg table-responsive-md table-responsive-sm" id="tableproduct">';
         html += '<thead class="thead-dark">';
         html += '<tr>';
@@ -114,9 +114,9 @@ function abrirModalProducto(tipo) {
         html += '</thead>';
         html += '<tbody>';
         $.each(data, function (objeto, propiedad) {
-            var subexistencia = propiedad.subexistencia;
-            var subprecio = propiedad.subprecioventa * 1;
-            var equivalencia = propiedad.equivalencia;
+            let subexistencia = propiedad.subexistencia;
+            let subprecio = propiedad.subprecioventa * 1;
+            let equivalencia = propiedad.equivalencia;
             html += '<tr>';
             html += '<td>' + propiedad.codigoproducto + '</td>';
             html += '<td>' + propiedad.descripcion + '</td>';
@@ -199,11 +199,11 @@ function mensajeError() {
  */
 /*calculo de la comision y descuento */
 function calculateDiscount() {
-    var txtDescuento = document.getElementById('txtDescuento').value * 1;
-    var txtComision = document.getElementById('txtComision').value * 1;
-    var precioUnitario = document.getElementById('txtPrecioUnitario').value * 1;
-    var txtCantidad = document.getElementById('txtCantidad').value * 1;
-    var tcomision = 0; var tdescuento = 0; var comision = 0; var descuento = 0;
+    let txtDescuento = document.getElementById('txtDescuento').value * 1;
+    let txtComision = document.getElementById('txtComision').value * 1;
+    let precioUnitario = document.getElementById('txtPrecioUnitario').value * 1;
+    let txtCantidad = document.getElementById('txtCantidad').value * 1;
+    let tcomision = 0; let tdescuento = 0; let comision = 0; let descuento = 0;
     //calculos
     if (txtDescuento != "" || txtComision != "" || txtCantidad != "") {
         //obtener comision
@@ -212,7 +212,7 @@ function calculateDiscount() {
         document.getElementById('txtTcomision').value = comision.toFixed(4);//se muestra el total
         //obtener descuento
         if (tcomision > 0) {//si se le a aplicado comision
-            var precioUnitarioConComision = precioUnitario + tcomision;//se suma el precio unitario + el total de la comison
+            let precioUnitarioConComision = precioUnitario + tcomision;//se suma el precio unitario + el total de la comison
             tdescuento = ((precioUnitarioConComision / 100) * txtDescuento);//se le saca el descuento al resultado anterior
             descuento = tdescuento * txtCantidad;//se multiplica por la cantidad de producto que se llevara
             document.getElementById('txtTdescuento').value = descuento.toFixed(4);//se muestra el total
@@ -222,20 +222,20 @@ function calculateDiscount() {
             document.getElementById('txtTdescuento').value = descuento.toFixed(4);//se muestra el total
         }
         //dar el total
-        var totalPrecioUnitario = precioUnitario * txtCantidad;//se obtiene el total de la compra 
-        var totalVenta = (totalPrecioUnitario + comision) - descuento;//se suman el total de la comision mas el precio unitario y a eso se le descuenta el total de descuento
+        let totalPrecioUnitario = precioUnitario * txtCantidad;//se obtiene el total de la compra 
+        let totalVenta = (totalPrecioUnitario + comision) - descuento;//se suman el total de la comision mas el precio unitario y a eso se le descuenta el total de descuento
         document.getElementById('txtTotal').value = totalVenta.toFixed(4);//se muestra el total
     }
 }
 /*funcion para agregar un producto a la lista de venta*/
 function addProductToList() {
     if ($('#iidproducto').val() != "") {
-        var cantidad = $('#txtCantidad').val() * 1;
-        var comision = $('#txtComision').val();
-        var descuento = $('#txtDescuento').val();
-        var subUnidad = $('#subunidad').val();
+        let cantidad = $('#txtCantidad').val() * 1;
+        let comision = $('#txtComision').val();
+        let descuento = $('#txtDescuento').val();
+        let subUnidad = $('#subunidad').val();
         if (cantidad > 0) {
-            var frm = new FormData();
+            let frm = new FormData();
             frm.append('subUnidad', subUnidad);
             frm.append('iiproducto', $('#iidproducto').val());
             frm.append('cantidad', $('#txtCantidad').val());
@@ -275,11 +275,11 @@ function addProductToList() {
 }
 /*limpia el formulario donde se agrega descuento y comision*/
 function limpiar() {
-    var inpust = document.getElementsByClassName('form-control');
-    var descuento = document.getElementById('txtDescuento').value * 1;
-    var comision = document.getElementById('txtComision').value * 1;
-    for (var i = 0; i < inpust.length; i++) {
-        var nombre = inpust[i].name;
+    let inpust = document.getElementsByClassName('form-control');
+    let descuento = document.getElementById('txtDescuento').value * 1;
+    let comision = document.getElementById('txtComision').value * 1;
+    for (let i = 0; i < inpust.length; i++) {
+        let nombre = inpust[i].name;
         if (nombre == 'cantidad') {
             inpust[i].value = 1;
         } else if (nombre == 'descuento') {
@@ -301,10 +301,10 @@ function limpiar() {
 }
 //guarda la cotizacion
 function saveCotizacion() {
-    var nombre = document.getElementById('nombre').value;
-    var tipodoc = document.getElementById('tipodocumento').value;
+    let nombre = document.getElementById('nombre').value;
+    let tipodoc = document.getElementById('tipodocumento').value;
     if (nombre != '' && tipodoc != '') {
-        var obj = new FormData();
+        let obj = new FormData();
         obj.append('nombre', nombre);
         obj.append('tipodocumento', tipodoc);
         $.ajax({

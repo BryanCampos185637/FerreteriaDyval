@@ -26,12 +26,12 @@ function sendData() {
         if (validateEmpty()) {
             if ($('#cantidad').val() > 0) {
                 document.getElementById('cantidad').style.borderColor = '#ccc';
-                var frm = new FormData();
+                let frm = new FormData();
                 //capturamos las cantidades y el id de la bodega
-                var inputs = document.getElementsByClassName('inputBodegas');
-                for (var i = 0; i < inputs.length; i++) {
+                let inputs = document.getElementsByClassName('inputBodegas');
+                for (let i = 0; i < inputs.length; i++) {
                     if (inputs[i].value != '') {
-                        var name = inputs[i].name.replace('bodega', '');;//obtenemos el name del input actual
+                        let name = inputs[i].name.replace('bodega', '');;//obtenemos el name del input actual
                         frm.append('stock[]', $('#select' + name).val());
                         frm.append('bodegas[]', inputs[i].name.replace('bodega', ''));
                         frm.append('cantidades[]', inputs[i].value);
@@ -59,7 +59,7 @@ function limpiarFormulario() {
     document.getElementById('blockVenta').style.display = 'none';//ocultamos
     document.getElementById('blockCantidad').style.display = 'none';
     //ocultamos los demas campos utilizando un array
-    var campos = document.getElementsByClassName('factura');
+    let campos = document.getElementsByClassName('factura');
     for (let i = 0; i < campos.length; i++) {
         campos[i].style.display = 'none';
     }
@@ -104,7 +104,7 @@ function tipoEntrada() {
 }
 
 function dibujarCamposDeBodega() {
-    var html = ''; var id = 'iidstock'; var lectura = 'nombrestock';
+    let html = ''; let id = 'iidstock'; let lectura = 'nombrestock';
     $('#camposBodega').html(html);
     html += '<div class="col-lg-12">'
     html += '<center><h5>Distrubución del producto</h5><center/><hr>';
@@ -125,12 +125,12 @@ function dibujarCamposDeBodega() {
                 html += '<div class="col-lg-3">'
                 html += '<div class="form-group">'
                 html += '<label>Ubicar en stock:</label>'
-                var idSelect = 'select' + item.iidbodega;
+                let idSelect = 'select' + item.iidbodega;
                 html += '<select class="form-control" id="' + idSelect + '">'
                 $.get('/entrada/listarStock', function (lstStock) {
-                    var options = '';
-                    for (var i = 0; i < lstStock.length; i++) {
-                        var dataActual = lstStock[i];
+                    let options = '';
+                    for (let i = 0; i < lstStock.length; i++) {
+                        let dataActual = lstStock[i];
                         options += '<option value="' + dataActual[id] + '">' + dataActual[lectura] + '</option>';
                     }
                     document.getElementById(idSelect).innerHTML = options;
@@ -160,9 +160,9 @@ function dibujarCamposDeBodega() {
 }
 
 function calcularCantidad() {
-    var inputs = document.getElementsByClassName('inputBodegas');
-    var cantidad = 0;
-    for (var i = 0; i < inputs.length; i++) {
+    let inputs = document.getElementsByClassName('inputBodegas');
+    let cantidad = 0;
+    for (let i = 0; i < inputs.length; i++) {
         if (inputs[i].value != '' && inputs[i].value != null) {
             if (!isNaN(inputs[i].value)) {
                 cantidad += parseInt(inputs[i].value);

@@ -9,7 +9,7 @@ $(function () {
 function GenerarMenu() {
     $.get("/Login/generarMenu", function (data) {
         document.getElementById('btnCerrarSesion').innerHTML = '<a class="btn btn-dark" title="Cerrar sesion" style="border-color:#808080;" href="#" onclick="cerrarSesion()"><i class="fas fa-power-off"></i> </a>';
-        var html = '';
+        let html = '';
         if (data != null && data.length != 0) {
             $.each(data, function (key, item) {
                 html += '<a class="list-group-item list-group-item-action bg-dark text-light" href="/' + item.controlador + '/' + item.accion + '"><i class="' + item.icono + '"></i> ' + item.mensaje + '</a>';
@@ -36,7 +36,7 @@ function cerrarSesion() {
 }
 
 /*Le cambia el idioma a las tablas que tengan paginacion*/
-var idiomaTabla = {
+let idiomaTabla = {
     "sProcessing": "Procesando...",
     "sLengthMenu": "Mostrar _MENU_ registros",
     "sZeroRecords": "No se encontraron resultados",
@@ -56,8 +56,8 @@ var idiomaTabla = {
         "sPrevious": "Anterior"
     },
     "oAria": {
-        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+        "sSortAscending": ": Actilet para ordenar la columna de manera ascendente",
+        "sSortDescending": ": Actilet para ordenar la columna de manera descendente"
     },
     "buttons": {
         "copy": "Copiar",

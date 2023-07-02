@@ -30,17 +30,17 @@ function pintarTabla(titulo,subtitulo, url, cabecera, propiedades, llavePrimaria
         html += '<table class="table table-hover table-bordered table-responsive-lg table-responsive-md table-responsive-sm" id="tablaGenerada">'
         html += '<thead class="thead-dark">'
         html += '<tr>'
-        for (var i = 0; i < cabecera.length; i++) {
+        for (let i = 0; i < cabecera.length; i++) {
             html += '<th>' + cabecera[i].toUpperCase() + '</th>'
         }
         html += '<th>OPCIONES</th>';
         html += '</tr>'
         html += '</thead>'
         html += '<tbody>'
-        for (var i = 0; i < data.length; i++) {
+        for (let i = 0; i < data.length; i++) {
             let dataActual = data[i];
             html += '<tr>'
-            for (var j = 0; j < propiedades.length; j++) {
+            for (let j = 0; j < propiedades.length; j++) {
                 let propiedadActual = propiedades[j];
                 html += '<td>' + dataActual[propiedadActual] + '</td>';
             }
@@ -85,7 +85,7 @@ function editarBodega(id) {
  */
 document.getElementById('btnGuardar').onclick = function () {
     if (validarCamposVacios()) {
-        var frm = new FormData();
+        let frm = new FormData();
         capturarLaInformacion(frm);
         guardar('/bodegaInventario/GuardarBodega', frm);
     } else {
@@ -186,9 +186,9 @@ function guardar(link, frm) {
  esta funcion valida que los campos que tengan la clase requerid no esten vacios
  */
 function validarCamposVacios() {
-    var inputs = document.getElementsByClassName('requerid');
-    var rpt = true;
-    for (var i = 0; i < inputs.length; i++) {
+    let inputs = document.getElementsByClassName('requerid');
+    let rpt = true;
+    for (let i = 0; i < inputs.length; i++) {
         if (inputs[i].value == '') {
             rpt = false;
             inputs[i].style.borderColor = 'red';
@@ -201,8 +201,8 @@ function validarCamposVacios() {
 /*
  esta funcion limpia todos los controles que tengan la clase form-control*/
 function limpiarCampos() {
-    var inputs = document.getElementsByClassName('form-control');
-    for (var i = 0; i < inputs.length; i++) {
+    let inputs = document.getElementsByClassName('form-control');
+    for (let i = 0; i < inputs.length; i++) {
         inputs[i].style.borderColor = '#ccc'; inputs[i].value = '';
     }
 }
@@ -211,8 +211,8 @@ function limpiarCampos() {
  * @param {any} frm//objeto de la clase FormData()
  */
 function capturarLaInformacion(frm) {
-    var inputs = document.getElementsByClassName('data');
-    for (var i = 0; i < inputs.length; i++) {
+    let inputs = document.getElementsByClassName('data');
+    for (let i = 0; i < inputs.length; i++) {
         frm.append(inputs[i].name, inputs[i].value.toUpperCase());
     }
     frm.append('bhabilitado', 'A');
@@ -239,7 +239,7 @@ function moverProducto(id) {
  */
 function llenarCombo(idBodega) {
     $.get('/bodegainventario/listBodegaSelect?id=' + idBodega, function (data) {
-        var html = '';
+        let html = '';
         html += '<option value="">--Selecciona una opción--</option>';
         html += '<option value="-1">SALA VENTA</option>';
         $.each(data, function (key, item) {
@@ -255,9 +255,9 @@ function moverCantidadProducto() {
     if (!($('#cantidadMover').val() == '' || $('#cbxBodega').val() == '')) {
         document.getElementById('cantidadMover').style.borderColor = '#ccc';
         document.getElementById('cbxBodega').style.borderColor = '#ccc';
-        var cantidad = parseInt($('#cantidadMover').val()); var existencia = parseInt($('#existencia').val());
+        let cantidad = parseInt($('#cantidadMover').val()); let existencia = parseInt($('#existencia').val());
         if (cantidad > 0 && cantidad <= existencia) {
-            var obj = new FormData();
+            let obj = new FormData();
             obj.append('cantidad', $('#cantidadMover').val());
             obj.append('bodegaActual', $('#txtiidbodega').val());
             obj.append('producto', $('#txtiidproducto').val());
@@ -297,10 +297,10 @@ function limpiarFormularioMover() {
     document.getElementById('divStock').innerHTML = '';
 }
 function verificarSiEsBodega() {
-    var value = document.getElementById('cbxBodega').value;
+    let value = document.getElementById('cbxBodega').value;
     if (value > 0) {
         $.get('/entrada/listarStock', function (lstStock) {
-            var html = '';
+            let html = '';
             html += '<label>Colocar en el stock:</label>'
             html += '<select id="cbxStock" class="form-control">'
             $.each(lstStock, function (key, item) {
@@ -363,7 +363,7 @@ function cambiarCantidadProducto() {
 //sala de venta
 function listarProductos() {
     $.get('/BodegaInventario/listarProductos', function (data) {
-        var html = '';
+        let html = '';
         html += '<h5>Lista del inventario de sala de ventas</h5>'
         html += '<span>Aqui se muestran todos los productos que estan en sala de venta</span><hr>'
         html += '<table class="table table-hover table-bordered table-responsive-lg table-responsive-md table-responsive-sm" id="tablaGenerada">'
@@ -422,7 +422,7 @@ function modificarExistencia() {
             confirmButtonText: 'Si cambiar!'
         }).then((result) => {
             if (result.isConfirmed) {
-                var obj = new FormData();
+                let obj = new FormData();
                 obj.append('Iidproducto', $('#Existiidproducto').val());
                 obj.append('Existencias', $('#txtexistencia').val());
                 $.ajax({

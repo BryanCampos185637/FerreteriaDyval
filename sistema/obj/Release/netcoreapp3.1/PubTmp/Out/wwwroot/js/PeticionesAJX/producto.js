@@ -9,9 +9,9 @@ function contadorDeProductos()
     })
 }
 function callTable(tipo) {
-    var url = '/producto/filtrarProductos';
-    var codigo = document.getElementById('filtrarPorCodigo');
-    var descripcion = document.getElementById('filtrarPorDescripcion');
+    let url = '/producto/filtrarProductos';
+    let codigo = document.getElementById('filtrarPorCodigo');
+    let descripcion = document.getElementById('filtrarPorDescripcion');
     switch (tipo) {
         case 1:
             document.getElementById('tableData').innerHTML = '<span>Cargando...</span>';
@@ -75,14 +75,14 @@ function edit(id) {
         $('#descripcion').val(data.descripcion);
         $('#iva').val(data.iva);
         $('#preciocompra').val(data.preciocompra);
-        var ivaCompra = (data.preciocompra * 0.13) + data.preciocompra;
+        let ivaCompra = (data.preciocompra * 0.13) + data.preciocompra;
         document.getElementById('ivaProducto').value = ivaCompra.toFixed(4);
         $('#ganancia').val(data.ganancia);
         $('#precioventa').val(data.precioventa);
         $('#gananciaObtenida').val(data.porcentajeganancia);
         $('#iidunidadmedida').val(data.iidunidadmedida);
         $('#iidstock').val(data.iidstock);
-        var precioConUtilidad = parseFloat(data.preciocompra) + parseFloat(data.ganancia);
+        let precioConUtilidad = parseFloat(data.preciocompra) + parseFloat(data.ganancia);
         $('#Precioutilidad').val(precioConUtilidad.toFixed(4));
     /*obtenemos los datos secundarios*/
         if (data.subunidad > 0) {
@@ -91,7 +91,7 @@ function edit(id) {
             $('#subpreciocompra').val(data.subpreciounitario.toFixed(2));
             $('#subgananciaObtenida').val(data.subporcentaje);
             $('#subiva').val(data.subiva);
-            var subprecioConUtilidad = parseFloat(data.subpreciounitario) + parseFloat(data.subganancia);
+            let subprecioConUtilidad = parseFloat(data.subpreciounitario) + parseFloat(data.subganancia);
             $('#subPrecioutilidad').val(subprecioConUtilidad.toFixed(4));
             $('#subganancia').val(data.subganancia);
             $('#subprecioventa').val(data.subprecioventa);
@@ -111,28 +111,28 @@ function edit(id) {
 };
 
 function calculatePrice() {
-    var precioCompra = document.getElementById('preciocompra').value;
-    var ganancia = document.getElementById('gananciaObtenida').value;
+    let precioCompra = document.getElementById('preciocompra').value;
+    let ganancia = document.getElementById('gananciaObtenida').value;
     if (!isNaN(precioCompra)) {
         if (parseFloat(precioCompra) > 0) {
-            var ivaCompra = (parseFloat(precioCompra) * 0.13) + parseFloat(precioCompra);
+            let ivaCompra = (parseFloat(precioCompra) * 0.13) + parseFloat(precioCompra);
             document.getElementById('ivaProducto').value = ivaCompra.toFixed(4);
             if (parseFloat(ganancia) > 0) {
                 //calculo de utilidad
-                var utilidad = parseFloat((precioCompra / 100) * ganancia);
+                let utilidad = parseFloat((precioCompra / 100) * ganancia);
                 document.getElementById('ganancia').value = utilidad.toFixed(4);
                 console.log('Uti '+utilidad);
                 console.log('PC '+precioCompra);
                 //calculo iva
-                var precioMasUtilidad = parseFloat(precioCompra) + parseFloat(utilidad);
+                let precioMasUtilidad = parseFloat(precioCompra) + parseFloat(utilidad);
                 console.log('pMASu ' + precioMasUtilidad);
                 //pintamos precio con utilidad
                 document.getElementById('Precioutilidad').value = precioMasUtilidad.toFixed(4);
                 //caluculamos iva
-                var iva = parseFloat(precioMasUtilidad) * 0.13;
+                let iva = parseFloat(precioMasUtilidad) * 0.13;
                 document.getElementById('iva').value = iva.toFixed(4);
                 
-                var precioFinal = parseFloat(precioCompra) + parseFloat(iva) + parseFloat(utilidad);
+                let precioFinal = parseFloat(precioCompra) + parseFloat(iva) + parseFloat(utilidad);
                 document.getElementById('precioventa').value = precioFinal.toFixed(4);
             } else {
                 messeges('warning', 'Sub utilidad debe ser mayor a 0.');
@@ -149,28 +149,28 @@ function calculatePrice() {
 }
 
 function calculateSubPrice() {
-    var precioCOmpraOriginal = document.getElementById('preciocompra').value;//capturo el precio original
-    var equivalencia = document.getElementById('equivalencia').value;//capturo la equivalencia
-    var subprecio = parseFloat(precioCOmpraOriginal) / parseFloat(equivalencia); $('#subpreciocompra').val(subprecio.toFixed(4));//divido el precio original entre la equivalencia
-    var precioCompra = document.getElementById('subpreciocompra').value;
-    var ganancia = document.getElementById('subgananciaObtenida').value;
-    var subiidunidadmedida = document.getElementById('subiidunidadmedida').value;
+    let precioCOmpraOriginal = document.getElementById('preciocompra').value;//capturo el precio original
+    let equivalencia = document.getElementById('equivalencia').value;//capturo la equivalencia
+    let subprecio = parseFloat(precioCOmpraOriginal) / parseFloat(equivalencia); $('#subpreciocompra').val(subprecio.toFixed(4));//divido el precio original entre la equivalencia
+    let precioCompra = document.getElementById('subpreciocompra').value;
+    let ganancia = document.getElementById('subgananciaObtenida').value;
+    let subiidunidadmedida = document.getElementById('subiidunidadmedida').value;
     if (subiidunidadmedida > 0) {
         if (!isNaN(precioCompra)) {
             if (parseFloat(precioCompra) > 0) {
                 if (parseFloat(ganancia) > 0) {
                     //calculo de utilidad
-                    var utilidad = parseFloat((precioCompra / 100) * ganancia);
+                    let utilidad = parseFloat((precioCompra / 100) * ganancia);
                     document.getElementById('subganancia').value = utilidad.toFixed(4);
                     //calculo iva
-                    var precioMasUtilidad = parseFloat(precioCompra) + parseFloat(utilidad);
+                    let precioMasUtilidad = parseFloat(precioCompra) + parseFloat(utilidad);
                     //pintamos precio con utilidad
                     document.getElementById('subPrecioutilidad').value = precioMasUtilidad.toFixed(4);
                     //caluculamos iva
-                    var iva = parseFloat(precioMasUtilidad) * 0.13;
+                    let iva = parseFloat(precioMasUtilidad) * 0.13;
                     document.getElementById('subiva').value = iva.toFixed(4);
 
-                    var precioFinal = parseFloat(precioCompra) + parseFloat(iva) + parseFloat(utilidad);
+                    let precioFinal = parseFloat(precioCompra) + parseFloat(iva) + parseFloat(utilidad);
                     document.getElementById('subprecioventa').value = precioFinal.toFixed(4);
                 } else {
                     messeges('warning', 'Utilidad debe ser mayor a 0');
@@ -192,7 +192,7 @@ function deleteInfo(id) {
 
 function sendData() {
     if (validateEmpty()) {
-        var frm = new FormData();
+        let frm = new FormData();
         capturarData(frm);
         if ($('#subiidunidadmedida').val() == $('#iidunidadmedida').val())
             messeges('warning', 'La sub unidad no puede ser igual a la unidad original.');
@@ -210,9 +210,9 @@ document.getElementById('subiidunidadmedida').onchange = function () {
 }
 
 function quitarOAgregarClase() {
-    var idSubUnidad = document.getElementById('subiidunidadmedida').value;
-    var inputsSubUnidad = document.getElementsByClassName('sub');
-    for (var i = 0; i < inputsSubUnidad.length; i++) {
+    let idSubUnidad = document.getElementById('subiidunidadmedida').value;
+    let inputsSubUnidad = document.getElementsByClassName('sub');
+    for (let i = 0; i < inputsSubUnidad.length; i++) {
         if (idSubUnidad != '') {
             inputsSubUnidad[i].classList.add('requerid');
             inputsSubUnidad[i].classList.add('data');

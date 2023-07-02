@@ -19,7 +19,7 @@ function obtenerData() {
 function saveConfiguracion() {
     if (validateEmpty()) {
         if (validate()) {
-            var frm = new FormData();
+            let frm = new FormData();
             frm.append('iniciofactura', $('#txtIF').val());
             frm.append('noactualfactura', $('#txtIF').val());
             frm.append('finfactura', $('#txtFF').val());
@@ -75,9 +75,9 @@ function saveConfiguracion() {
     }
 }
 function validateEmpty() {
-    var rpt = true;
-    var inputs = document.getElementsByClassName("r");
-    for (var i = 0; i < inputs.length; i++) {
+    let rpt = true;
+    let inputs = document.getElementsByClassName("r");
+    for (let i = 0; i < inputs.length; i++) {
         if (inputs[i].value.trim() == "") {
             rpt = false;
             inputs[i].style.borderColor = "red";
@@ -88,9 +88,9 @@ function validateEmpty() {
     return rpt;
 }
 function validate() {
-    var rpt = true;
-    var inputs = document.getElementsByClassName('r');
-    for (var i = 0; i < inputs.length; i++) {
+    let rpt = true;
+    let inputs = document.getElementsByClassName('r');
+    for (let i = 0; i < inputs.length; i++) {
         if (inputs[i].value <= 0) {
             rpt = false;
             inputs[i].style.borderColor = "red";
@@ -101,8 +101,8 @@ function validate() {
     return rpt;
 }
 function colordefault() {
-    var inputs = document.getElementsByClassName("r");
-    for (var i = 0; i < inputs.length; i++) {
+    let inputs = document.getElementsByClassName("r");
+    for (let i = 0; i < inputs.length; i++) {
         inputs[i].style.borderColor = "#ccc";
     }
 }

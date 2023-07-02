@@ -4,15 +4,15 @@
 })
 function Guardar() {
     if (validateEmpty()) {
-        var dui = document.getElementById('dui').value.trim();
-        var telefono = document.getElementById('telefono').value.trim();
-        var edad = document.getElementById('edad').value * 1;
-        var contrasena = document.getElementById('contraseña').value;
+        let dui = document.getElementById('dui').value.trim();
+        let telefono = document.getElementById('telefono').value.trim();
+        let edad = document.getElementById('edad').value * 1;
+        let contrasena = document.getElementById('contraseña').value;
         if (dui.length == 10) {
             if (telefono.length == 8) {
                 if (edad > 0) {
                     if (contrasena.length >= 5) {
-                        var frm = new FormData();
+                        let frm = new FormData();
                         capturarData(frm);
                         $.ajax({
                             url: '/login/registrar',
@@ -58,9 +58,9 @@ function Guardar() {
     }
 }
 function validateEmpty() {
-    var rpt = true;
-    var inputs = document.getElementsByClassName("requerid");
-    for (var i = 0; i < inputs.length; i++) {
+    let rpt = true;
+    let inputs = document.getElementsByClassName("requerid");
+    for (let i = 0; i < inputs.length; i++) {
         if (inputs[i].value.trim() == "") {
             rpt = false;
             inputs[i].style.borderColor = "red";
@@ -71,8 +71,8 @@ function validateEmpty() {
     return rpt;
 }
 function capturarData(frm) {
-    var dataVista = document.getElementsByClassName("data");//recoje todos los que tengan la clase data
-    for (var i = 0; i < dataVista.length; i++) {//itera todos los inputs
+    let dataVista = document.getElementsByClassName("data");//recoje todos los que tengan la clase data
+    for (let i = 0; i < dataVista.length; i++) {//itera todos los inputs
         if (dataVista[i].name != 'contraseña') {
             frm.append(dataVista[i].name, dataVista[i].value.trim().toUpperCase());// y forma el arreglo
         } else {

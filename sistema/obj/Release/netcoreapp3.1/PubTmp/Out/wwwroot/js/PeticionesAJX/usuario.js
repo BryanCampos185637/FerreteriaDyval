@@ -43,9 +43,9 @@ function deleteInfo(id) {
 
 function sendData() {
     if (validateEmpty()) {
-        var contrasena = document.getElementById('contraseña').value;
+        let contrasena = document.getElementById('contraseña').value;
         if (contrasena.length >= 5) {
-            var frm = new FormData();
+            let frm = new FormData();
             capturarData(frm);
             sendDataController('/usuario/saveUsuario', frm, 'Nombre usuario ya esta en uso.');
         } else {

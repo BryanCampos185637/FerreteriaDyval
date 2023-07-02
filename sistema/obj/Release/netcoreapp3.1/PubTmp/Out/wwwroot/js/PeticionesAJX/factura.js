@@ -34,7 +34,7 @@ function edit(id) {
         $('#iidfactura').val(data.iidfactura);
     });
     $.get('/factura/getDetallePedidoByIidfactura?id=' + id, function (lst) {
-        var html = '';
+        let html = '';
         html += '<table class="table table-hover table-bordered table-responsive-sm table-responsive-md" id = "listProductsFactura">';
         html += '<thead class="thead-dark">';
         html += '<tr>';
@@ -79,7 +79,7 @@ function addIdFacturaCookie(esOriginal = true) {
     if (efectivo != '') {
         efectivo = efectivo * 1; let total = document.getElementById('total').value * 1;
         if (efectivo >= total) {
-            var id = document.getElementById('iidfactura').value;
+            let id = document.getElementById('iidfactura').value;
             $.get('/factura/addIdFacturaCookie?id=' + id + '&esOriginal=' + esOriginal + '&efectivo=' + efectivo, function (r) {
                 if (r) {
                     messeges('success', 'Creando factura')
@@ -108,11 +108,11 @@ function paintTableFactura(link = '/factura/listFactura', headboard = ['no. fact
     properties = ['nofactura', 'tipocomprador', 'nombrecomprador', 'nombrevendedor', 'fechaemitida', 'total'],
     primaryKey = 'iidfactura', idModal = 'modalFactura', optionDelete = false, optionEdit = true) {
     $.get(link, function (data) {
-        var html = "";
+        let html = "";
         html += '<table class="table table-hover table-bordered table-responsive-lg table-responsive-md table-responsive-sm" id="pagination">';
         html += '<thead class="thead-dark">'
         html += '<tr class="text-center">'
-        var i = 0;
+        let i = 0;
         while (i < headboard.length) {
             html += '<th>' + headboard[i].toUpperCase() + '</th>'
             i++;
@@ -123,11 +123,11 @@ function paintTableFactura(link = '/factura/listFactura', headboard = ['no. fact
         html += '</tr>'
         html += '</thead>'
         html += '<tbody>'
-        for (var c = 0; c < data.length; c++) {
+        for (let c = 0; c < data.length; c++) {
             html += '<tr class="text-center">';
-            var objectCurret = data[c];
-            for (var f = 0; f < properties.length; f++) {
-                var propertyCurret = properties[f];
+            let objectCurret = data[c];
+            for (let f = 0; f < properties.length; f++) {
+                let propertyCurret = properties[f];
                 html += '<td>' + objectCurret[propertyCurret] + '</td>';
             }
             if (optionDelete != false || optionEdit != false) {
@@ -154,11 +154,11 @@ function paintTableFactura(link = '/factura/listFactura', headboard = ['no. fact
 function paintTableCotizacion(link = '/factura/listCotizacion', headboard = ['no. Cotización', 'comprador', 'creada por','total'],
     properties = ['nocotizacion', 'nombrecliente', 'nombreusuario', 'total'],primaryKey = 'iidcotizacion') {
     $.get(link, function (data) {
-        var html = "";
+        let html = "";
         html += '<table class="table table-hover table-bordered table-responsive-lg table-responsive-md table-responsive-sm" id="pagination">';
         html += '<thead class="thead-dark">'
         html += '<tr class="text-center">'
-        var i = 0;
+        let i = 0;
         while (i < headboard.length) {
             html += '<th>' + headboard[i].toUpperCase() + '</th>'
             i++;
@@ -167,11 +167,11 @@ function paintTableCotizacion(link = '/factura/listCotizacion', headboard = ['no
         html += '</tr>'
         html += '</thead>'
         html += '<tbody>'
-        for (var c = 0; c < data.length; c++) {
+        for (let c = 0; c < data.length; c++) {
             html += '<tr class="text-center">';
-            var objectCurret = data[c];
-            for (var f = 0; f < properties.length; f++) {
-                var propertyCurret = properties[f];
+            let objectCurret = data[c];
+            for (let f = 0; f < properties.length; f++) {
+                let propertyCurret = properties[f];
                 if (objectCurret[propertyCurret] == '-1000') {
                     html += '<td>PROVISONAL</td>';
                 } else {
@@ -210,7 +210,7 @@ function calcularCambio() {
     let efectivo = document.getElementById('txtEfectivo').value;
     if (efectivo.trim() != '') {
         if (!isNaN(efectivo)) {
-            var result = parseFloat(efectivo) - parseFloat(total);
+            let result = parseFloat(efectivo) - parseFloat(total);
             document.getElementById('txtCambio').value = result.toFixed(2);
         } else {
             messeges('error', 'No se admiten caracteres')

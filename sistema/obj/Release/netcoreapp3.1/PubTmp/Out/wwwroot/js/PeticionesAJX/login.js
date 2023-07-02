@@ -6,7 +6,7 @@ $('#frmLogin').submit(function (e) {
 function login() {
     if (validateEmpty()) {
         document.getElementById('mensaje').innerHTML = '<div class="text-center"><span class="text-primary">Cargando...</span></div>';
-        var frm = new FormData();
+        let frm = new FormData();
         frm.append('nombreusuario', $('#txtUsuario').val());
         frm.append('contraseña', $('#txtContraseña').val());
         $.ajax({
@@ -37,8 +37,8 @@ function login() {
     }
 }
 function validateEmpty() {
-    var inputs = document.getElementsByClassName('form-control');
-    var i = 0; var rpt = true;
+    let inputs = document.getElementsByClassName('form-control');
+    let i = 0; let rpt = true;
     while (i < inputs.length) {
         if (inputs[i].value.trim() == '') {
             inputs[i].style.borderColor = 'red';

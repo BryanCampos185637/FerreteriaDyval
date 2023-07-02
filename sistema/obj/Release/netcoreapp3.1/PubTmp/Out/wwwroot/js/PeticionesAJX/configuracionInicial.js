@@ -1,14 +1,14 @@
 ﻿function saveConfiguracion() {
     if (validateEmpty()) {
         if (validate()) {
-            var txtIF = document.getElementById('txtIF').value * 1;
-            var txtFF = document.getElementById('txtFF').value * 1;
+            let txtIF = document.getElementById('txtIF').value * 1;
+            let txtFF = document.getElementById('txtFF').value * 1;
             if (txtIF < txtFF) {
                 document.getElementById('txtIF').style.borderColor = '#ccc';
-                var txtIC = document.getElementById('txtIC').value * 1;
-                var txtFC = document.getElementById('txtFC').value * 1;
+                let txtIC = document.getElementById('txtIC').value * 1;
+                let txtFC = document.getElementById('txtFC').value * 1;
                 if (txtIC < txtFC) {
-                    var frm = new FormData();
+                    let frm = new FormData();
                     frm.append('iniciofactura', $('#txtIF').val());
                     frm.append('noactualfactura', $('#txtIF').val());
                     frm.append('finfactura', $('#txtFF').val());
@@ -65,9 +65,9 @@
     }
 }
 function validateEmpty() {
-    var rpt = true;
-    var inputs = document.getElementsByClassName("form-control");
-    for (var i = 0; i < inputs.length; i++) {
+    let rpt = true;
+    let inputs = document.getElementsByClassName("form-control");
+    for (let i = 0; i < inputs.length; i++) {
         if (inputs[i].value.trim() == "") {
             rpt = false;
             inputs[i].style.borderColor = "red";
@@ -78,9 +78,9 @@ function validateEmpty() {
     return rpt;
 }
 function validate() {
-    var rpt = true;
-    var inputs = document.getElementsByClassName('form-control');
-    for (var i = 0; i < inputs.length; i++) {
+    let rpt = true;
+    let inputs = document.getElementsByClassName('form-control');
+    for (let i = 0; i < inputs.length; i++) {
         if (inputs[i].value <= 0) {
             rpt = false;
             inputs[i].style.borderColor = "red";

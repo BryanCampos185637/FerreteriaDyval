@@ -52,13 +52,13 @@ function deleteInfo(id) {
 
 function sendData() {
     if (validateEmpty()) {
-        var frm = new FormData();
+        let frm = new FormData();
         capturarData(frm);
         //capturamos los check manualmente
-        var checkes = document.getElementsByClassName("paginasCheck");//obtenemos todos los check que contenga la clase paginasCheck
-        for (var i = 0; i < checkes.length; i++) {//los vamos a recorrer usando for
+        let checkes = document.getElementsByClassName("paginasCheck");//obtenemos todos los check que contenga la clase paginasCheck
+        for (let i = 0; i < checkes.length; i++) {//los vamos a recorrer usando for
             if (checkes[i].checked == true) {// si el input esta marcado
-                var idpagina = checkes[i].value;//almacenamos el valor del heck
+                let idpagina = checkes[i].value;//almacenamos el valor del heck
                 frm.append("idPaginas[]", idpagina.replace("check", ""));//reemplazamos check y solo enviamos el id
             }
         }
@@ -79,9 +79,9 @@ function openModal(valor = 0) {
 }
 function listarPaginas() {
     $.get("/tipousuario/listPaginas", function (data) {
-        var html = '';
+        let html = '';
         html += '<table class="">';
-        for (var i = 0; i < data.length; i++) {
+        for (let i = 0; i < data.length; i++) {
             html += '<tr>';
             html += '<td><label>' + data[i].mensaje + ': </label></td>';
             html += '<td>';
@@ -95,8 +95,8 @@ function listarPaginas() {
 }
 function marcarPaginasSeleccionadas(idUsuario) {
     $.get("/tipousuario/listPaginasAsignadas?id=" + idUsuario, function (data) {
-        for (var i = 0; i < data.length; i++) {
-            var idgenerado = 'chk' + data[i].iidpagina;
+        for (let i = 0; i < data.length; i++) {
+            let idgenerado = 'chk' + data[i].iidpagina;
             document.getElementById(idgenerado).checked = true;//si encuentra un id igual lo marcamos
         }
     });
